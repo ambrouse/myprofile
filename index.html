@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./cssreset.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
+    <title>Profile</title>
+</head>
+<body>
+    <div class="profile">
+        <div class="profile__item">
+            <div class="profile__item--name">
+                <p>Nguyễn Lê QUốc Bảo</p>
+            </div>
+            <div class="profile__item--infor">
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thông tin cá nhân</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Tuổi: 22</p>
+                        <p>&#8226; Địa chỉ: 30 bình đường 2, Dĩ An, Bình Dương</p>
+                        <p>&#8226; Liên lạc: 0326032296</p>
+                        <p>&#8226; Email: ngbao3568@gmail.com</p>
+                        <p>&#8226; Hiện tại: sinh vien nam 4 NTTU.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Học vấn</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Bằng cử nhân công nghệ thông tin</p>
+                        <p>&#8226; Chứng chỉ làm chủ công việc</p>
+                        <p>&#8226; Chứng chỉ tiếng anh bật 4</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kỹ năng</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Các thư viện thông thạo: Spring boot, Asp.net, Express, Reactjs, Numpy, Tensorflow, keras, Pandas, ..., cùng một vài thư viện mở rộng của Nvidia, Huggin face, Microsoft, Google. </p>
+                        <p>&#8226; Các ngôn ngữ thông thạo: Java, Javascript, Python, C#, Dart.</p>
+                        <p>&#8226; Các IDE thông thạo: Vscode, Vsual studio, Intellij, Eclipse, Jupyter lab.</p>
+                        <p>&#8226; Các kiến trúc thông thạo: Microservice, Monolithic, Shared Database, Tranformer, Yolo, CF, GAN và tất cả các kiến trúc cơ bản của học máy, Nlp, Conputer vision.</p>
+                        <p>&#8226; Các phần mềm thông thạo: Adobe premiere, Aseprite, Word, Excel, PowerPoint.</p>
+                        <p>&#8226; Các website thông thạo: Figma, Gpt, Canvas, Diagram, các web và tool thiết kế.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kinh nghiệm</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Thực tập: Làm việc 3 tháng tại công ty cổ phần Việc Trí Đạo.</p>
+                        <p>&#8226; Làm việc hơn 2 năm với các ngôn ngữ java, python, js.</p>
+                        <p>&#8226; Đã làm việc hơn 1 năm với các dự án web, AI, Game trên nhiều lĩnh vực.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__item--router">
+                <div class="router__title"></div>
+                <div class="router__icon" onclick="tog(1)">
+                    <img src="icon.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="profile__item">
+            <div class="profile__item--name">
+                <p>Dự đoán hành vi khách hàng</p>
+            </div>
+            <div class="profile__item--infor">
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thông tin dự án</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Giới thiệu: dự án hướng tới xây dựng một hệ thống gợi ý sản phẩm thông minh nhằm cá nhân hóa trải nghiệm mua sắm cho từng người dùng.</p>
+                        <p>&#8226; Mục tiêu: tăng khả năng mô tả ngữ cảnh, cải thiện chất lượng gợi ý.</p>
+                        <p>&#8226; Lĩnh vực: AI, thời trang, thương mại điện tử.</p>
+                        <p>&#8226; Quy mô: dự án ở mức độ nghiên cứu chưa triển khai thực tế</p>
+                        <p>&#8226; Thành viên: Nguyễn Lê Quốc Bảo</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kết quả</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Độ hoàn thành: 90% còn thiếu phần quản trị web </p>
+                        <p>&#8226; Kết quả khi trainning mô hình, mô hình tỏ ra hiệu quả cực cao với các bộ dữ liệu có nhiều đặc trưng và đa dạng, tuy nhiên khi tương tác với các bộ dữ liệu có quá ít đặc trưng như chỉ có 3-4 thông tin cơ bản về sản phảm hay người dùng thì nó tỏ ra không hiệu quả, nguyên nhân chủ yếu là do lõi của mô hình là mulltihead attention nên nếu quá ít đặc trưng thì mô hình không thể tìm ra sự liên quan giưa các đặc trưng đó để dự đoán, độ chính xác trung bình từ các thuật toán acc, f1 cho 4 bộ dữ liệu lần lược là 90%-95% cho bộ dữ liệu thử nghiệm, 95%-99% cho bộ dữ liệu , 30%-50% cho bộ dữ liệu , 30%-50% cho bộ dữ liệu, thông tin chi tiết tại <a href="" onclick = "togithub('https://github.com/ambrouse/CF_based_encode_tranformer_de_xuat_san_pham')">Github.   </a> </p>
+                        <p>&#8226; Tính khả thi: dự án tỏ ra khả thi khi đưa ra nhưng sản phẩm có độ tương tác mạnh</p>
+                        <p>&#8226; Cải thiện: ba bộ dữ liệu thực tế thì lại không phù hợp cho website còn bộ dữ liệu phù hợp thì lại là thử nghiệm không có độ tin cậy và web không có nhiều dữ liệu người dùng thực tế dẫn đến các sản phẩm đề xuất chưa chính xác, xác suất dự đoán không thực tế do ảnh hưởng bời dữ liệu rỗng từ sản phẩm trong database. </p>
+                        <p style="color: rgb(83, 82, 82); cursor: pointer;" onclick = "togithub('https://github.com/ambrouse/CF_based_encode_tranformer_de_xuat_san_pham')">&#8226; github dự án.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thuật toán</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Dữ liệu: bốn bộ dữ liệu cho các bài toán đề xuất sản phẩm, các dữ liệu được điều chỉnh lại nhãn dựa trên đánh giá người dùng để thành bài toán dự đoán thay vì đề xuất, trong đó ba bộ dữ liệu dùng để nghiên cứu và training cho mô hình, và một bộ dùng thuật toán tạo ra để phù hợp nhất với database của web, bộ này dùng để thử nghiệm khi triển khai lên web.</p>
+                        <p>&#8226; Kiến trúc: về web backend dùng microservice, forntend dùng monolithic, database dùng shared database, còn phía Ai thì mô hình được tạo ra dựa trên kiến trúc CFN nhưng điều chỉnh lại nhãn thành dự đoán và áp dụng lớp encode của tranformer. </p>
+                        <p>&#8226; Thư viện: ngoài các thư viện chính như spring boot, reactjs, sqlserver, tensorflow thì còn rất nhiều thư viện hỗ trợ như eureka, gateway, numpy, pandas, ..... </p>
+                        <p>&#8226; IDE: dự án được xây dựng trên 3 IDE chính là vsua code, intellij, mssql.</p>
+                        <p>&#8226; Công cụ hỗ trợ: ngoài ra còn dùng nhiều công cụ hỗ trợ như figma, postman, docker, ...</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thử nghiệm</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/qbCDJKpHpqQ"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__item--router">
+                <div class="router__title"></div>
+                <div class="router__icon" onclick="tog(0)">
+                    <img src="icon.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="warrning warrning__display">
+        <p>Vui long xoay ngang thiet bi</p>
+    </div>
+</body>
+</html>
