@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     checkOrientation()
     window.addEventListener("orientationchange", function () {
-        this.setTimeout(checkOrientation,300)
+        this.setTimeout(checkOrientation,1)
     });
 
     console.log(document.querySelector('.profile .profile__item:nth-child(1)').getBoundingClientRect().height)
@@ -62,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     item_4[i].classList.remove("animation_")
                     await sleep(50)
                 }
+                if(item_5){
+                    item_5.classList.remove("animation_")
+                }
             }
         });
         }, {
@@ -80,7 +83,9 @@ function checkOrientation(){
     if (window.matchMedia("(orientation: portrait)").matches) {
         document.querySelector(".profile").classList.add("profile__off")
         document.querySelector(".warrning").classList.add("warrning__display")
+        document.querySelector("body").classList.remove("body_on")
     }else{
+        document.querySelector("body").classList.add("body_on")
         document.querySelector(".profile").classList.remove("profile__off")
         document.querySelector(".warrning").classList.remove("warrning__display")
     }

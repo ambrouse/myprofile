@@ -1,6 +1,11 @@
 body {
   background-image: linear-gradient(to right bottom, rgba(233, 220, 204, 0), rgb(233, 220, 204));
   font-family: "Great Vibes", cursive;
+  background-color: black;
+}
+
+.body_on {
+  background-color: transparent;
 }
 
 .rog {
@@ -8,7 +13,7 @@ body {
 }
 
 .profile {
-  position: relative;
+  position: absolute;
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -206,6 +211,7 @@ body {
   height: 90%;
   transform: translateX(200%);
   border-radius: 14px;
+  z-index: 1;
 }
 .profile .profile__item .profile__item--router {
   height: 10vh;
@@ -266,7 +272,7 @@ body {
 }
 
 .profile__off {
-  background-color: black;
+  display: none;
 }
 
 .warrning {
@@ -280,7 +286,6 @@ body {
   transform: translate(-50%, -50%);
   background-color: rgb(0, 0, 0);
   box-sizing: border-box;
-  display: block;
   transition: all 0.3s linear;
   pointer-events: none;
 }
@@ -289,24 +294,25 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 1000vh;
-  height: 1000vh;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   transition: all 0.2s linear;
-  opacity: 0;
+  background-color: black;
 }
 
 .warrning__display {
-  opacity: 1;
-}
-.warrning__display img {
-  opacity: 1;
-  width: 100vw;
-  height: 100vh;
+  animation: profile_anim 0.1s linear forwards;
 }
 
+@keyframes profile_anim {
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
 .animation {
-  animation: title_anim 0.4s linear forwards;
+  animation: title_anim 0.3s linear forwards;
 }
 
 .animation_ {
