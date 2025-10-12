@@ -78,8 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function checkOrientation(){
     if (window.matchMedia("(orientation: portrait)").matches) {
+        document.querySelector(".profile").classList.add("profile__off")
         document.querySelector(".warrning").classList.add("warrning__display")
     }else{
+        document.querySelector(".profile").classList.remove("profile__off")
         document.querySelector(".warrning").classList.remove("warrning__display")
     }
 }

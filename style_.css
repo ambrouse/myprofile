@@ -3,6 +3,10 @@ body {
   font-family: "Great Vibes", cursive;
 }
 
+.rog {
+  transform: rotate(90deg);
+}
+
 .profile {
   position: relative;
   display: flex;
@@ -34,9 +38,6 @@ body {
 }
 .profile .profile__item .profile__item--name p {
   font-size: 30px;
-  line-height: 30px;
-  opacity: 0;
-  transform: translateY(-100%);
 }
 @media (max-width: 1920px) {
   .profile .profile__item .profile__item--name p {
@@ -57,6 +58,11 @@ body {
   .profile .profile__item .profile__item--name p {
     font-size: 20px;
   }
+}
+.profile .profile__item .profile__item--name p {
+  line-height: 30px;
+  opacity: 0;
+  transform: translateY(-100%);
 }
 .profile .profile__item .profile__item--name p::after {
   content: "";
@@ -119,9 +125,6 @@ body {
 }
 .profile .profile__item .profile__item--infor .infor__item .infor__item--title p {
   font-size: 24px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(-100%);
 }
 @media (max-width: 1920px) {
   .profile .profile__item .profile__item--infor .infor__item .infor__item--title p {
@@ -142,6 +145,11 @@ body {
   .profile .profile__item .profile__item--infor .infor__item .infor__item--title p {
     font-size: 16px;
   }
+}
+.profile .profile__item .profile__item--infor .infor__item .infor__item--title p {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-100%);
 }
 .profile .profile__item .profile__item--infor .infor__item .infor__item--title p::after {
   content: "";
@@ -215,7 +223,6 @@ body {
 .profile .profile__item .profile__item--router .router__title p {
   text-align: center;
   font-size: 24px;
-  text-decoration: dotted;
 }
 @media (max-width: 1920px) {
   .profile .profile__item .profile__item--router .router__title p {
@@ -237,6 +244,9 @@ body {
     font-size: 16px;
   }
 }
+.profile .profile__item .profile__item--router .router__title p {
+  text-decoration: dotted;
+}
 .profile .profile__item .profile__item--router .router__title span {
   display: block;
   width: 50px;
@@ -255,49 +265,44 @@ body {
   animation: rog 3s linear infinite;
 }
 
+.profile__off {
+  background-color: black;
+}
+
 .warrning {
   position: absolute;
   z-index: 100000;
   width: 100vw;
+  opacity: 0;
   height: 100vh;
-  background-image: linear-gradient(to right bottom, rgb(0, 0, 0), rgb(119, 119, 119));
-  top: 0px;
-  left: 0px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(0, 0, 0);
   box-sizing: border-box;
-  display: none;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  transition: all 0.3s linear;
+  pointer-events: none;
 }
+.warrning img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000vh;
+  height: 1000vh;
+  object-fit: cover;
+  transition: all 0.2s linear;
+  opacity: 0;
+}
+
 .warrning__display {
-  display: flex;
+  opacity: 1;
 }
-.warrning p {
-  font-size: 18px;
-  line-height: 24px;
-  color: white;
-}
-@media (max-width: 1920px) {
-  .warrning p {
-    font-size: 16px;
-    line-height: 19px;
-  }
-}
-@media (max-width: 1440px) {
-  .warrning p {
-    font-size: 14px;
-    line-height: 17px;
-  }
-}
-@media (max-width: 1024px) {
-  .warrning p {
-    font-size: 12px;
-    line-height: 16px;
-  }
-}
-@media (max-width: 900px) {
-  .warrning p {
-    font-size: 12px;
-  }
+.warrning__display img {
+  opacity: 1;
+  width: 100vw;
+  height: 100vh;
 }
 
 .animation {
@@ -337,4 +342,4 @@ body {
   }
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style_.css.map */

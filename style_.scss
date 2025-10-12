@@ -1,8 +1,11 @@
-@import './mixin.scss';
+@use 'mixin';
 body{
     background-image: linear-gradient(to right bottom,rgba(233, 220, 204, 0),rgb(233, 220, 204));
     // font-family: 'Cormorant Garamond', serif;
     font-family: 'Great Vibes', cursive;
+}
+.rog{
+    transform: rotate(90deg);
 }
 .profile{
     position: relative;
@@ -31,7 +34,7 @@ body{
             align-items: center;
             overflow: hidden;
             p{
-                @include responsive-font-heading1();
+                @include mixin.responsive-font-heading1();
                 line-height: 30px;
                 opacity: 0;
                 transform: translateY(-100%);
@@ -102,7 +105,7 @@ body{
                     overflow: hidden;
                     position: relative;
                     p{
-                        @include responsive-font-heading2();
+                        @include mixin.responsive-font-heading2();
                         text-align: center;
                         opacity: 0;
                         transform: translateY(-100%);
@@ -131,7 +134,7 @@ body{
                         display: none;
                     }
                     p{
-                        @include responsive-font-heading3();
+                        @include mixin.responsive-font-heading3();
                     }
                     iframe{
                         width: 70%;
@@ -156,7 +159,7 @@ body{
                 justify-content: center;
                 p{
                     text-align: center;
-                    @include responsive-font-heading2();
+                    @include mixin.responsive-font-heading2();
                     text-decoration: dotted;
                 }
                 span{
@@ -180,26 +183,46 @@ body{
         }
     }
 }
-
+.profile__off{
+    background-color: black;
+}
 
 .warrning{
     position: absolute;
     z-index: 100000;
     width: 100vw;
+    opacity: 0;
     height: 100vh;
-    background-image: linear-gradient(to right bottom,rgba(0, 0, 0),rgb(119, 119, 119));
-    top: 0px;
-    left: 0px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(0, 0, 0);
     box-sizing: border-box;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    &__display{
-        display: flex;
+    display: block;
+    transition: all .3s linear;
+    pointer-events: none;
+    img{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 1000vh;
+        height: 1000vh;
+        object-fit: cover;
+        transition: all .2s linear;
+        opacity: 0;
     }
-    p{
-        @include responsive-font-heading3();
-        color: white;
+    // p{
+        //     @include mixin.responsive-font-heading3();
+        //     color: rgb(0, 0, 0);
+        // }
+    }
+.warrning__display{
+    opacity: 1;
+    img{
+       opacity: 1;
+       width: 100vw;
+       height: 100vh;
     }
 }
 
@@ -245,4 +268,5 @@ body{
     transform: translateX(0px);
 }
 }
+
 
