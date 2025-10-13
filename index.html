@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./icon_.png" type="image/x-icon">
     <link rel="stylesheet" href="./cssreset.css">
     <link rel="stylesheet" href="./style_.css">
     <script src="./script.js"></script>
@@ -72,7 +72,7 @@
         </div>
         <div class="profile__item">
             <div class="profile__item--name">
-                <p>Dự đoán hành vi khách hàng</p>
+                <p>WEBSITE KẾT HỢP HỆ THỐNG DỰ ĐOÁN HÀNH VI KHÁCH HÀNG</p>
             </div>
             <div class="profile__item--infor">
                 <div class="infor__item">
@@ -93,8 +93,8 @@
                     </div>
                     <div class="infor__item--content">
                         <p>&#8226; Độ hoàn thành: 90% còn thiếu phần quản trị web </p>
-                        <p>&#8226; Kết quả khi trainning mô hình, mô hình tỏ ra hiệu quả cực cao với các bộ dữ liệu có nhiều đặc trưng và đa dạng, tuy nhiên khi tương tác với các bộ dữ liệu có quá ít đặc trưng như chỉ có 3-4 thông tin cơ bản về sản phảm hay người dùng thì nó tỏ ra không hiệu quả, nguyên nhân chủ yếu là do lõi của mô hình là mulltihead attention nên nếu quá ít đặc trưng thì mô hình không thể tìm ra sự liên quan giưa các đặc trưng đó để dự đoán, độ chính xác trung bình từ các thuật toán acc, f1 cho 4 bộ dữ liệu lần lược là 90%-95% cho bộ dữ liệu thử nghiệm, 95%-99% cho bộ dữ liệu , 30%-50% cho bộ dữ liệu , 30%-50% cho bộ dữ liệu, thông tin chi tiết tại <a href="" onclick = "togithub('https://github.com/ambrouse/CF_based_encode_tranformer_de_xuat_san_pham')">Github.   </a> </p>
-                        <p>&#8226; Tính khả thi: dự án tỏ ra khả thi khi đưa ra nhưng sản phẩm có độ tương tác mạnh</p>
+                        <p>&#8226; Kết quả: khi trainning mô hình, mô hình tỏ ra hiệu quả cực cao với các bộ dữ liệu có nhiều đặc trưng và đa dạng, tuy nhiên khi tương tác với các bộ dữ liệu có quá ít đặc trưng như chỉ có 3-4 thông tin cơ bản về sản phảm hay người dùng thì nó tỏ ra không hiệu quả, nguyên nhân chủ yếu là do lõi của mô hình là mulltihead attention nên nếu quá ít đặc trưng thì mô hình không thể tìm ra sự liên quan giưa các đặc trưng đó để dự đoán, độ chính xác trung bình từ các thuật toán acc, f1 cho 4 bộ dữ liệu lần lược là 90%-95% cho bộ dữ liệu thử nghiệm, 95%-99% cho bộ dữ liệu , 30%-50% cho bộ dữ liệu , 30%-50% cho bộ dữ liệu, thông tin chi tiết tại <a href="" onclick = "togithub('https://github.com/ambrouse/CF_based_encode_tranformer_de_xuat_san_pham')">Github.   </a> </p>
+                        <p>&#8226; Tính khả thi: dự án tỏ ra khả thi khi đưa ra những sản phẩm có độ tương tác mạnh</p>
                         <p>&#8226; Cải thiện: ba bộ dữ liệu thực tế thì lại không phù hợp cho website còn bộ dữ liệu phù hợp thì lại là thử nghiệm không có độ tin cậy và web không có nhiều dữ liệu người dùng thực tế dẫn đến các sản phẩm đề xuất chưa chính xác, xác suất dự đoán không thực tế do ảnh hưởng bời dữ liệu rỗng từ sản phẩm trong database. </p>
                         <p style="color: rgb(83, 82, 82); cursor: pointer;" onclick = "togithub('https://github.com/ambrouse/CF_based_encode_tranformer_de_xuat_san_pham')">&#8226; github dự án.</p>
                     </div>
@@ -107,7 +107,7 @@
                         <p>&#8226; Dữ liệu: bốn bộ dữ liệu cho các bài toán đề xuất sản phẩm, các dữ liệu được điều chỉnh lại nhãn dựa trên đánh giá người dùng để thành bài toán dự đoán thay vì đề xuất, trong đó ba bộ dữ liệu dùng để nghiên cứu và training cho mô hình, và một bộ dùng thuật toán tạo ra để phù hợp nhất với database của web, bộ này dùng để thử nghiệm khi triển khai lên web.</p>
                         <p>&#8226; Kiến trúc: về web backend dùng microservice, forntend dùng monolithic, database dùng shared database, còn phía Ai thì mô hình được tạo ra dựa trên kiến trúc CFN nhưng điều chỉnh lại nhãn thành dự đoán và áp dụng lớp encode của tranformer. </p>
                         <p>&#8226; Thư viện: ngoài các thư viện chính như spring boot, reactjs, sqlserver, tensorflow thì còn rất nhiều thư viện hỗ trợ như eureka, gateway, numpy, pandas, ..... </p>
-                        <p>&#8226; IDE: dự án được xây dựng trên 3 IDE chính là vsua code, intellij, mssql.</p>
+                        <p>&#8226; IDE: dự án được xây dựng trên 3 IDE chính là Visual Studio Code, intellij, mssql.</p>
                         <p>&#8226; Công cụ hỗ trợ: ngoài ra còn dùng nhiều công cụ hỗ trợ như figma, postman, docker, ...</p>
                     </div>
                 </div>
@@ -118,6 +118,258 @@
                     <div class="infor__item--content">
                         <iframe width="560" height="315"
                             src="https://www.youtube.com/embed/qbCDJKpHpqQ"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__item--router">
+                <div class="router__title"></div>
+                <div class="router__icon" onclick="tog(2)">
+                    <img src="icon.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="profile__item">
+            <div class="profile__item--name">
+                <p>WEBSITE NHẬN DIỆN VÀ CHUYỂN ĐỔI THỦ NGỮ THÀNH GIỌNG NÓI</p>
+            </div>
+            <div class="profile__item--infor">
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thông tin dự án</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Giới thiệu: dự án "Nhận diện thủ ngữ" ra đời với mục tiêu phát triển một hệ thống nhận diện thủ ngữ chính xác và hiệu quả.</p>
+                        <p>&#8226; Mục tiêu: thông qua việc áp dụng mô hình YOLO v8, dự án không chỉ giúp nâng cao khả năng giao tiếp mà còn mở ra cơ hội cải thiện các hệ thống trợ giúp cho người khiếm thính trong nhiều lĩnh vực khác nhau.</p>
+                        <p>&#8226; Lĩnh vực: AI, Detection, Web.</p>
+                        <p>&#8226; Quy mô: dự án ở mức độ nghiên cứu chưa triển khai thực tế.</p>
+                        <p>&#8226; Thành viên: Nguyễn Lê Quốc Bảo, Lê Văn Phương.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kết quả</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Độ hoàn thành: 100%</p>
+                        <p>&#8226; Kết quả: khi trainning mô hình, mô hình tỏ ra hiệu quả cực cao với các bộ dữ liệu có nhiều đặc trưng và đa dạng, thông tin chi tiết tại: <a href="" onclick = "togithub('https://github.com/ambrouse/NhanDienThuNgu_objectDetection')">Github.</a> </p>
+                        <p>&#8226; Tính khả thi: dự án tỏ ra khả thi khi đưa ra các dự đoán chính xác với nhiều môi trường và sự chuyển hóa thành âm thanh cũng ít sai lệch, web kết nối với camera để lấy ảnh Fps còn chưa cao.</p>
+                        <p>&#8226; Cải thiện: có thể tối ưu ở model giảm thiểu trọng số vì các thủ ngữ không quá khó nên mô hình không cần quá nặng, và cũng cần tối ưu các điểm nhỏ như khu vực camera giống nhận diện khuông mặt.</p>
+                        <p style="color: rgb(83, 82, 82); cursor: pointer;" onclick = "togithub('https://github.com/ambrouse/NhanDienThuNgu_objectDetection')">&#8226; github dự án.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thuật toán</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Dữ liệu: bộ ảnh hơn 30.000 ảnh và được chụp ở nhiểu góc độ, phông nền, ảnh được cắt bằng code tự viết, code sẽ tự động nhận diện tay và xác định nhãn phân biệt và đưa vào các folder riêng biệt.</p>
+                        <p>&#8226; Kiến trúc: về web backend dùng monolithic, forntend dùng monolithic, database không có database vì chỉ là một web mẫu, còn phía Ai thì dùng mô hình Yolov8 không bật DFL (tối ưu cho tính toán loss theo công bố thì sẽ tăng một tí độ chính xác).</p>
+                        <p>&#8226; Thư viện: ngoài các thư viện chính như flask, tensorflow thì còn rất nhiều thư viện hỗ trợ như numpy, pandas, ..... </p>
+                        <p>&#8226; IDE: dự án được xây dựng trên 2 IDE chính là Visual Studio Code, colab.</p>
+                        <p>&#8226; Công cụ hỗ trợ: ngoài ra còn dùng nhiều công cụ hỗ trợ như figma, postman, ...</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thử nghiệm</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/vBhYvOIoWmc"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__item--router">
+                <div class="router__title"></div>
+                <div class="router__icon" onclick="tog(3)">
+                    <img src="icon.png" alt="">
+                </div>
+            </div>
+        </div> 
+        <div class="profile__item">
+            <div class="profile__item--name">
+                <p>WEBSITE NHẬN DIỆN TÉ NGÃ ĐỘT QUỴ</p>
+            </div>
+            <div class="profile__item--infor">
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thông tin dự án</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Giới thiệu: dự án này hướng tới mục tiêu xây dựng một hệ thống nhận diện té ngã sử dụng mô hình YOLO V8.</p>
+                        <p>&#8226; Mục tiêu: hệ thống được kỳ vọng sẽ mang lại giải pháp công nghệ tiên tiến, góp phần nâng cao chất lượng chăm sóc sức khỏe và cải thiện khả năng đáp ứng của các dịch vụ y tế trong việc bảo vệ tính mạng người dân.</p>
+                        <p>&#8226; Lĩnh vực: AI, Detection, Web.</p>
+                        <p>&#8226; Quy mô: dự án ở mức độ nghiên cứu chưa triển khai thực tế.</p>
+                        <p>&#8226; Thành viên: Nguyễn Lê Quốc Bảo.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kết quả</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Độ hoàn thành: 100%</p>
+                        <p>&#8226; Kết quả khi trainning mô hình, mô hình tỏ ra hiệu quả cực cao với các bộ dữ liệu có nhiều đặc trưng và đa dạng, thông tin chi tiết tại: <a href="" onclick = "togithub('https://github.com/ambrouse/te_nga_dot_quy_yolov8_v2')">Github.</a> </p>
+                        <p>&#8226; Tính khả thi: dự án tỏ ra khả thi khi đưa ra các dự đoán chính xác với nhiều môi trường và sự chuyển hóa thành âm thanh cũng ít sai lệch, web kết nối với camera để lấy ảnh Fps còn chưa cao.</p>
+                        <p>&#8226; Cải thiện: Có thể thêm nhiều ảnh với đa dạng trường hợp hơn để mô hình tránh ngu khi gặp các trường hợp mới, và có thể nghiên cứu thêm các mô hình chuỗi thời gian như LSTM, Tranformer co nhỏ lại và kết hợp với detect pose để dự đoán phương hướng vật lý khi ngã thay thì ảnh ngã.</p>
+                        <p style="color: rgb(83, 82, 82); cursor: pointer;" onclick = "togithub('https://github.com/ambrouse/te_nga_dot_quy_yolov8_v2')">&#8226; github dự án.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thuật toán</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Dữ liệu: bộ dữ liệu được lấy tại <a href="https://falldataset.com/">https://falldataset.com/</a> bộ dữ liệu gồm nhiều ảnh chụp ở nhiều góc độ tuy nhiên bộ dữ liệu được gom nhỏ ở một ngôi nhà và chỉ có ảnh không có nhãn, ảnh là ảnh liên tục chụp từ camera nên phải lọc lại và đánh nhãn.</p>
+                        <p>&#8226; Kiến trúc: về web backend dùng monolithic, forntend dùng monolithic, database không có database vì chỉ là một web mẫu, còn phía Ai thì dùng mô hình Yolov8 không bật DFL (tối ưu cho tính toán loss theo công bố thì sẽ tăng một tí độ chính xác).</p>
+                        <p>&#8226; Thư viện: ngoài các thư viện chính như flask, tensorflow thì còn rất nhiều thư viện hỗ trợ như numpy, pandas, ..... </p>
+                        <p>&#8226; IDE: dự án được xây dựng trên 2 IDE chính là Visual Studio Code, Jupyter lab trên anaconda trên hệ điều hành ubuntu và setup train với GPU.</p>
+                        <p>&#8226; Công cụ hỗ trợ: Không dùng công cụ hỗ trợ ngoài.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thử nghiệm</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/xeT9JaDhNn4"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__item--router">
+                <div class="router__title"></div>
+                <div class="router__icon" onclick="tog(4)">
+                    <img src="icon.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="profile__item">
+            <div class="profile__item--name">
+                <p>WEBSITE QUẢN LÝ CHUNG CƯ HOA KỲ</p>
+            </div>
+            <div class="profile__item--infor">
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thông tin dự án</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Giới thiệu: dự án này hướng tới mục tiêu xây dựng một hệ thống quản lý chung cư trên website</p>
+                        <p>&#8226; Mục tiêu: dự án hướng đến việc phát triển một hệ thống không chỉ đáp ứng được các yêu cầu quản lý cơ bản như quản lý cư dân, thu chi, bảo trì mà còn nâng cao sự tiện lợi và tương tác của cư dân với các dịch vụ, thông báo và yêu cầu hỗ trợ.</p>
+                        <p>&#8226; Lĩnh vực: Web.</p>
+                        <p>&#8226; Quy mô: dự án ở mức độ nghiên cứu chưa triển khai thực tế.</p>
+                        <p>&#8226; Thành viên: Nguyễn Lê Quốc Bảo, và hơn 20 thực tập sinh khác.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kết quả</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Độ hoàn thành: 70%</p>
+                        <p>&#8226; Kết quả: dự án do nhiều thành viên làm và mỗi thành viên lại làm một vài chức năng nhất định tuy nhiên có nhiều thành viên không hoàn thành nên dự án bị thiếu rất nhiều chức năng, thông tin chi tiết tại: <a href="" onclick = "togithub('https://github.com/ambrouse/WebQuanLyChungCu')">Github.</a> </p>
+                        <p>&#8226; Tính khả thi: dự án hoàn toàn khả thi và quá trình triển khai cũng ổn định, tuy nhiên do quá nhiều thành viên nên việc kết hợp code và triển khai một hệ thống lớn và phức tạp nên dự án gặp nhiều vấn đề.</p>
+                        <p>&#8226; Cải thiện: vì đây là dự án thực tập thực tế đầu tiên nên có rất nhiều thứ cần cải thiện từ tổ chức cuộc hợp, quy trình làm việc, các quy tắc triển khai dự án, và cách làm việc đồng bộ trong việc code, ...</p>
+                        <p style="color: rgb(83, 82, 82); cursor: pointer;" onclick = "togithub('https://github.com/ambrouse/WebQuanLyChungCu')">&#8226; github dự án.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thuật toán</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Dữ liệu: Đây là dự án thuần web nên phần này sẽ nói về database, các cơ sỡ dữ liệu sẽ được tạo ra khoản 20 mẫu cho mỗi bảng để test trong quá trình code.</p>
+                        <p>&#8226; Kiến trúc: về web backend dùng microservice, forntend dùng monolithic, database shared database.</p>
+                        <p>&#8226; Thư viện: các thư viện chính như spring boot, react.</p>
+                        <p>&#8226; IDE: dự án được xây dựng trên 2 IDE chính là Visual Studio Code, Intellij.</p>
+                        <p>&#8226; Công cụ hỗ trợ: Postman, Figma, Github, ...</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thử nghiệm</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/MOrUyhlZr2o"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__item--router">
+                <div class="router__title"></div>
+                <div class="router__icon" onclick="tog(5)">
+                    <img src="icon.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="profile__item">
+            <div class="profile__item--name">
+                <p>XÂY DỰNG ỨNG DỤNG MẠNG XÃ HỘI</p>
+            </div>
+            <div class="profile__item--infor">
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thông tin dự án</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Giới thiệu: dự án xây dựng ứng dụng chat này ra đời với mục tiêu cung cấp một giải pháp giao tiếp hiện đại, hiệu quả và dễ sử dụng.</p>
+                        <p>&#8226; Mục tiêu: ứng dụng không chỉ hỗ trợ người dùng gửi tin nhắn văn bản, hình ảnh và âm thanh một cách nhanh chóng mà còn đảm bảo tính bảo mật cao và trải nghiệm người dùng tối ưu.</p>
+                        <p>&#8226; Lĩnh vực: App.</p>
+                        <p>&#8226; Quy mô: dự án ở mức độ nghiên cứu chưa triển khai thực tế.</p>
+                        <p>&#8226; Thành viên: Nguyễn Lê Quốc Bảo,Nguyễn Lê Quốc Bảo, Lâm Đạo Bình An, Lưu Hoàng Bảo Duy, Lê Nguyễn Hoài An, Phan Triệu Tỷ.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Kết quả</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Độ hoàn thành: 90%</p>
+                        <p>&#8226; Kết quả: dự án đã hoàn thiện gần như tất cả các chức năng, thông tin chi tiết tại: <a href="" onclick = "togithub('https://github.com/ambrouse/chatAppFlutter_1')">Github.</a> </p>
+                        <p>&#8226; Tính khả thi: dự án hoàn toàn khả thi và quá trình triển khai cũng ổn định.</p>
+                        <p>&#8226; Cải thiện: có thể cải tiến các truy vấn phía backend và bảo mật, do dự án chỉ ở mức nghiên cứu thư viện mới nên không chú ý quá nhiều đến sự tối ưu, ví dụ như truy vấn tin nhắn hay bảo mất các token, và có thể mở rộng chức năng gọi video với cơ chế streaming</p>
+                        <p style="color: rgb(83, 82, 82); cursor: pointer;" onclick = "togithub('https://github.com/ambrouse/chatAppFlutter_1')">&#8226; github dự án.</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thuật toán</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <p>&#8226; Dữ liệu: đây là dự án thuần App nên phần này sẽ nói về database, các cơ sỡ dữ liệu sẽ được tạo ra khoản 10 mẫu cho mỗi bảng để test trong quá trình code</p>
+                        <p>&#8226; Kiến trúc: về web backend dùng monolithic, forntend dùng monolithic, database shared database.</p>
+                        <p>&#8226; Thư viện: các thư viện chính như spring boot, Flutter.</p>
+                        <p>&#8226; IDE: dự án được xây dựng trên 2 IDE chính là Visual Studio Code, Intellij.</p>
+                        <p>&#8226; Công cụ hỗ trợ: Postman, Figma, Github, ...</p>
+                    </div>
+                </div>
+                <div class="infor__item">
+                    <div class="infor__item--title">
+                        <p>Thử nghiệm</p>
+                    </div>
+                    <div class="infor__item--content">
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/bt4DHiuNa_A"
                             title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

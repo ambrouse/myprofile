@@ -1,12 +1,7 @@
 @use 'mixin';
 body{
-    background-image: linear-gradient(to right bottom,rgba(233, 220, 204, 0),rgb(233, 220, 204));
     // font-family: 'Cormorant Garamond', serif;
     font-family: 'Great Vibes', cursive;
-    background-color: black;
-}
-.body_on{
-    background-color: transparent;
 }
 .rog{
     transform: rotate(90deg);
@@ -21,6 +16,7 @@ body{
     -ms-overflow-style: none;
     scrollbar-width: none; 
     scroll-snap-type: y mandatory;
+    background-image: linear-gradient(to right bottom,rgba(233, 220, 204, 0),rgb(233, 220, 204));
     &::-webkit-scrollbar {
         display: none;
     }
@@ -66,7 +62,7 @@ body{
                 box-sizing: border-box;
                 &:nth-child(1){
                     border-right: 1px solid black;
-                    height: 40%;
+                    height: 50%;
                     .infor__item--content{
                         p{
                             transform: translateX(-120%);
@@ -75,7 +71,7 @@ body{
                 }
                 &:nth-child(2){
                     border-left: 1px solid black;
-                    height: 40%;
+                    height: 50%;
                     .infor__item--content{
                         p{
                             transform: translateX(120%);
@@ -84,7 +80,7 @@ body{
                 }
                 &:nth-child(3){
                     border-right: 1px solid black;
-                    height: 60%;
+                    height: 50%;
                     .infor__item--content{
                         p{
                             transform: translateX(-120%);
@@ -93,7 +89,7 @@ body{
                 }
                 &:nth-child(4){
                     border-left: 1px solid black;
-                    height: 60%;
+                    height: 50%;
                     .infor__item--content{
                         p{
                             transform: translateX(120%);
@@ -141,8 +137,7 @@ body{
                         @include mixin.responsive-font-heading3();
                     }
                     iframe{
-                        // position: relative;
-                        width: 70%;
+                        width: 50%;
                         height: 90%;
                         transform: translateX(200%);
                         border-radius: 14px;
@@ -189,9 +184,6 @@ body{
         }
     }
 }
-.profile__off{
-    display: none;
-}
 
 
 .warrning{
@@ -205,9 +197,8 @@ body{
     transform: translate(-50%,-50%);
     background-color: rgb(0, 0, 0);
     box-sizing: border-box;
-    transition: all .3s linear;
+    transition: all .1s linear;
     pointer-events: none;
-    // display: none;
     img{
         position: absolute;
         left: 50%;
@@ -216,23 +207,19 @@ body{
         width: 100vw;
         height: 100vh;
         object-fit: cover;
-        transition: all .2s linear;
+        transition: all .1s linear;
         background-color: black;
     }
-    // p{
-        //     @include mixin.responsive-font-heading3();
-        //     color: rgb(0, 0, 0);
-        // }
 }
 
 .warrning__display{
-    animation: profile_anim .1s linear forwards;
+    // animation: profile_anim .1s linear forwards;
+    opacity: 1;
 }
 @keyframes profile_anim {
 0%   {
 }   
 100% {
-    display: block;
     opacity: 1;
 }
 }

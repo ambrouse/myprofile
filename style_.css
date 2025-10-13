@@ -1,11 +1,5 @@
 body {
-  background-image: linear-gradient(to right bottom, rgba(233, 220, 204, 0), rgb(233, 220, 204));
   font-family: "Great Vibes", cursive;
-  background-color: black;
-}
-
-.body_on {
-  background-color: transparent;
 }
 
 .rog {
@@ -22,6 +16,7 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-snap-type: y mandatory;
+  background-image: linear-gradient(to right bottom, rgba(233, 220, 204, 0), rgb(233, 220, 204));
 }
 .profile::-webkit-scrollbar {
   display: none;
@@ -93,28 +88,28 @@ body {
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(1) {
   border-right: 1px solid black;
-  height: 40%;
+  height: 50%;
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(1) .infor__item--content p {
   transform: translateX(-120%);
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(2) {
   border-left: 1px solid black;
-  height: 40%;
+  height: 50%;
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(2) .infor__item--content p {
   transform: translateX(120%);
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(3) {
   border-right: 1px solid black;
-  height: 60%;
+  height: 50%;
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(3) .infor__item--content p {
   transform: translateX(-120%);
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(4) {
   border-left: 1px solid black;
-  height: 60%;
+  height: 50%;
 }
 .profile .profile__item .profile__item--infor .infor__item:nth-child(4) .infor__item--content p {
   transform: translateX(120%);
@@ -207,7 +202,7 @@ body {
   }
 }
 .profile .profile__item .profile__item--infor .infor__item .infor__item--content iframe {
-  width: 70%;
+  width: 50%;
   height: 90%;
   transform: translateX(200%);
   border-radius: 14px;
@@ -271,10 +266,6 @@ body {
   animation: rog 3s linear infinite;
 }
 
-.profile__off {
-  display: none;
-}
-
 .warrning {
   position: absolute;
   z-index: 100000;
@@ -286,7 +277,7 @@ body {
   transform: translate(-50%, -50%);
   background-color: rgb(0, 0, 0);
   box-sizing: border-box;
-  transition: all 0.3s linear;
+  transition: all 0.1s linear;
   pointer-events: none;
 }
 .warrning img {
@@ -297,17 +288,16 @@ body {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
   background-color: black;
 }
 
 .warrning__display {
-  animation: profile_anim 0.1s linear forwards;
+  opacity: 1;
 }
 
 @keyframes profile_anim {
   100% {
-    display: block;
     opacity: 1;
   }
 }

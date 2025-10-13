@@ -1,10 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    checkOrientation()
-    window.addEventListener("orientationchange", function () {
-        this.setTimeout(checkOrientation,1)
-    });
-
-    console.log(document.querySelector('.profile .profile__item:nth-child(1)').getBoundingClientRect().height)
+    requestAnimationFrame(checkOrientation);
 
     const page = document.querySelectorAll('.profile .profile__item');
 
@@ -13,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
         entries.forEach(async entry => {
             page[i].querySelector('.profile .profile__item .profile__item--name p').classList.add('animation')
             let title = page[i].querySelectorAll('.profile .profile__item .profile__item--infor .infor__item .infor__item--title p')
-            // let item = page[i].querySelectorAll('.profile .profile__item .profile__item--infor .infor__item .infor__item--content p')
             let item_1 = page[i].querySelectorAll('.profile .profile__item .profile__item--infor .infor__item:nth-child(1) .infor__item--content p')
             let item_2 = page[i].querySelectorAll('.profile .profile__item .profile__item--infor .infor__item:nth-child(2) .infor__item--content p')
             let item_3 = page[i].querySelectorAll('.profile .profile__item .profile__item--infor .infor__item:nth-child(3) .infor__item--content p')
@@ -72,24 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         observer.observe(page[i]);
     }
-
-
-
-
 });
-
-
-function checkOrientation(){
-    if (window.matchMedia("(orientation: portrait)").matches) {
-        document.querySelector(".profile").classList.add("profile__off")
-        document.querySelector(".warrning").classList.add("warrning__display")
-        document.querySelector("body").classList.remove("body_on")
-    }else{
-        document.querySelector("body").classList.add("body_on")
-        document.querySelector(".profile").classList.remove("profile__off")
-        document.querySelector(".warrning").classList.remove("warrning__display")
-    }
-}
 
 
 function tog(index){
@@ -104,13 +81,13 @@ function tog(index){
         top: document.querySelector('.profile .profile__item:nth-child(1)').getBoundingClientRect().height * index,
         behavior: 'smooth'
     });
-    console.log(index)
 }
 
 
 function preventScroll(e) {
   e.preventDefault();
 }
+
 
 function preventKeyScroll(e) {
   const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
@@ -120,7 +97,6 @@ function preventKeyScroll(e) {
 }
 
 
-
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -128,3 +104,16 @@ function sleep(ms) {
 function togithub(link){
     window.open(link, "_blank");
 }
+
+
+function checkOrientation() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        document.querySelector(".warrning").classList.add("warrning__display")
+    }else{
+        document.querySelector(".warrning").classList.remove("warrning__display")
+    }
+
+    requestAnimationFrame(checkOrientation);
+}
+
+
