@@ -37,7 +37,7 @@ body{
             height: 100vh;
             overflow: hidden;
             @media (max-width: 1024px){
-                height: 80vh;
+                height: 90vh;
             }
         }
         .profile__item--name{
@@ -75,7 +75,7 @@ body{
             overflow: hidden;
             position: relative;
             @media (max-width: 1024px){
-                height: 60vh;
+                height: 70vh;
             }
             .infor__item{
                 width: 50%;
