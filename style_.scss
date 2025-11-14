@@ -28,9 +28,21 @@ body{
     .profile__item{
         scroll-snap-align: start;
         flex: 0 0 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .fixbug{
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            @media (max-width: 1024px){
+                height: 80vh;
+            }
+        }
         .profile__item--name{
             position: relative;
-            height: 10%;
+            height: 10vh;
             text-align: center;
             box-sizing: border-box;
             display: flex;
@@ -61,6 +73,10 @@ body{
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
+            position: relative;
+            @media (max-width: 1024px){
+                height: 60vh;
+            }
             .infor__item{
                 width: 50%;
                 height: 50%;
@@ -157,6 +173,7 @@ body{
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+            position: relative;
             .router__title{
                 height: 30%;
                 display: flex;
@@ -181,12 +198,11 @@ body{
                 text-align: center;
                 cursor: pointer;
                 perspective: 1800px;
-                transform-style: preserve-3d;
+                transform-style: preserve-3d;   
                 img{
                     height: 100%;
                     object-fit: cover;
                     transition: .7s cubic-bezier(.2,.9,.2,1);
-                    // transform: rotateY(60deg);
                     animation: rog 3s linear infinite;
                     transform-origin: center;
                 }
@@ -251,13 +267,13 @@ body{
     transform: rotate3d(0,1,0,0deg) translateY(0px);
 }
 25%  {
-    transform: rotate3d(0,1,0,90deg) translateY(-10px);
+    transform: rotate3d(0,1,0,90deg) translateY(-0.2vw);
 }
 50%  {
     transform: rotate3d(0,1,0,180deg) translateY(0px);
 }
 75%{
-    transform: rotate3d(0,1,0,270deg) translateY(10px);
+    transform: rotate3d(0,1,0,270deg) translateY(0.2vw);
 }
 100% {
     transform: rotate3d(0,1,0,360deg) translateY(0px);
