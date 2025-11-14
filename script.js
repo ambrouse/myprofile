@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
         }, {
-        threshold: 1
+        threshold: .1
         });
         observer.observe(page[i]);
     }
