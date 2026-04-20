@@ -540,36 +540,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   render();
 
-  // 2. 3D Tilt & Shader Spotlight on Cards (Interactive Material WebGL mimic)
+  // 2. Optimized Shader Spotlight on Cards (Interactive Material WebGL mimic)
   const cards = document.querySelectorAll('.card, .image-card');
+  let hoverTicking = false;
+  let hMouseX = 0;
+  let hMouseY = 0;
+
   document.addEventListener('mousemove', e => {
-    cards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      // Update custom properties for CSS Shader Spotlight
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      // Calculate rotation angles
-      const rotateX = ((y - centerY) / centerY) * -3;
-      const rotateY = ((x - centerX) / centerX) * 3;
-      
-            if (
-        e.clientX > rect.left && e.clientX < rect.right &&
-        e.clientY > rect.top && e.clientY < rect.bottom
-      ) {
-        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
-        card.style.transition = `transform 0.1s ease-out`; 
-      } else {
-        card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
-        card.style.transition = `transform 0.5s ease`; 
-      }
-    });
+    hMouseX = e.clientX;
+    hMouseY = e.clientY;
+    
+    if (!hoverTicking) {
+      window.requestAnimationFrame(() => {
+        cards.forEach(card => {
+          // Optimization: check if card's slide is active to prevent scroll stutter
+          const slide = card.closest('.slide');
+          if (slide && !slide.classList.contains('is-active')) return;
+
+          const rect = card.getBoundingClientRect();
+          const x = hMouseX - rect.left;
+          const y = hMouseY - rect.top;
+          
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+        hoverTicking = false;
+      });
+      hoverTicking = true;
+    }
   });
 
   // 3. Fluid Parallax on Background Orbs
