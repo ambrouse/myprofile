@@ -189,13 +189,13 @@ body {
 }
 
 .slide.is-back-1 {
-  opacity: 0.12;
+  opacity: 0.05;
   transform: translate3d(0, 48px, -210px) scale(0.89) rotateX(10deg);
   z-index: 4;
 }
 
 .slide.is-back-1::after {
-  opacity: 0.15;
+  opacity: 0.05;
 }
 
 .slide.is-back-2 {
@@ -209,7 +209,7 @@ body {
 }
 
 .slide.is-prev-1 {
-  opacity: 0.01;
+  opacity: 0.05;
   transform: translate3d(0, 106px, -360px) scale(0.76) rotateX(20deg);
   z-index: 1;
 }
@@ -230,12 +230,12 @@ body {
 }
 
 .deck.dir-next .slide.is-prev-1 {
-  opacity: 0.1;
+  opacity: 0.05;
   transform: translate3d(0, 98px, -360px) scale(0.74) rotateX(22deg);
 }
 
 .deck.dir-prev .slide.is-back-1 {
-  opacity: 0.3;
+  opacity: 0.05;
   transform: translate3d(0, 38px, -170px) scale(0.91) rotateX(9deg);
 }
 
