@@ -252,7 +252,6 @@ const initDeck = (dict) => {
 };
 
 const initUiInteractions = () => {
-  const cards = Array.from(document.querySelectorAll(".card, .image-card"));
   const orbA = document.querySelector(".orb-a");
   const orbB = document.querySelector(".orb-b");
 
@@ -274,17 +273,6 @@ const initUiInteractions = () => {
     pointer.active = false;
   };
 
-  const updateSpotlight = () => {
-    if (!pointer.active) return;
-    cards.forEach((card) => {
-      const slide = card.closest(".slide");
-      if (slide && !slide.classList.contains("is-active")) return;
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty("--mouse-x", `${pointer.x - rect.left}px`);
-      card.style.setProperty("--mouse-y", `${pointer.y - rect.top}px`);
-    });
-  };
-
   const updateOrbs = () => {
     if (!pointer.active) return;
     const tgX = (pointer.x / window.innerWidth - 0.5) * 110;
@@ -301,7 +289,6 @@ const initUiInteractions = () => {
 
   const tick = () => {
     if (!running) return;
-    updateSpotlight();
     updateOrbs();
     rafId = requestAnimationFrame(tick);
   };
