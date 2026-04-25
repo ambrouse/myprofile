@@ -3,7 +3,7 @@
   en: "./i18n/en.json"
 };
 
-const QUALITY_LEVELS = ["auto", "high", "medium", "low"];
+const QUALITY_LEVELS = ["auto", "ultra", "high", "medium", "low"];
 
 const loadI18n = async () => {
   const entries = await Promise.all(

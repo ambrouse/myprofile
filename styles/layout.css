@@ -33,6 +33,15 @@
   bottom: -10vw;
 }
 
+.scene-world-active .bg-grid {
+  opacity: 0.22;
+}
+
+.scene-world-active .orb {
+  opacity: 0.14;
+  filter: blur(48px);
+}
+
 .topbar {
   position: fixed;
   top: 0;
@@ -282,5 +291,12 @@
 
   .slide-content {
     max-height: calc(100vh - 210px);
+  }
+
+  #scene-hud {
+    right: 10px;
+    left: 10px;
+    width: auto;
+    bottom: 84px;
   }
 }

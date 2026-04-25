@@ -12,7 +12,14 @@ Portfolio ca nhan phong cach dark tech AI, uu tien tieng Viet, co camera 3D tuon
 ## Cau truc project
 - `index.html`: layout va structure chinh.
 - `script.js`: logic deck, i18n loader, interactions UI, quality control.
-- `scene/cinematic-scene.js`: 3D engine + camera + adaptive performance.
+- `scene/app.js`: scene runtime chinh (camera, zones, HUD, render loop).
+- `scene/world/blockout.js`: world-space blockout geometry.
+- `scene/render/pipeline.js`: post-processing pipeline.
+- `scene/materials/palette.js`: centralized scene material palette.
+- `scene/lighting/setup.js`: centralized scene lighting setup.
+- `scene/camera/*`: cinematic + interactive camera rigs.
+- `scene/zones/map.js`: zone mapping portfolio vao scene.
+- `scene/perf/adaptive-quality.js`: adaptive quality monitor.
 - `i18n/vi.json`, `i18n/en.json`: dictionary ngon ngu.
 - `styles/`: he thong CSS da tach module.
 - `docs/perf-baseline.md`: baseline phase 0.
