@@ -1,46 +1,75 @@
-<div align="center">
-  <img src="ChatGPT%20Image%20Apr%2020,%202026,%2008_12_22%20AM.png" alt="AI Engineer Portfolio" width="100%" />
-</div>
+﻿# AI Engineer Portfolio - 3D Cinematic Edition
 
-# AI Engineer Portfolio
+Portfolio ca nhan phong cach dark tech AI, uu tien tieng Viet, co camera 3D tuong tac realtime va quality scaling de giu trai nghiem muot.
 
-A modern, highly interactive personal portfolio specifically tailored for AI Engineers in production. The layout focuses on presenting deep technical expertise, featuring dynamic graphics and clear, professional typography.
+## Features chinh
+- 3D cinematic background (Three.js) voi camera rig theo pointer + slide context.
+- UI dark tech AI dong bo theo design system (tokens/base/layout/components/motion).
+- i18n VI-first (`vi` mac dinh), ho tro `en` va chuyen doi khong reload.
+- Quality mode runtime: `auto`, `high`, `medium`, `low`.
+- Slide deck transitions toi uu de giam delay input.
 
-## Key Features
+## Cau truc project
+- `index.html`: layout va structure chinh.
+- `script.js`: logic deck, i18n loader, interactions UI, quality control.
+- `scene/cinematic-scene.js`: 3D engine + camera + adaptive performance.
+- `i18n/vi.json`, `i18n/en.json`: dictionary ngon ngu.
+- `styles/`: he thong CSS da tach module.
+- `docs/perf-baseline.md`: baseline phase 0.
+- `PLAN_3D_CINEMATIC_PORTFOLIO.md`: roadmap chi tiet.
 
-- **Interactive Graphic Engine**: Hand-crafted vanilla JavaScript particle system with magnetic repulsion physics and fluid 3D parallax effects for background elements.
-- **Hardware Accelerated Rendering**: Employs optimized `requestAnimationFrame` pipelines and CSS techniques to ensure buttery-smooth 60FPS scroll performance and spotlight rendering.
-- **Internationalization (i18n)**: Seamless client-side toggling between English (EN) and Vietnamese (VI) without reloading the page.
-- **Responsive Architecture**: Fully responsive grid-based structure adaptable to varying form factors, from ultrawide displays to mobile viewports.
-- **Modern CSS Implementation**: Built using Vanilla CSS with CSS variables, complex mathematical `calc()` layouts, and radial masking techniques.
+## Chay local
+1. Serve static files (khong mo truc tiep bang `file://`).
+2. Vi du:
 
-## Technical Stack
+```bash
+python -m http.server 8000
+```
 
-- **Structure**: Semantic HTML5
-- **Styling**: Vanilla CSS (CSS Grid, Flexbox, Custom Properties, Media Queries)
-- **Logic & Interactions**: Vanilla JavaScript (ES6+), DOM Manipulation, Custom Physics Engine
+3. Truy cap `http://localhost:8000`.
 
-## Local Development
+## Deploy public nhanh bang GitHub Pages (tu dong)
+Project da duoc setup workflow auto deploy:
+- File workflow: `.github/workflows/deploy-pages.yml`
+- Nhanh gon: moi lan push len nhanh `main` se tu dong public.
 
-The project is entirely static and requires no complex build processes. To run it locally:
+### 1) Neu ban chua tao repo GitHub
+Chay trong thu muc project:
 
-1. Clone the repository.
-2. Open the directory in your preferred terminal.
-3. Serve the static files using any local web server. For example, using Python:
-   ```bash
-   python -m http.server 8000
-   ```
-4. Access `http://localhost:8000` in your web browser.
+```bash
+git init
+git add .
+git commit -m "init 3d cinematic portfolio"
+git branch -M main
+git remote add origin https://github.com/<username>/<repo>.git
+git push -u origin main
+```
 
-## Project Structure
+### 2) Bat GitHub Pages trong repo
+1. Vao `Settings` -> `Pages`.
+2. O muc `Build and deployment`, chon `Source: GitHub Actions`.
+3. Save.
 
-- `index.html`: The core document structure and content layout.
-- `style_.css`: The main stylesheet handling system layout, themes, hover utilities, and responsive design.
-- `script.js`: The application logic containing the i18n dictionary, slide navigation, and the canvas-based physics graphics engine.
+### 3) Lay link public
+- Sau khi workflow `Deploy GitHub Pages` xanh, site se co link:
+- `https://<username>.github.io/<repo>/`
 
-## Contact
+### 4) Moi lan cap nhat
+```bash
+git add .
+git commit -m "update portfolio"
+git push
+```
+GitHub se tu deploy lai ban moi.
 
-**Nguyen Le Quoc Bao**  
-AI Engineer  
-Email: ngbao3568@gmail.com  
-GitHub: [ambrouse](https://github.com/ambrouse)
+## Kiem tra i18n coverage
+Chay script de check key i18n:
+
+```bash
+node scripts/check-i18n.js
+```
+
+## Luu y hieu nang
+- Che do `Q: AUTO` se tu dieu chinh quality theo thiet bi va FPS.
+- Neu can uu tien FPS tren may yeu, chuyen thu cong sang `Q: LOW`.
+- Anh hien tai van co the tiep tuc toi uu them (AVIF/WebP) o buoc asset pipeline.

@@ -1,0 +1,21 @@
+﻿:root {
+  --bg: #070a12;
+  --panel: rgba(13, 22, 37, 0.74);
+  --line: rgba(142, 193, 255, 0.22);
+  --text: #ebf1ff;
+  --muted: #afbedb;
+  --c1: #6fd3ff;
+  --c2: #2f7cff;
+  --c3: #8bf3dc;
+  --accent: #8c6bff;
+  --radius: 20px;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+
+  --font-body: "Manrope", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+
+  --dur-fast: 140ms;
+  --dur-med: 240ms;
+  --dur-slow: 760ms;
+  --ease-std: cubic-bezier(0.16, 0.84, 0.24, 1);
+}

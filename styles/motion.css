@@ -1,0 +1,108 @@
+﻿.deck.vfx::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 28%, rgba(111, 211, 255, 0.26) 48%, rgba(47, 124, 255, 0.2) 56%, transparent 76%);
+  transform: translateX(-120%);
+  animation: vfxSweep 0.52s ease-out;
+  z-index: 4;
+}
+
+.deck.vfx::before {
+  opacity: 0.88;
+}
+
+.deck.dir-next .slide.is-prev-1 {
+  opacity: 0.05;
+  transform: translate3d(0, 98px, -360px) scale(0.74) rotateX(22deg);
+}
+
+.deck.dir-prev .slide.is-back-1 {
+  opacity: 0.05;
+  transform: translate3d(0, 38px, -170px) scale(0.91) rotateX(9deg);
+}
+
+.deck.dir-next .slide.is-active {
+  animation: cardRiseNext var(--dur-slow) var(--ease-std);
+}
+
+.deck.dir-next .slide.is-prev-1 {
+  animation: cardSinkNext var(--dur-slow) var(--ease-std);
+}
+
+.deck.dir-prev .slide.is-active {
+  animation: cardRisePrev var(--dur-slow) var(--ease-std);
+}
+
+.deck.dir-prev .slide.is-back-1 {
+  animation: cardLiftPrev var(--dur-slow) var(--ease-std);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav button,
+  .quality-toggle,
+  .lang-toggle,
+  .deck-controls button,
+  .project-switch button,
+  .slide,
+  .deck::before,
+  .slide::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .deck.vfx::after {
+    animation: none !important;
+  }
+}
+
+@keyframes vfxSweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes cardRiseNext {
+  0% {
+    transform: translate3d(0, 24px, -120px) scale(0.94) rotateX(7deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes cardSinkNext {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+  }
+  100% {
+    transform: translate3d(0, 106px, -360px) scale(0.76) rotateX(20deg);
+  }
+}
+
+@keyframes cardRisePrev {
+  0% {
+    transform: translate3d(0, 54px, -220px) scale(0.88) rotateX(11deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes cardLiftPrev {
+  0% {
+    transform: translate3d(0, 106px, -360px) scale(0.76) rotateX(20deg);
+  }
+  100% {
+    transform: translate3d(0, 38px, -170px) scale(0.91) rotateX(9deg);
+  }
+}
