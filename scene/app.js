@@ -10,15 +10,19 @@ const CFG = isMobile
       speed: 2.8,
       laneW: 12,
       laneH: 7,
-      spawnMin: 12,
-      spawnMax: 92,
+      spawnMin: 72,
+      spawnMax: 148,
       avoidRadius: 3.0,
+      pointerRadius: 0.95,
+      raycastEvery: 2,
       drag: 1.7,
       angDrag: 2.2,
       maxForce: 2.2,
       maxVel: 1.8,
       maxAngVel: 1.45,
-      collisionEvery: 0
+      collisionEvery: 2,
+      collisionRestitution: 0.1,
+      collisionSeparation: 0.58
     }
   : {
       cardCount: 92,
@@ -26,15 +30,19 @@ const CFG = isMobile
       speed: 3.5,
       laneW: 17,
       laneH: 10,
-      spawnMin: 14,
-      spawnMax: 118,
+      spawnMin: 88,
+      spawnMax: 176,
       avoidRadius: 3.8,
+      pointerRadius: 1.1,
+      raycastEvery: 1,
       drag: 1.45,
       angDrag: 1.95,
       maxForce: 2.8,
       maxVel: 2.3,
       maxAngVel: 1.85,
-      collisionEvery: 0
+      collisionEvery: 1,
+      collisionRestitution: 0.14,
+      collisionSeparation: 0.62
     };
 
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -311,8 +319,8 @@ const createMemoryShard = (info) => {
     side: THREE.DoubleSide,
     roughness: 0.36,
     metalness: 0.08,
-    emissive: 0x061326,
-    emissiveIntensity: 0.18
+    emissive: 0x5f83b5,
+    emissiveIntensity: 0.28
   });
 
   const imageMesh = new THREE.Mesh(faceGeom, imageMat);
@@ -346,6 +354,8 @@ const createMemoryShard = (info) => {
     driftSeed: rand(0, 1000),
     driftAmp: rand(0.16, 0.42),
     hitCooldown: 0,
+    vfxCooldown: 0,
+    mouseHitPulse: 0,
     lifeSeed: rand(0, 1000),
     body,
     img: imageMesh,
@@ -370,13 +380,13 @@ const initScene = async () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CFG.dpr));
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.98;
+  renderer.toneMappingExposure = 1.58;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x060b14, isMobile ? 0.024 : 0.019);
+  scene.fog = new THREE.FogExp2(0x060b14, isMobile ? 0.01 : 0.0085);
 
   const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 450);
   camera.position.set(0, 0, 8);
@@ -395,17 +405,17 @@ const initScene = async () => {
   });
   document.body.appendChild(introVeil);
 
-  scene.add(new THREE.HemisphereLight(0x9dc4ff, 0x02050d, 0.46));
-  scene.add(new THREE.AmbientLight(0x5f8ac8, 0.24));
+  scene.add(new THREE.HemisphereLight(0x9fc7ff, 0x0c0620, 0.9));
+  scene.add(new THREE.AmbientLight(0x5f7fd0, 0.62));
 
-  const coreLight = new THREE.PointLight(0x8fdcff, 2.6, 42, 1.7);
+  const coreLight = new THREE.PointLight(0x7fc9ff, 4.2, 68, 1.55);
   coreLight.position.set(0, 0.6, -8);
   coreLight.castShadow = true;
   coreLight.shadow.mapSize.set(isMobile ? 512 : 1024, isMobile ? 512 : 1024);
   coreLight.shadow.bias = -0.0006;
   scene.add(coreLight);
 
-  const key = new THREE.DirectionalLight(0xc3e6ff, 1.0);
+  const key = new THREE.DirectionalLight(0xb0d5ff, 1.8);
   key.position.set(6, 7, 5);
   key.castShadow = true;
   key.shadow.mapSize.set(isMobile ? 512 : 1024, isMobile ? 512 : 1024);
@@ -416,6 +426,10 @@ const initScene = async () => {
   key.shadow.camera.top = 12;
   key.shadow.camera.bottom = -12;
   scene.add(key);
+
+  const violetFill = new THREE.PointLight(0x8267ff, 2.1, 58, 1.7);
+  violetFill.position.set(0, 1.8, -22);
+  scene.add(violetFill);
 
   const dustGeom = new THREE.BufferGeometry();
   const dustCount = isMobile ? 260 : 620;
@@ -469,6 +483,8 @@ const initScene = async () => {
   scene.add(shardsGroup);
 
   const shards = [];
+  const hitTargets = [];
+  const meshToShard = new Map();
 
   const spawnAhead = (shard, camZ) => {
     const g = shard.group;
@@ -494,9 +510,9 @@ const initScene = async () => {
     const angle = idx * (Math.PI * 0.56) + rand(-0.35, 0.35);
 
     let depth;
-    if (band === 0) depth = rand(6, 22) + t * rand(28, 46);
-    else if (band === 1) depth = rand(18, 40) + t * rand(34, 58);
-    else depth = rand(2.4, 10.5) + t * rand(22, 38);
+    if (band === 0) depth = rand(34, 72) + t * rand(40, 78);
+    else if (band === 1) depth = rand(56, 104) + t * rand(52, 92);
+    else depth = rand(84, 136) + t * rand(64, 106);
 
     const radius = 1.4 + t * (isMobile ? 7.2 : 10.2) + rand(-0.5, 0.7);
     g.position.set(
@@ -520,12 +536,21 @@ const initScene = async () => {
     const shard = createMemoryShard(bag.next());
     shards.push(shard);
     shardsGroup.add(shard.group);
+    hitTargets.push(shard.raycastTarget);
+    meshToShard.set(shard.raycastTarget, shard);
     spawnInitial(shard, i, CFG.cardCount, camera.position.z);
   }
 
+  const pointer = { nx: 0, ny: 0, active: false, down: false };
+  const raycaster = new THREE.Raycaster();
+  const tmpV2 = new THREE.Vector2();
   const tmpDir = new THREE.Vector3();
+  const tmpCam = new THREE.Vector3();
+  const tmpNdc = new THREE.Vector3();
   const tmpSep = new THREE.Vector3();
   const tmpRel = new THREE.Vector3();
+  const pointerRayOrigin = new THREE.Vector3();
+  const pointerRayDir = new THREE.Vector3();
 
   const flow = {
     lateral: 0,
@@ -535,16 +560,19 @@ const initScene = async () => {
   };
 
   const introWarp = {
-    holdDuration: 3.0,
-    slowDuration: 2.0,
+    holdDuration: 1.5,
+    slowDuration: 1.0,
     speedScale: isMobile ? 24.0 : 30.0,
     fovStart: isMobile ? 82 : 96,
     fovEnd: 52
   };
 
   let slideIndex = 0;
-  let slidePulse = 0;
   let visible = true;
+  let frame = 0;
+  let pointerRayReady = false;
+  let lastHitId = "";
+  let globalHitCooldown = 0;
   let slideBoundsNdc = { left: -0.7, right: 0.7, top: 0.72, bottom: -0.72 };
 
   const updateSlideBounds = () => {
@@ -557,6 +585,69 @@ const initScene = async () => {
       top: 1 - (r.top / window.innerHeight) * 2,
       bottom: 1 - (r.bottom / window.innerHeight) * 2
     };
+  };
+
+  const addImpulse = (shard, dir, force) => {
+    const u = shard.group.userData;
+    u.vel.addScaledVector(dir, force);
+    u.angVel.x += rand(-0.7, 0.7) * force * 0.7;
+    u.angVel.y += rand(-1.1, 1.1) * force * 0.75;
+    u.angVel.z += rand(-0.45, 0.45) * force * 0.62;
+    u.hitCooldown = 0.16;
+  };
+
+  const pointerHit = () => {
+    if (!pointer.active) return;
+    if (frame % CFG.raycastEvery !== 0) return;
+
+    tmpV2.set(pointer.nx, pointer.ny);
+    raycaster.setFromCamera(tmpV2, camera);
+    pointerRayOrigin.copy(raycaster.ray.origin);
+    pointerRayDir.copy(raycaster.ray.direction);
+    pointerRayReady = true;
+
+    const hit = raycaster.intersectObjects(hitTargets, false)[0];
+    if (!hit) {
+      lastHitId = "";
+      return;
+    }
+
+    const shard = meshToShard.get(hit.object);
+    if (!shard) return;
+
+    const id = shard.group.uuid;
+    const u = shard.group.userData;
+    if (u.vfxCooldown > 0 || globalHitCooldown > 0) return;
+    if (id === lastHitId && !pointer.down) return;
+
+    tmpDir.copy(shard.group.position).sub(camera.position).normalize();
+    addImpulse(shard, tmpDir, pointer.down ? 0.92 : 0.62);
+    u.angVel.x += rand(-0.7, 0.7) * 0.32;
+    u.angVel.y += rand(-1.2, 1.2) * 0.4;
+    u.angVel.z += rand(-0.6, 0.6) * 0.24;
+
+    u.mouseHitPulse = 1;
+    u.vfxCooldown = 0.26;
+    globalHitCooldown = 0.03;
+    lastHitId = id;
+  };
+
+  const slideTouch = (shard) => {
+    const g = shard.group;
+    const u = g.userData;
+    if (u.hitCooldown > 0 || u.vfxCooldown > 0) return;
+
+    tmpNdc.copy(g.position).project(camera);
+    if (tmpNdc.z < -1 || tmpNdc.z > 1) return;
+    if (tmpNdc.x < slideBoundsNdc.left || tmpNdc.x > slideBoundsNdc.right) return;
+    if (tmpNdc.y < slideBoundsNdc.bottom || tmpNdc.y > slideBoundsNdc.top) return;
+
+    tmpCam.copy(g.position).applyMatrix4(camera.matrixWorldInverse);
+    if (tmpCam.z > -2.8 || tmpCam.z < -24) return;
+
+    tmpDir.copy(g.position).sub(camera.position).normalize();
+    addImpulse(shard, tmpDir, 0.24);
+    u.vfxCooldown = 0.2;
   };
 
   const updateCamera = (elapsed, dt) => {
@@ -585,7 +676,8 @@ const initScene = async () => {
     camera.updateProjectionMatrix();
     coreLight.position.set(camera.position.x * 0.18, camera.position.y * 0.12, camera.position.z - 10);
     key.position.set(camera.position.x + 6, camera.position.y + 7, camera.position.z + 5);
-    renderer.toneMappingExposure = damp(renderer.toneMappingExposure, 0.98 + introCurve * 0.44, 4.2, dt);
+    violetFill.position.set(camera.position.x * -0.2, camera.position.y + 1.6, camera.position.z - 26);
+    renderer.toneMappingExposure = damp(renderer.toneMappingExposure, 1.58 + introCurve * 0.34, 4.2, dt);
     const dustGate = texturesReady ? 1 : 0.28;
     dustMat.size = damp(dustMat.size, (isMobile ? 0.04 : 0.06) + introCurve * (isMobile ? 0.08 : 0.12) * dustGate, 4.2, dt);
     dustMat.opacity = damp(dustMat.opacity, 0.1 + introCurve * 0.2 * dustGate, 4.2, dt);
@@ -601,7 +693,6 @@ const initScene = async () => {
     camera.lookAt(tmpDir);
     camera.rotateZ(Math.sin(elapsed * 8.5) * 0.018 * introCurve);
 
-    if (slidePulse > 0.001) slidePulse *= 0.95;
   };
 
   const updateShards = (elapsed, dt) => {
@@ -632,13 +723,6 @@ const initScene = async () => {
         u.force.z += (dz / dist) * s;
       }
 
-      if (slidePulse > 0.05 && dist < 9 && dist > 0.0001) {
-        const s = slidePulse * 0.44;
-        u.force.x += (dx / dist) * s;
-        u.force.y += (dy / dist) * s;
-        u.force.z += (dz / dist) * s;
-      }
-
       if (u.force.length() > CFG.maxForce) u.force.setLength(CFG.maxForce);
 
       u.vel.addScaledVector(u.force, dt * 1.18);
@@ -648,6 +732,8 @@ const initScene = async () => {
       g.position.addScaledVector(u.vel, dt * 8.0);
 
       if (u.hitCooldown > 0) u.hitCooldown -= dt;
+      if (u.vfxCooldown > 0) u.vfxCooldown -= dt;
+      if (u.mouseHitPulse > 0) u.mouseHitPulse = Math.max(0, u.mouseHitPulse - dt * 3.2);
 
       if (u.angVel.length() > CFG.maxAngVel) u.angVel.setLength(CFG.maxAngVel);
       u.angVel.multiplyScalar(Math.exp(-CFG.angDrag * dt));
@@ -656,13 +742,24 @@ const initScene = async () => {
       g.rotation.y += u.angVel.y * dt;
       g.rotation.z += u.angVel.z * dt;
 
-      const depth01 = clamp((dist - 4) / 32, 0, 1);
-      const brightness = 1.16 - depth01 * 0.42;
+      const depth01 = clamp((dist - 7) / 140, 0, 1);
+      const brightness = 1.75 - depth01 * 0.95;
+      const hitBoost = u.mouseHitPulse * 0.52;
       u.img.material.color.setScalar(brightness);
-      u.img.material.emissiveIntensity = 0.13 + (1 - depth01) * 0.18;
-      u.body.material.emissiveIntensity = 0.05 + (1 - depth01) * 0.08;
+      u.img.material.emissiveIntensity = 0.24 + (1 - depth01) * 0.72 + hitBoost;
+      u.body.material.emissiveIntensity = 0.08 + (1 - depth01) * 0.2;
+      u.img.material.emissive.setRGB(
+        0.37 + u.mouseHitPulse * 0.38,
+        0.51 + u.mouseHitPulse * 0.26,
+        0.71 + u.mouseHitPulse * 0.54
+      );
 
-      if (u.outline) u.outline.material.opacity = damp(u.outline.material.opacity, 0.06 + (1 - depth01) * 0.08, 5.0, dt);
+      if (u.outline) {
+        const targetOpacity = u.vfxCooldown > 0 ? 0.42 : 0.06 + (1 - depth01) * 0.08;
+        u.outline.material.opacity = damp(u.outline.material.opacity, targetOpacity, 6.0, dt);
+      }
+
+      slideTouch(shard);
 
       if (g.position.z > camPos.z + 13) spawnAhead(shard, camPos.z);
       if (Math.abs(g.position.x - camPos.x) > CFG.laneW * 2.15) g.position.x = camPos.x + rand(-CFG.laneW, CFG.laneW);
@@ -734,6 +831,25 @@ const initScene = async () => {
     updateSlideBounds();
   };
 
+  const onPointerMove = (e) => {
+    pointer.active = true;
+    pointer.nx = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.ny = -(e.clientY / window.innerHeight) * 2 + 1;
+  };
+
+  const onPointerDown = () => {
+    pointer.down = true;
+  };
+
+  const onPointerUp = () => {
+    pointer.down = false;
+  };
+
+  const onPointerLeave = () => {
+    pointer.active = false;
+    pointer.down = false;
+  };
+
   const onVisibility = () => {
     visible = !document.hidden;
     if (visible) rafId = requestAnimationFrame(loop);
@@ -741,11 +857,14 @@ const initScene = async () => {
   };
 
   window.addEventListener("resize", onResize, { passive: true });
+  window.addEventListener("pointermove", onPointerMove, { passive: true });
+  window.addEventListener("pointerdown", onPointerDown, { passive: true });
+  window.addEventListener("pointerup", onPointerUp, { passive: true });
+  window.addEventListener("pointerleave", onPointerLeave, { passive: true });
   document.addEventListener("visibilitychange", onVisibility);
 
   window.addEventListener("deck-slide-change", (e) => {
     slideIndex = e.detail?.index || 0;
-    slidePulse = 1;
     updateSlideBounds();
   });
 
@@ -761,9 +880,14 @@ const initScene = async () => {
     const dt = Math.min(0.033, (now - last) / 1000);
     const elapsed = (now - t0) / 1000;
     last = now;
+    frame += 1;
+    pointerRayReady = false;
+    globalHitCooldown = Math.max(0, globalHitCooldown - dt);
 
     updateCamera(elapsed, dt);
+    pointerHit();
     updateShards(elapsed, dt);
+    if (frame % CFG.collisionEvery === 0) resolveShardCollisions();
 
     renderer.render(scene, camera);
 
