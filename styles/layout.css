@@ -303,10 +303,4 @@
     max-height: calc(100vh - 210px);
   }
 
-  #scene-hud {
-    right: 10px;
-    left: 10px;
-    width: auto;
-    bottom: 84px;
-  }
 }

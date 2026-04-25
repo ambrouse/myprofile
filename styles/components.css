@@ -260,46 +260,84 @@ h3 {
   box-shadow: 0 0 12px rgba(111, 211, 255, 0.8);
 }
 
-#scene-hud {
+#scene-loading {
   position: fixed;
-  right: clamp(12px, 2.6vw, 34px);
-  bottom: clamp(70px, 12vh, 140px);
-  width: min(320px, calc(100vw - 28px));
-  padding: 14px 14px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(111, 211, 255, 0.35);
-  background: linear-gradient(160deg, rgba(6, 14, 24, 0.84), rgba(7, 20, 38, 0.62));
-  backdrop-filter: blur(8px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.42);
-  pointer-events: none;
-  z-index: 18;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(111, 211, 255, 0.2), rgba(7, 13, 25, 0.76) 34%, rgba(3, 7, 14, 0.96) 72%),
+    linear-gradient(180deg, rgba(9, 20, 37, 0.98), rgba(2, 6, 13, 0.98));
+  color: #d8ebff;
+  transition: opacity 480ms ease, visibility 480ms ease;
 }
 
-.scene-hud-kicker {
+#scene-loading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at center, black 28%, transparent 82%);
+}
+
+#scene-loading.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.scene-loading-panel {
+  width: min(420px, calc(100vw - 40px));
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 26px 28px;
+  border: 1px solid rgba(111, 211, 255, 0.28);
+  border-radius: 12px;
+  background: rgba(6, 14, 27, 0.68);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 70px rgba(80, 180, 255, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.scene-loading-kicker {
   margin: 0;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  color: #80dcff;
-}
-
-.scene-hud-title {
-  margin: 6px 0 6px;
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: #d8f2ff;
-}
-
-.scene-hud-desc {
-  margin: 0;
-  font-size: 12px;
-  color: #b1c6e8;
-}
-
-.scene-hud-state {
-  margin: 10px 0 0;
   font-size: 11px;
-  letter-spacing: 0.08em;
-  color: #8ff3dc;
+  letter-spacing: 0.18em;
+  color: var(--c1);
+}
+
+.scene-loading-percent {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 8vw, 4.4rem);
+  line-height: 1;
+  color: #f1f7ff;
+}
+
+.scene-loading-bar {
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.scene-loading-bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--c2), var(--c1), #b8edff);
+  transition: transform 180ms ease;
+}
+
+.scene-loading-text {
+  margin: 0;
+  min-height: 20px;
+  color: #aac3e6;
+  font-size: 13px;
 }
 
 @media (max-width: 780px) {

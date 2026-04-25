@@ -313,7 +313,6 @@ const initUiInteractions = () => {
 
 const boot = async () => {
   setupQualityControl();
-  initUiInteractions();
 
   try {
     const dict = await loadI18n();

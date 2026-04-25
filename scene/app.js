@@ -5,7 +5,7 @@ const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
 const CFG = isMobile
   ? {
-      cardCount: 68,
+      cardCount: 46,
       dpr: 1.0,
       speed: 2.8,
       laneW: 12,
@@ -13,21 +13,15 @@ const CFG = isMobile
       spawnMin: 12,
       spawnMax: 92,
       avoidRadius: 3.0,
-      pointerRadius: 0.95,
-      raycastEvery: 2,
       drag: 1.7,
       angDrag: 2.2,
       maxForce: 2.2,
       maxVel: 1.8,
       maxAngVel: 1.45,
-      cameraXRange: 4.4,
-      cameraYRange: 1.2,
-      collisionEvery: 2,
-      collisionRestitution: 0.1,
-      collisionSeparation: 0.58
+      collisionEvery: 0
     }
   : {
-      cardCount: 132,
+      cardCount: 92,
       dpr: 1.22,
       speed: 3.5,
       laneW: 17,
@@ -35,18 +29,12 @@ const CFG = isMobile
       spawnMin: 14,
       spawnMax: 118,
       avoidRadius: 3.8,
-      pointerRadius: 1.1,
-      raycastEvery: 1,
       drag: 1.45,
       angDrag: 1.95,
       maxForce: 2.8,
       maxVel: 2.3,
       maxAngVel: 1.85,
-      cameraXRange: 6.4,
-      cameraYRange: 1.6,
-      collisionEvery: 1,
-      collisionRestitution: 0.14,
-      collisionSeparation: 0.62
+      collisionEvery: 0
     };
 
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -87,26 +75,112 @@ const createFallbackTexture = () => {
   return { src: "fallback", texture: tex };
 };
 
-const loadTextures = async (renderer, manifest) => {
-  const loader = new THREE.TextureLoader();
-  const arr = await Promise.all(
-    manifest.map(
+const loadTextures = async (renderer, manifest, onProgress = () => {}) => {
+  const maxAnisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), isMobile ? 2 : 8);
+  let done = 0;
+
+  const loadOne = (src) =>
+    new Promise((resolve) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.onload = async () => {
+        try {
+          if (img.decode) await img.decode();
+        } catch {
+          // Some browsers resolve onload after decode; keep going.
+        }
+
+        const texture = new THREE.Texture(img);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = maxAnisotropy;
+        texture.needsUpdate = true;
+        done += 1;
+        onProgress(done / manifest.length, src);
+        resolve({ src, texture });
+      };
+      img.onerror = () => {
+        done += 1;
+        onProgress(done / manifest.length, src);
+        resolve(null);
+      };
+      img.src = src;
+    });
+
+  const arr = await Promise.all(manifest.map(loadOne));
+  return arr.filter(Boolean);
+};
+
+const createLoadingScreen = () => {
+  let el = document.getElementById("scene-loading");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "scene-loading";
+    el.innerHTML = `
+      <div class="scene-loading-panel">
+        <p class="scene-loading-kicker">AI ENGINEER PORTFOLIO</p>
+        <strong class="scene-loading-percent">0%</strong>
+        <div class="scene-loading-bar" aria-hidden="true"><span></span></div>
+        <p class="scene-loading-text">Dang nap anh vao bo nho dem</p>
+      </div>
+    `;
+    document.body.appendChild(el);
+  }
+
+  const percent = el.querySelector(".scene-loading-percent");
+  const bar = el.querySelector(".scene-loading-bar span");
+  const text = el.querySelector(".scene-loading-text");
+
+  return {
+    set(value, label = "Dang nap anh vao bo nho dem") {
+      const pct = clamp(Math.round(value * 100), 0, 100);
+      if (percent) percent.textContent = `${pct}%`;
+      if (bar) bar.style.transform = `scaleX(${pct / 100})`;
+      if (text) text.textContent = label;
+    },
+    done() {
+      this.set(1, "San sang");
+      el.classList.add("is-done");
+      window.setTimeout(() => el.remove(), 520);
+    }
+  };
+};
+
+const preloadDocumentImages = async (onProgress = () => {}) => {
+  const urls = [...document.querySelectorAll("img[src]")]
+    .map((img) => img.currentSrc || img.getAttribute("src"))
+    .filter(Boolean);
+  const unique = [...new Set(urls)];
+  if (!unique.length) {
+    onProgress(1);
+    return;
+  }
+
+  let done = 0;
+  await Promise.all(
+    unique.map(
       (src) =>
         new Promise((resolve) => {
-          loader.load(
-            src,
-            (t) => {
-              t.colorSpace = THREE.SRGBColorSpace;
-              t.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), isMobile ? 2 : 8);
-              resolve({ src, texture: t });
-            },
-            undefined,
-            () => resolve(null)
-          );
+          const img = new Image();
+          img.decoding = "async";
+          img.onload = async () => {
+            try {
+              if (img.decode) await img.decode();
+            } catch {
+              // Keep booting if decode already happened or the browser refuses it.
+            }
+            done += 1;
+            onProgress(done / unique.length);
+            resolve();
+          };
+          img.onerror = () => {
+            done += 1;
+            onProgress(done / unique.length);
+            resolve();
+          };
+          img.src = src;
         })
     )
   );
-  return arr.filter(Boolean);
 };
 
 const warmUpTextures = (renderer, entries) => {
@@ -201,74 +275,51 @@ const createCrackLineGeometry = (w, h, z) => {
   return g;
 };
 
-const createRippleTexture = () => {
-  const c = document.createElement("canvas");
-  c.width = 128;
-  c.height = 128;
-  const ctx = c.getContext("2d");
-
-  ctx.clearRect(0, 0, 128, 128);
-  ctx.beginPath();
-  ctx.arc(64, 64, 9, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(150,240,255,0.7)";
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.arc(64, 64, 25, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(120,220,255,0.95)";
-  ctx.lineWidth = 5;
-  ctx.stroke();
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.needsUpdate = true;
-  return tex;
-};
-
-const createHud = () => {
-  const hud = document.createElement("aside");
-  hud.id = "scene-hud";
-
-  const k = document.createElement("p");
-  k.className = "scene-hud-kicker";
-  k.textContent = "TIME DRIFT";
-
-  const t = document.createElement("h3");
-  t.className = "scene-hud-title";
-
-  const d = document.createElement("p");
-  d.className = "scene-hud-desc";
-
-  const s = document.createElement("p");
-  s.className = "scene-hud-state";
-
-  hud.append(k, t, d, s);
-  document.body.appendChild(hud);
-
-  return {
-    set(title, desc, state) {
-      t.textContent = title;
-      d.textContent = desc;
-      s.textContent = state;
-    }
-  };
-};
-
 const createMemoryShard = (info) => {
   const ratio = info.texture.image ? info.texture.image.width / info.texture.image.height : 1.4;
   const h = rand(1.15, 1.9);
   const w = h * ratio;
   const group = new THREE.Group();
   const { shape, faceGeom } = createShardShapeData(w, h);
+  faceGeom.computeVertexNormals();
 
-  const imageMat = new THREE.MeshBasicMaterial({
+  const bodyGeom = new THREE.ExtrudeGeometry(shape, {
+    depth: 0.055,
+    bevelEnabled: false
+  });
+  bodyGeom.center();
+  bodyGeom.computeVertexNormals();
+
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0x10284d,
+    roughness: 0.68,
+    metalness: 0.18,
+    emissive: 0x020817,
+    emissiveIntensity: 0.08,
+    side: THREE.DoubleSide
+  });
+  const body = new THREE.Mesh(bodyGeom, bodyMat);
+  body.position.z = -0.038;
+  body.castShadow = true;
+  body.receiveShadow = true;
+  group.add(body);
+
+  const imageMat = new THREE.MeshStandardMaterial({
     map: info.texture,
+    emissiveMap: info.texture,
     color: 0xffffff,
     side: THREE.DoubleSide,
-    toneMapped: false
+    roughness: 0.36,
+    metalness: 0.08,
+    emissive: 0x061326,
+    emissiveIntensity: 0.18
   });
 
   const imageMesh = new THREE.Mesh(faceGeom, imageMat);
   imageMesh.renderOrder = 2;
+  imageMesh.position.z = 0.008;
+  imageMesh.castShadow = true;
+  imageMesh.receiveShadow = true;
   group.add(imageMesh);
 
   const outlinePoints = shape.getPoints();
@@ -295,8 +346,8 @@ const createMemoryShard = (info) => {
     driftSeed: rand(0, 1000),
     driftAmp: rand(0.16, 0.42),
     hitCooldown: 0,
-    vfxCooldown: 0,
     lifeSeed: rand(0, 1000),
+    body,
     img: imageMesh,
     outline
   };
@@ -305,6 +356,9 @@ const createMemoryShard = (info) => {
 };
 
 const initScene = async () => {
+  const loading = createLoadingScreen();
+  loading.set(0.03, "Dang khoi tao khong gian 3D");
+
   const container = document.createElement("div");
   container.id = "photo-space";
   Object.assign(container.style, { position: "fixed", inset: "0", zIndex: "0", pointerEvents: "none" });
@@ -317,6 +371,8 @@ const initScene = async () => {
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.98;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
@@ -339,9 +395,26 @@ const initScene = async () => {
   });
   document.body.appendChild(introVeil);
 
-  scene.add(new THREE.AmbientLight(0x9dc4ff, 0.52));
-  const key = new THREE.DirectionalLight(0xa8d2ff, 0.72);
-  key.position.set(7, 9, 2);
+  scene.add(new THREE.HemisphereLight(0x9dc4ff, 0x02050d, 0.46));
+  scene.add(new THREE.AmbientLight(0x5f8ac8, 0.24));
+
+  const coreLight = new THREE.PointLight(0x8fdcff, 2.6, 42, 1.7);
+  coreLight.position.set(0, 0.6, -8);
+  coreLight.castShadow = true;
+  coreLight.shadow.mapSize.set(isMobile ? 512 : 1024, isMobile ? 512 : 1024);
+  coreLight.shadow.bias = -0.0006;
+  scene.add(coreLight);
+
+  const key = new THREE.DirectionalLight(0xc3e6ff, 1.0);
+  key.position.set(6, 7, 5);
+  key.castShadow = true;
+  key.shadow.mapSize.set(isMobile ? 512 : 1024, isMobile ? 512 : 1024);
+  key.shadow.camera.near = 0.5;
+  key.shadow.camera.far = 80;
+  key.shadow.camera.left = -18;
+  key.shadow.camera.right = 18;
+  key.shadow.camera.top = 12;
+  key.shadow.camera.bottom = -12;
   scene.add(key);
 
   const dustGeom = new THREE.BufferGeometry();
@@ -364,24 +437,38 @@ const initScene = async () => {
   const dust = new THREE.Points(dustGeom, dustMat);
   scene.add(dust);
 
-  const rippleTex = createRippleTexture();
-  const rippleGroup = new THREE.Group();
-  scene.add(rippleGroup);
-  const ripples = [];
-
-  const hud = createHud();
-
   const fallbackEntry = createFallbackTexture();
   let bag = makeBag([fallbackEntry]);
   let storyCount = 0;
   let texturesReady = false;
 
+  try {
+    loading.set(0.08, "Dang doc danh sach anh");
+    const imageManifest = await loadImageManifest();
+    storyCount = imageManifest.length;
+    if (imageManifest.length) {
+      const loaded = await loadTextures(renderer, imageManifest, (progress) => {
+        loading.set(0.1 + progress * 0.82, "Dang cache anh vao trinh duyet");
+      });
+      if (loaded.length) {
+        warmUpTextures(renderer, loaded);
+        bag = makeBag(loaded);
+        texturesReady = true;
+      }
+    }
+    await preloadDocumentImages((progress) => {
+      loading.set(0.92 + progress * 0.04, "Dang cache anh trong slide");
+    });
+  } catch (err) {
+    console.error("Image loading failed", err);
+  }
+
+  loading.set(0.96, texturesReady ? "Dang lam nong texture GPU" : "Dung nen fallback");
+
   const shardsGroup = new THREE.Group();
   scene.add(shardsGroup);
 
   const shards = [];
-  const hitTargets = [];
-  const meshToShard = new Map();
 
   const spawnAhead = (shard, camZ) => {
     const g = shard.group;
@@ -433,67 +520,16 @@ const initScene = async () => {
     const shard = createMemoryShard(bag.next());
     shards.push(shard);
     shardsGroup.add(shard.group);
-    hitTargets.push(shard.raycastTarget);
-    meshToShard.set(shard.raycastTarget, shard);
     spawnInitial(shard, i, CFG.cardCount, camera.position.z);
   }
 
-  const applyLoadedTextures = (entries) => {
-    if (!entries.length) return;
-    bag = makeBag(entries);
-    for (let i = 0; i < shards.length; i += 1) {
-      const g = shards[i].group;
-      const u = g.userData;
-      const next = bag.next();
-      u.img.material.map = next.texture;
-      u.img.material.needsUpdate = true;
-      u.src = next.src;
-    }
-    texturesReady = true;
-  };
-
-  (async () => {
-    try {
-      const imageManifest = await loadImageManifest();
-      storyCount = imageManifest.length;
-      if (!imageManifest.length) return;
-
-      const firstBatchSize = isMobile ? 8 : 12;
-      const firstBatchManifest = imageManifest.slice(0, firstBatchSize);
-      const firstBatch = await loadTextures(renderer, firstBatchManifest);
-      if (firstBatch.length) {
-        warmUpTextures(renderer, firstBatch);
-        applyLoadedTextures(firstBatch);
-      }
-
-      if (imageManifest.length > firstBatchSize) {
-        const allLoaded = await loadTextures(renderer, imageManifest);
-        if (allLoaded.length) {
-          warmUpTextures(renderer, allLoaded);
-          applyLoadedTextures(allLoaded);
-        }
-      }
-    } catch (err) {
-      console.error("Image loading failed", err);
-    }
-  })();
-
-  const pointer = { nx: 0, ny: 0, active: false, down: false, hitSrc: "none" };
-  const raycaster = new THREE.Raycaster();
-  const tmpV2 = new THREE.Vector2();
   const tmpDir = new THREE.Vector3();
-  const tmpCam = new THREE.Vector3();
-  const tmpNdc = new THREE.Vector3();
   const tmpSep = new THREE.Vector3();
   const tmpRel = new THREE.Vector3();
-  const pointerRayOrigin = new THREE.Vector3();
-  const pointerRayDir = new THREE.Vector3();
 
   const flow = {
     lateral: 0,
-    targetLateral: 0,
     vertical: 0,
-    targetVertical: 0,
     speed: CFG.speed,
     travelZ: 0
   };
@@ -509,10 +545,6 @@ const initScene = async () => {
   let slideIndex = 0;
   let slidePulse = 0;
   let visible = true;
-  let frame = 0;
-  let pointerRayReady = false;
-  let lastHitId = "";
-  let globalHitCooldown = 0;
   let slideBoundsNdc = { left: -0.7, right: 0.7, top: 0.72, bottom: -0.72 };
 
   const updateSlideBounds = () => {
@@ -525,79 +557,6 @@ const initScene = async () => {
       top: 1 - (r.top / window.innerHeight) * 2,
       bottom: 1 - (r.bottom / window.innerHeight) * 2
     };
-  };
-
-  const emitRipple = (worldPos, fast = 1) => {
-    const ring = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.24, 0.24),
-      new THREE.MeshBasicMaterial({ map: rippleTex, transparent: true, opacity: 0.92, depthWrite: false, blending: THREE.AdditiveBlending })
-    );
-    ring.position.copy(worldPos);
-    ring.quaternion.copy(camera.quaternion);
-    rippleGroup.add(ring);
-    ripples.push({ mesh: ring, life: 0, ttl: 0.25 / fast, base: rand(0.55, 0.78), expand: 1.6 * fast });
-  };
-
-  const addImpulse = (shard, dir, force) => {
-    const u = shard.group.userData;
-    u.vel.addScaledVector(dir, force);
-    u.angVel.x += rand(-0.7, 0.7) * force * 0.7;
-    u.angVel.y += rand(-1.1, 1.1) * force * 0.75;
-    u.angVel.z += rand(-0.45, 0.45) * force * 0.62;
-    u.hitCooldown = 0.16;
-  };
-
-  const pointerHit = () => {
-    if (!pointer.active) return;
-    if (frame % CFG.raycastEvery !== 0) return;
-
-    tmpV2.set(pointer.nx, pointer.ny);
-    raycaster.setFromCamera(tmpV2, camera);
-    pointerRayOrigin.copy(raycaster.ray.origin);
-    pointerRayDir.copy(raycaster.ray.direction);
-    pointerRayReady = true;
-
-    const hit = raycaster.intersectObjects(hitTargets, false)[0];
-    if (!hit) {
-      lastHitId = "";
-      return;
-    }
-
-    const shard = meshToShard.get(hit.object);
-    if (!shard) return;
-
-    const id = shard.group.uuid;
-    const u = shard.group.userData;
-    if (u.vfxCooldown > 0 || globalHitCooldown > 0) return;
-    if (id === lastHitId && !pointer.down) return;
-
-    tmpDir.copy(shard.group.position).sub(camera.position).normalize();
-    addImpulse(shard, tmpDir, pointer.down ? 0.46 : 0.24);
-    emitRipple(hit.point, 1.1);
-
-    pointer.hitSrc = u.src.split("/").pop();
-    u.vfxCooldown = 0.18;
-    globalHitCooldown = 0.05;
-    lastHitId = id;
-  };
-
-  const slideTouch = (shard) => {
-    const g = shard.group;
-    const u = g.userData;
-    if (u.hitCooldown > 0 || u.vfxCooldown > 0) return;
-
-    tmpNdc.copy(g.position).project(camera);
-    if (tmpNdc.z < -1 || tmpNdc.z > 1) return;
-    if (tmpNdc.x < slideBoundsNdc.left || tmpNdc.x > slideBoundsNdc.right) return;
-    if (tmpNdc.y < slideBoundsNdc.bottom || tmpNdc.y > slideBoundsNdc.top) return;
-
-    tmpCam.copy(g.position).applyMatrix4(camera.matrixWorldInverse);
-    if (tmpCam.z > -2.8 || tmpCam.z < -24) return;
-
-    tmpDir.copy(g.position).sub(camera.position).normalize();
-    addImpulse(shard, tmpDir, 0.22 + slidePulse * 0.14);
-    emitRipple(g.position, 1.0);
-    u.vfxCooldown = 0.2;
   };
 
   const updateCamera = (elapsed, dt) => {
@@ -613,23 +572,19 @@ const initScene = async () => {
     flow.travelZ += speedNow * dt;
     const baseZ = -flow.travelZ - slideIndex * 4.0;
 
-    flow.targetLateral = pointer.active ? pointer.nx * CFG.cameraXRange : 0;
-    flow.targetVertical = pointer.active ? pointer.ny * CFG.cameraYRange : 0;
-
-    flow.lateral = damp(flow.lateral, flow.targetLateral, 0.9, dt);
-    flow.vertical = damp(flow.vertical, flow.targetVertical, 0.8, dt);
-
     const xWave = Math.sin(elapsed * 0.12 + 1.3) * 1.2;
     const yWave = Math.sin(elapsed * 0.08) * 0.5;
 
-    const targetX = flow.lateral + xWave;
-    const targetY = -flow.vertical + yWave;
+    const targetX = xWave;
+    const targetY = yWave;
 
     camera.position.x = damp(camera.position.x, targetX, 1.15, dt);
     camera.position.y = damp(camera.position.y, targetY, 1.05, dt);
     camera.position.z = damp(camera.position.z, baseZ, 1.25, dt);
     camera.fov = damp(camera.fov, fovTarget, 4.6, dt);
     camera.updateProjectionMatrix();
+    coreLight.position.set(camera.position.x * 0.18, camera.position.y * 0.12, camera.position.z - 10);
+    key.position.set(camera.position.x + 6, camera.position.y + 7, camera.position.z + 5);
     renderer.toneMappingExposure = damp(renderer.toneMappingExposure, 0.98 + introCurve * 0.44, 4.2, dt);
     const dustGate = texturesReady ? 1 : 0.28;
     dustMat.size = damp(dustMat.size, (isMobile ? 0.04 : 0.06) + introCurve * (isMobile ? 0.08 : 0.12) * dustGate, 4.2, dt);
@@ -677,29 +632,6 @@ const initScene = async () => {
         u.force.z += (dz / dist) * s;
       }
 
-      if (pointer.active && pointerRayReady) {
-        const rx = g.position.x - pointerRayOrigin.x;
-        const ry = g.position.y - pointerRayOrigin.y;
-        const rz = g.position.z - pointerRayOrigin.z;
-        const tRay = rx * pointerRayDir.x + ry * pointerRayDir.y + rz * pointerRayDir.z;
-        if (tRay > 1.2 && tRay < 34) {
-          const cx = pointerRayOrigin.x + pointerRayDir.x * tRay;
-          const cy = pointerRayOrigin.y + pointerRayDir.y * tRay;
-          const cz = pointerRayOrigin.z + pointerRayDir.z * tRay;
-          const qx = g.position.x - cx;
-          const qy = g.position.y - cy;
-          const qz = g.position.z - cz;
-          const rDist = Math.sqrt(qx * qx + qy * qy + qz * qz);
-          if (rDist < CFG.pointerRadius && rDist > 0.0001) {
-            const t = 1 - rDist / CFG.pointerRadius;
-            const s = t * t * 0.85;
-            u.force.x += (qx / rDist) * s;
-            u.force.y += (qy / rDist) * s;
-            u.force.z += (qz / rDist) * s;
-          }
-        }
-      }
-
       if (slidePulse > 0.05 && dist < 9 && dist > 0.0001) {
         const s = slidePulse * 0.44;
         u.force.x += (dx / dist) * s;
@@ -716,7 +648,6 @@ const initScene = async () => {
       g.position.addScaledVector(u.vel, dt * 8.0);
 
       if (u.hitCooldown > 0) u.hitCooldown -= dt;
-      if (u.vfxCooldown > 0) u.vfxCooldown -= dt;
 
       if (u.angVel.length() > CFG.maxAngVel) u.angVel.setLength(CFG.maxAngVel);
       u.angVel.multiplyScalar(Math.exp(-CFG.angDrag * dt));
@@ -725,11 +656,13 @@ const initScene = async () => {
       g.rotation.y += u.angVel.y * dt;
       g.rotation.z += u.angVel.z * dt;
 
-      if (u.outline) {
-        u.outline.material.opacity = damp(u.outline.material.opacity, u.vfxCooldown > 0 ? 0.18 : 0.08, 6.0, dt);
-      }
+      const depth01 = clamp((dist - 4) / 32, 0, 1);
+      const brightness = 1.16 - depth01 * 0.42;
+      u.img.material.color.setScalar(brightness);
+      u.img.material.emissiveIntensity = 0.13 + (1 - depth01) * 0.18;
+      u.body.material.emissiveIntensity = 0.05 + (1 - depth01) * 0.08;
 
-      slideTouch(shard);
+      if (u.outline) u.outline.material.opacity = damp(u.outline.material.opacity, 0.06 + (1 - depth01) * 0.08, 5.0, dt);
 
       if (g.position.z > camPos.z + 13) spawnAhead(shard, camPos.z);
       if (Math.abs(g.position.x - camPos.x) > CFG.laneW * 2.15) g.position.x = camPos.x + rand(-CFG.laneW, CFG.laneW);
@@ -793,53 +726,12 @@ const initScene = async () => {
     }
   };
 
-  const updateRipples = (dt) => {
-    for (let i = ripples.length - 1; i >= 0; i -= 1) {
-      const r = ripples[i];
-      r.life += dt;
-      const t = r.life / r.ttl;
-
-      if (t >= 1) {
-        rippleGroup.remove(r.mesh);
-        r.mesh.geometry.dispose();
-        r.mesh.material.dispose();
-        ripples.splice(i, 1);
-        continue;
-      }
-
-      const fade = 1 - t;
-      r.mesh.material.opacity = 0.9 * fade * fade;
-      const s = r.base + t * r.expand;
-      r.mesh.scale.setScalar(s);
-      r.mesh.quaternion.copy(camera.quaternion);
-    }
-  };
-
   const onResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CFG.dpr));
     updateSlideBounds();
-  };
-
-  const onPointerMove = (e) => {
-    pointer.active = true;
-    pointer.nx = (e.clientX / window.innerWidth) * 2 - 1;
-    pointer.ny = -(e.clientY / window.innerHeight) * 2 + 1;
-  };
-
-  const onPointerDown = () => {
-    pointer.down = true;
-  };
-
-  const onPointerUp = () => {
-    pointer.down = false;
-  };
-
-  const onPointerLeave = () => {
-    pointer.active = false;
-    pointer.down = false;
   };
 
   const onVisibility = () => {
@@ -849,10 +741,6 @@ const initScene = async () => {
   };
 
   window.addEventListener("resize", onResize, { passive: true });
-  window.addEventListener("pointermove", onPointerMove, { passive: true });
-  window.addEventListener("pointerdown", onPointerDown, { passive: true });
-  window.addEventListener("pointerup", onPointerUp, { passive: true });
-  window.addEventListener("pointerleave", onPointerLeave, { passive: true });
   document.addEventListener("visibilitychange", onVisibility);
 
   window.addEventListener("deck-slide-change", (e) => {
@@ -873,27 +761,16 @@ const initScene = async () => {
     const dt = Math.min(0.033, (now - last) / 1000);
     const elapsed = (now - t0) / 1000;
     last = now;
-    frame += 1;
-    pointerRayReady = false;
-    globalHitCooldown = Math.max(0, globalHitCooldown - dt);
 
     updateCamera(elapsed, dt);
-    pointerHit();
     updateShards(elapsed, dt);
-    if (frame % CFG.collisionEvery === 0) resolveShardCollisions();
-    updateRipples(dt);
 
     renderer.render(scene, camera);
-
-    hud.set(
-      "DONG THOI GIAN KY UC",
-      "Troi qua qua khu, hien tai va tuong lai trong khong gian mang ten ky uc.",
-      `STORY ${storyCount || (texturesReady ? CFG.cardCount : "LOADING")} | SLIDE ${slideIndex + 1} | HIT ${pointer.hitSrc}`
-    );
 
     rafId = requestAnimationFrame(loop);
   };
 
+  loading.done();
   rafId = requestAnimationFrame(loop);
 };
 
