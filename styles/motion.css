@@ -1,26 +1,53 @@
-﻿.deck.vfx::after {
+.deck.vfx::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent 28%, rgba(111, 211, 255, 0.26) 48%, rgba(47, 124, 255, 0.2) 56%, transparent 76%);
-  transform: translateX(-120%);
-  animation: vfxSweep 0.52s ease-out;
+  background:
+    radial-gradient(ellipse at var(--slide-vfx-x, 50%) 50%, var(--slide-vfx-core), transparent 24%),
+    conic-gradient(
+      from var(--slide-vfx-angle, 0deg) at var(--slide-vfx-x, 50%) 50%,
+      transparent,
+      var(--slide-vfx-ring),
+      transparent 34%,
+      var(--slide-vfx-sheen),
+      transparent 62%
+    );
+  clip-path: ellipse(0 18% at var(--slide-vfx-x, 50%) 50%);
+  filter: blur(0.2px);
+  mix-blend-mode: screen;
+  animation: slideAperture 680ms var(--ease-std);
   z-index: 4;
 }
 
 .deck.vfx::before {
-  opacity: 0.88;
+  opacity: 0.82;
+}
+
+.deck.vfx .slide.is-prev-1,
+.deck.vfx .slide.is-back-1,
+.deck.vfx .slide.is-back-2 {
+  opacity: 0.018;
+}
+
+.deck.dir-next {
+  --slide-vfx-x: 64%;
+  --slide-vfx-angle: 18deg;
+}
+
+.deck.dir-prev {
+  --slide-vfx-x: 36%;
+  --slide-vfx-angle: 198deg;
 }
 
 .deck.dir-next .slide.is-prev-1 {
-  opacity: 0.05;
-  transform: translate3d(0, 98px, -360px) scale(0.74) rotateX(22deg);
+  opacity: 0.04;
+  transform: translate3d(-2.8vw, 74px, -320px) scale(0.82) rotateX(12deg) rotateY(-7deg);
 }
 
 .deck.dir-prev .slide.is-back-1 {
   opacity: 0.05;
-  transform: translate3d(0, 38px, -170px) scale(0.91) rotateX(9deg);
+  transform: translate3d(2.8vw, 42px, -190px) scale(0.9) rotateX(8deg) rotateY(7deg);
 }
 
 .deck.dir-next .slide.is-active {
@@ -39,15 +66,48 @@
   animation: cardLiftPrev var(--dur-slow) var(--ease-std);
 }
 
+.deck.vfx .slide.is-active .card::after {
+  content: "";
+  position: absolute;
+  inset: -28%;
+  pointer-events: none;
+  background: linear-gradient(
+    104deg,
+    transparent 32%,
+    var(--slide-vfx-sheen) 44%,
+    var(--slide-vfx-core) 50%,
+    transparent 62%
+  );
+  opacity: 0;
+  mix-blend-mode: screen;
+  transform: translate3d(var(--card-vfx-start, 34%), 0, 0) rotateZ(-5deg);
+  animation: cardSurfaceSheen 620ms var(--ease-std);
+  z-index: 5;
+}
+
+.deck.dir-next {
+  --card-vfx-start: 34%;
+  --card-vfx-end: -34%;
+}
+
+.deck.dir-prev {
+  --card-vfx-start: -34%;
+  --card-vfx-end: 34%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav button,
-  .quality-toggle,
+  .theme-toggle,
   .lang-toggle,
-  .deck-controls button,
+  .deck-controls > button,
   .project-switch button,
   .slide,
   .deck::before,
-  .slide::after {
+  .slide::after,
+  .theme-transition,
+  .theme-transition__field,
+  .theme-transition__ring,
+  .theme-transition__sheen {
     transition: none !important;
     animation: none !important;
   }
@@ -57,44 +117,67 @@
   }
 }
 
-@keyframes vfxSweep {
+@keyframes slideAperture {
   0% {
-    transform: translateX(-120%);
     opacity: 0;
+    clip-path: ellipse(0 10% at var(--slide-vfx-x, 50%) 50%);
+    transform: perspective(900px) rotateX(18deg) scale(0.98);
   }
-  25% {
-    opacity: 1;
+  28% {
+    opacity: 0.92;
+  }
+  72% {
+    opacity: 0.48;
   }
   100% {
-    transform: translateX(120%);
     opacity: 0;
+    clip-path: ellipse(96% 82% at var(--slide-vfx-x, 50%) 50%);
+    transform: perspective(900px) rotateX(0deg) scale(1.03);
   }
 }
 
 @keyframes cardRiseNext {
   0% {
-    transform: translate3d(0, 24px, -120px) scale(0.94) rotateX(7deg);
+    transform: translate3d(3.2vw, 18px, -150px) scale(0.94) rotateX(6deg) rotateY(5deg);
+    filter: blur(1px);
   }
   100% {
-    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg) rotateY(0deg);
+    filter: blur(0);
+  }
+}
+
+@keyframes cardSurfaceSheen {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--card-vfx-start), 0, 0) rotateZ(-5deg);
+  }
+  28% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--card-vfx-end), 0, 0) rotateZ(-5deg);
   }
 }
 
 @keyframes cardSinkNext {
   0% {
-    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg) rotateY(0deg);
   }
   100% {
-    transform: translate3d(0, 106px, -360px) scale(0.76) rotateX(20deg);
+    transform: translate3d(-3vw, 82px, -320px) scale(0.82) rotateX(12deg) rotateY(-7deg);
   }
 }
 
 @keyframes cardRisePrev {
   0% {
-    transform: translate3d(0, 54px, -220px) scale(0.88) rotateX(11deg);
+    transform: translate3d(-3.2vw, 26px, -150px) scale(0.94) rotateX(6deg) rotateY(-5deg);
+    filter: blur(1px);
   }
   100% {
-    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg) rotateY(0deg);
+    filter: blur(0);
   }
 }
 
@@ -103,6 +186,6 @@
     transform: translate3d(0, 106px, -360px) scale(0.76) rotateX(20deg);
   }
   100% {
-    transform: translate3d(0, 38px, -170px) scale(0.91) rotateX(9deg);
+    transform: translate3d(2.8vw, 42px, -190px) scale(0.9) rotateX(8deg) rotateY(7deg);
   }
 }

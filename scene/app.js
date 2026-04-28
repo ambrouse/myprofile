@@ -14,15 +14,17 @@ const CFG = isMobile
       spawnMax: 148,
       avoidRadius: 3.0,
       pointerRadius: 0.95,
-      raycastEvery: 2,
+      raycastEvery: 1,
       drag: 1.7,
       angDrag: 2.2,
       maxForce: 2.2,
       maxVel: 1.8,
       maxAngVel: 1.45,
-      collisionEvery: 2,
-      collisionRestitution: 0.1,
-      collisionSeparation: 0.58
+      collisionEvery: 1,
+      collisionIterations: 2,
+      collisionRestitution: 0.08,
+      collisionSeparation: 0.86,
+      collisionLookAhead: 0.11
     }
   : {
       cardCount: 92,
@@ -41,8 +43,10 @@ const CFG = isMobile
       maxVel: 2.3,
       maxAngVel: 1.85,
       collisionEvery: 1,
-      collisionRestitution: 0.14,
-      collisionSeparation: 0.62
+      collisionIterations: 2,
+      collisionRestitution: 0.1,
+      collisionSeparation: 0.9,
+      collisionLookAhead: 0.09
     };
 
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -125,25 +129,18 @@ const createLoadingScreen = () => {
     el.id = "scene-loading";
     el.innerHTML = `
       <div class="scene-loading-panel">
-        <p class="scene-loading-kicker">AI ENGINEER PORTFOLIO</p>
-        <strong class="scene-loading-percent">0%</strong>
         <div class="scene-loading-bar" aria-hidden="true"><span></span></div>
-        <p class="scene-loading-text">Dang nap anh vao bo nho dem</p>
       </div>
     `;
     document.body.appendChild(el);
   }
 
-  const percent = el.querySelector(".scene-loading-percent");
   const bar = el.querySelector(".scene-loading-bar span");
-  const text = el.querySelector(".scene-loading-text");
 
   return {
-    set(value, label = "Dang nap anh vao bo nho dem") {
+    set(value) {
       const pct = clamp(Math.round(value * 100), 0, 100);
-      if (percent) percent.textContent = `${pct}%`;
       if (bar) bar.style.transform = `scaleX(${pct / 100})`;
-      if (text) text.textContent = label;
     },
     done() {
       this.set(1, "San sang");
@@ -405,8 +402,10 @@ const initScene = async () => {
   });
   document.body.appendChild(introVeil);
 
-  scene.add(new THREE.HemisphereLight(0x9fc7ff, 0x0c0620, 0.9));
-  scene.add(new THREE.AmbientLight(0x5f7fd0, 0.62));
+  const hemiLight = new THREE.HemisphereLight(0x9fc7ff, 0x0c0620, 0.9);
+  scene.add(hemiLight);
+  const ambientLight = new THREE.AmbientLight(0x5f7fd0, 0.62);
+  scene.add(ambientLight);
 
   const coreLight = new THREE.PointLight(0x7fc9ff, 4.2, 68, 1.55);
   coreLight.position.set(0, 0.6, -8);
@@ -551,6 +550,8 @@ const initScene = async () => {
   const tmpRel = new THREE.Vector3();
   const pointerRayOrigin = new THREE.Vector3();
   const pointerRayDir = new THREE.Vector3();
+  const predictedA = new THREE.Vector3();
+  const predictedB = new THREE.Vector3();
 
   const flow = {
     lateral: 0,
@@ -574,6 +575,60 @@ const initScene = async () => {
   let lastHitId = "";
   let globalHitCooldown = 0;
   let slideBoundsNdc = { left: -0.7, right: 0.7, top: 0.72, bottom: -0.72 };
+  let themeMode = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+
+  const themeProfiles = {
+    dark: {
+      fog: 0x060b14,
+      exposure: 1.58,
+      hemiSky: 0x9fc7ff,
+      hemiGround: 0x0c0620,
+      hemiIntensity: 0.9,
+      ambient: 0x5f7fd0,
+      ambientIntensity: 0.62,
+      core: 0x7fc9ff,
+      coreIntensity: 4.2,
+      key: 0xb0d5ff,
+      keyIntensity: 1.8,
+      fill: 0x8267ff,
+      fillIntensity: 2.1,
+      dust: 0x9ecfff,
+      imageBrightnessNear: 1.75,
+      imageBrightnessFar: 0.8,
+      emissive: [0.37, 0.51, 0.71],
+      imageEmissiveBase: 0.24,
+      imageEmissiveDepth: 0.72,
+      bodyEmissiveBase: 0.08,
+      bodyEmissiveDepth: 0.2,
+      outlineBase: 0.06,
+      outlineDepth: 0.08
+    },
+    light: {
+      fog: 0xdbe8ef,
+      exposure: 1.05,
+      hemiSky: 0xd9ecf3,
+      hemiGround: 0xb8c6cf,
+      hemiIntensity: 0.66,
+      ambient: 0xc6dce8,
+      ambientIntensity: 0.48,
+      core: 0xb9d8e6,
+      coreIntensity: 1.55,
+      key: 0xe5f2f7,
+      keyIntensity: 1.1,
+      fill: 0x7aa9bd,
+      fillIntensity: 0.62,
+      dust: 0x6b8fa1,
+      imageBrightnessNear: 0.98,
+      imageBrightnessFar: 0.7,
+      emissive: [0.08, 0.14, 0.18],
+      imageEmissiveBase: 0.03,
+      imageEmissiveDepth: 0.16,
+      bodyEmissiveBase: 0.02,
+      bodyEmissiveDepth: 0.05,
+      outlineBase: 0.03,
+      outlineDepth: 0.03
+    }
+  };
 
   const updateSlideBounds = () => {
     const active = document.querySelector(".slide.is-active .slide-content") || document.querySelector(".slide.is-active");
@@ -585,6 +640,24 @@ const initScene = async () => {
       top: 1 - (r.top / window.innerHeight) * 2,
       bottom: 1 - (r.bottom / window.innerHeight) * 2
     };
+  };
+
+  const applySceneTheme = (mode) => {
+    themeMode = mode === "light" ? "light" : "dark";
+    const profile = themeProfiles[themeMode];
+    scene.fog.color.setHex(profile.fog);
+    hemiLight.color.setHex(profile.hemiSky);
+    hemiLight.groundColor.setHex(profile.hemiGround);
+    hemiLight.intensity = profile.hemiIntensity;
+    ambientLight.color.setHex(profile.ambient);
+    ambientLight.intensity = profile.ambientIntensity;
+    coreLight.color.setHex(profile.core);
+    coreLight.intensity = profile.coreIntensity;
+    key.color.setHex(profile.key);
+    key.intensity = profile.keyIntensity;
+    violetFill.color.setHex(profile.fill);
+    violetFill.intensity = profile.fillIntensity;
+    dustMat.color.setHex(profile.dust);
   };
 
   const addImpulse = (shard, dir, force) => {
@@ -677,7 +750,8 @@ const initScene = async () => {
     coreLight.position.set(camera.position.x * 0.18, camera.position.y * 0.12, camera.position.z - 10);
     key.position.set(camera.position.x + 6, camera.position.y + 7, camera.position.z + 5);
     violetFill.position.set(camera.position.x * -0.2, camera.position.y + 1.6, camera.position.z - 26);
-    renderer.toneMappingExposure = damp(renderer.toneMappingExposure, 1.58 + introCurve * 0.34, 4.2, dt);
+    const profile = themeProfiles[themeMode];
+    renderer.toneMappingExposure = damp(renderer.toneMappingExposure, profile.exposure + introCurve * 0.22, 4.2, dt);
     const dustGate = texturesReady ? 1 : 0.28;
     dustMat.size = damp(dustMat.size, (isMobile ? 0.04 : 0.06) + introCurve * (isMobile ? 0.08 : 0.12) * dustGate, 4.2, dt);
     dustMat.opacity = damp(dustMat.opacity, 0.1 + introCurve * 0.2 * dustGate, 4.2, dt);
@@ -697,6 +771,7 @@ const initScene = async () => {
 
   const updateShards = (elapsed, dt) => {
     const camPos = camera.position;
+    const profile = themeProfiles[themeMode];
 
     for (let i = 0; i < shards.length; i += 1) {
       const shard = shards[i];
@@ -743,19 +818,19 @@ const initScene = async () => {
       g.rotation.z += u.angVel.z * dt;
 
       const depth01 = clamp((dist - 7) / 140, 0, 1);
-      const brightness = 1.75 - depth01 * 0.95;
-      const hitBoost = u.mouseHitPulse * 0.52;
+      const brightness = profile.imageBrightnessNear - depth01 * (profile.imageBrightnessNear - profile.imageBrightnessFar);
+      const hitBoost = u.mouseHitPulse * (themeMode === "light" ? 0.18 : 0.52);
       u.img.material.color.setScalar(brightness);
-      u.img.material.emissiveIntensity = 0.24 + (1 - depth01) * 0.72 + hitBoost;
-      u.body.material.emissiveIntensity = 0.08 + (1 - depth01) * 0.2;
+      u.img.material.emissiveIntensity = profile.imageEmissiveBase + (1 - depth01) * profile.imageEmissiveDepth + hitBoost;
+      u.body.material.emissiveIntensity = profile.bodyEmissiveBase + (1 - depth01) * profile.bodyEmissiveDepth;
       u.img.material.emissive.setRGB(
-        0.37 + u.mouseHitPulse * 0.38,
-        0.51 + u.mouseHitPulse * 0.26,
-        0.71 + u.mouseHitPulse * 0.54
+        profile.emissive[0] + u.mouseHitPulse * (themeMode === "light" ? 0.08 : 0.38),
+        profile.emissive[1] + u.mouseHitPulse * (themeMode === "light" ? 0.08 : 0.26),
+        profile.emissive[2] + u.mouseHitPulse * (themeMode === "light" ? 0.1 : 0.54)
       );
 
       if (u.outline) {
-        const targetOpacity = u.vfxCooldown > 0 ? 0.42 : 0.06 + (1 - depth01) * 0.08;
+        const targetOpacity = u.vfxCooldown > 0 ? (themeMode === "light" ? 0.22 : 0.42) : profile.outlineBase + (1 - depth01) * profile.outlineDepth;
         u.outline.material.opacity = damp(u.outline.material.opacity, targetOpacity, 6.0, dt);
       }
 
@@ -771,6 +846,7 @@ const initScene = async () => {
     const camPos = camera.position;
     const restitution = CFG.collisionRestitution;
     const separationFactor = CFG.collisionSeparation;
+    const lookAhead = CFG.collisionLookAhead;
 
     for (let i = 0; i < shards.length - 1; i += 1) {
       const a = shards[i].group;
@@ -788,9 +864,11 @@ const initScene = async () => {
         const dz = b.position.z - a.position.z;
         if (Math.abs(dz) > maxZ) continue;
 
-        tmpSep.subVectors(b.position, a.position);
+        predictedA.copy(a.position).addScaledVector(ua.vel, lookAhead);
+        predictedB.copy(b.position).addScaledVector(ub.vel, lookAhead);
+        tmpSep.subVectors(predictedB, predictedA);
         const distSq = tmpSep.lengthSq();
-        const minDist = ua.radius + ub.radius;
+        const minDist = (ua.radius + ub.radius) * 1.08;
         const minDistSq = minDist * minDist;
         if (distSq >= minDistSq) continue;
 
@@ -868,6 +946,11 @@ const initScene = async () => {
     updateSlideBounds();
   });
 
+  window.addEventListener("portfolio-theme-change", (e) => {
+    applySceneTheme(e.detail?.theme);
+  });
+
+  applySceneTheme(themeMode);
   updateSlideBounds();
 
   let rafId = 0;
@@ -887,7 +970,9 @@ const initScene = async () => {
     updateCamera(elapsed, dt);
     pointerHit();
     updateShards(elapsed, dt);
-    if (frame % CFG.collisionEvery === 0) resolveShardCollisions();
+    if (frame % CFG.collisionEvery === 0) {
+      for (let i = 0; i < CFG.collisionIterations; i += 1) resolveShardCollisions();
+    }
 
     renderer.render(scene, camera);
 

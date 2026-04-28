@@ -3,8 +3,6 @@
   en: "./i18n/en.json"
 };
 
-const QUALITY_LEVELS = ["auto", "ultra", "high", "medium", "low"];
-
 const loadI18n = async () => {
   const entries = await Promise.all(
     Object.entries(I18N_FILES).map(async ([lang, file]) => {
@@ -19,15 +17,12 @@ const loadI18n = async () => {
 };
 
 const setupQualityControl = () => {
-  const qualityToggle = document.getElementById("qualityToggle");
-  let quality = localStorage.getItem("vfx-quality") || "auto";
-  if (!QUALITY_LEVELS.includes(quality)) quality = "auto";
+  let quality = "auto";
 
   const applyQuality = (nextQuality) => {
     quality = nextQuality;
     localStorage.setItem("vfx-quality", quality);
     document.documentElement.dataset.vfxQuality = quality;
-    if (qualityToggle) qualityToggle.textContent = `Q: ${quality.toUpperCase()}`;
     window.dispatchEvent(
       new CustomEvent("vfx-quality-change", {
         detail: { quality }
@@ -35,14 +30,52 @@ const setupQualityControl = () => {
     );
   };
 
-  if (qualityToggle) {
-    qualityToggle.addEventListener("click", () => {
-      const index = QUALITY_LEVELS.indexOf(quality);
-      applyQuality(QUALITY_LEVELS[(index + 1) % QUALITY_LEVELS.length]);
+  applyQuality(quality);
+};
+
+const setupThemeControl = () => {
+  const themeToggle = document.getElementById("themeToggle");
+  const stored = localStorage.getItem("portfolio-theme");
+  let theme = stored === "light" || stored === "dark" ? stored : "dark";
+
+  const playThemeRipple = (nextTheme, trigger) => {
+    document.querySelectorAll(".theme-transition").forEach((el) => el.remove());
+    const ripple = document.createElement("div");
+    ripple.className = `theme-transition theme-transition--${nextTheme}`;
+    const rect = trigger?.getBoundingClientRect();
+    const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+    const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
+    ripple.style.setProperty("--theme-x", `${x}px`);
+    ripple.style.setProperty("--theme-y", `${y}px`);
+    ripple.innerHTML = `
+      <span class="theme-transition__field"></span>
+      <span class="theme-transition__ring theme-transition__ring--outer"></span>
+      <span class="theme-transition__ring theme-transition__ring--inner"></span>
+      <span class="theme-transition__sheen"></span>
+    `;
+    document.body.appendChild(ripple);
+    window.setTimeout(() => ripple.remove(), 1250);
+  };
+
+  const applyTheme = (nextTheme, options = {}) => {
+    theme = nextTheme;
+    if (options.animate) playThemeRipple(theme, options.trigger);
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("portfolio-theme", theme);
+    if (themeToggle) {
+      themeToggle.textContent = theme === "dark" ? "Light" : "Dark";
+      themeToggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+    }
+    window.dispatchEvent(new CustomEvent("portfolio-theme-change", { detail: { theme } }));
+  };
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", (event) => {
+      applyTheme(theme === "dark" ? "light" : "dark", { animate: true, trigger: event.currentTarget });
     });
   }
 
-  applyQuality(quality);
+  applyTheme(theme);
 };
 
 const initDeck = (dict) => {
@@ -155,18 +188,7 @@ const initDeck = (dict) => {
   };
 
   const playTransitionVfx = () => {
-    if (!deck.animate) return;
-    deck.animate(
-      [
-        { boxShadow: "inset 0 0 0 0 rgba(95, 240, 208, 0.0)" },
-        { boxShadow: "inset 0 0 0 999px rgba(95, 240, 208, 0.08)" },
-        { boxShadow: "inset 0 0 0 0 rgba(95, 240, 208, 0.0)" }
-      ],
-      {
-        duration: 220,
-        easing: "ease-out"
-      }
-    );
+    deck.dataset.transitionPulse = String(Date.now());
   };
 
   const goTo = (next) => {
@@ -313,6 +335,7 @@ const initUiInteractions = () => {
 
 const boot = async () => {
   setupQualityControl();
+  setupThemeControl();
 
   try {
     const dict = await loadI18n();

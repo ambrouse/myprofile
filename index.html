@@ -27,10 +27,7 @@
 <body>
   <div id="scene-loading">
     <div class="scene-loading-panel">
-      <p class="scene-loading-kicker">AI ENGINEER PORTFOLIO</p>
-      <strong class="scene-loading-percent">0%</strong>
       <div class="scene-loading-bar" aria-hidden="true"><span></span></div>
-      <p class="scene-loading-text">Dang nap anh vao bo nho dem</p>
     </div>
   </div>
 
@@ -48,7 +45,7 @@
       <button data-slide="4" data-i18n="navContact">LiÃªn há»‡</button>
     </nav>
     <div class="topbar-controls">
-      <button class="quality-toggle" id="qualityToggle" type="button" aria-label="Switch visual quality">Q: AUTO</button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Light</button>
       <button class="lang-toggle" id="langToggle" type="button">EN</button>
     </div>
   </header>
@@ -58,17 +55,22 @@
       <article class="slide" id="slide-intro">
         <div class="slide-content single-focus">
           <div class="card intro-main">
-            <p class="eyebrow" data-i18n="introTag">AI ENGINEER</p>
-            <h1 data-i18n="introName">Nguyá»…n LÃª Quá»‘c Báº£o</h1>
-            <p class="lead" data-i18n="introLead">Ká»¹ sÆ° AI Ä‘á»‹nh hÆ°á»›ng sáº£n pháº©m, táº­p trung vÃ o kiáº¿n trÃºc há»‡ thá»‘ng,
-              pipeline dá»¯ liá»‡u/LLM vÃ  triá»ƒn khai ná»n táº£ng Ä‘a dá»‹ch vá»¥ á»Ÿ má»©c sáºµn sÃ ng váº­n hÃ nh thá»±c táº¿.</p>
-            <div class="chip-row">
-              <span>RAG Systems</span>
-              <span>Microservices</span>
-              <span>LLM Ops</span>
-              <span>Observability</span>
-              <span>Backend Engineering</span>
+            <div class="intro-copy">
+              <p class="eyebrow" data-i18n="introTag">AI ENGINEER</p>
+              <h1 data-i18n="introName">Nguyá»…n LÃª Quá»‘c Báº£o</h1>
+              <p class="lead" data-i18n="introLead">Ká»¹ sÆ° AI Ä‘á»‹nh hÆ°á»›ng sáº£n pháº©m, táº­p trung vÃ o kiáº¿n trÃºc há»‡ thá»‘ng,
+                pipeline dá»¯ liá»‡u/LLM vÃ  triá»ƒn khai ná»n táº£ng Ä‘a dá»‹ch vá»¥ á»Ÿ má»©c sáºµn sÃ ng váº­n hÃ nh thá»±c táº¿.</p>
+              <div class="chip-row">
+                <span>RAG Systems</span>
+                <span>Microservices</span>
+                <span>LLM Ops</span>
+                <span>Observability</span>
+                <span>Backend Engineering</span>
+              </div>
             </div>
+            <figure class="intro-portrait" aria-label="Nguyen Le Quoc Bao portrait">
+              <img src="./profile.png" alt="Nguyen Le Quoc Bao portrait" decoding="async">
+            </figure>
           </div>
         </div>
       </article>
@@ -227,15 +229,21 @@
       <article class="slide" id="slide-contact">
         <div class="slide-content single-focus">
           <div class="card contact-main">
-            <p class="eyebrow" data-i18n="contactTag">CONTACT</p>
-            <h2 data-i18n="contactTitle">Sáºµn sÃ ng dáº«n dáº¯t cÃ¡c dá»± Ã¡n AI hÆ°á»›ng production</h2>
-            <p data-i18n="contactText">TÃ´i táº­p trung vÃ o cÃ¡c há»‡ thá»‘ng AI cÃ³ tÃ­nh á»©ng dá»¥ng cao: kiáº¿n trÃºc chuáº©n, váº­n hÃ nh
-              á»•n Ä‘á»‹nh vÃ  kháº£ nÄƒng má»Ÿ rá»™ng dÃ i háº¡n.</p>
-            <div class="contact-list">
-              <p><strong>Email:</strong> ngbao3568@gmail.com</p>
-              <p><strong>Phone:</strong> 0326032296</p>
-              <p><strong>GitHub:</strong> github.com/ambrouse</p>
+            <div class="contact-copy">
+              <p class="eyebrow" data-i18n="contactTag">CONTACT</p>
+              <h2 data-i18n="contactTitle">Sáºµn sÃ ng dáº«n dáº¯t cÃ¡c dá»± Ã¡n AI hÆ°á»›ng production</h2>
+              <p data-i18n="contactText">TÃ´i táº­p trung vÃ o cÃ¡c há»‡ thá»‘ng AI cÃ³ tÃ­nh á»©ng dá»¥ng cao: kiáº¿n trÃºc chuáº©n, váº­n hÃ nh
+                á»•n Ä‘á»‹nh vÃ  kháº£ nÄƒng má»Ÿ rá»™ng dÃ i háº¡n.</p>
+              <div class="contact-list">
+                <p><strong>Email:</strong> ngbao3568@gmail.com</p>
+                <p><strong>Phone:</strong> 0326032296</p>
+                <p><strong>GitHub:</strong> github.com/ambrouse</p>
+              </div>
             </div>
+            <figure class="contact-portrait" aria-label="Nguyen Le Quoc Bao contact portrait">
+              <img src="./profile_2.png" alt="Nguyen Le Quoc Bao portrait" loading="lazy" decoding="async">
+              <figcaption>Available for production AI systems</figcaption>
+            </figure>
           </div>
         </div>
       </article>

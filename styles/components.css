@@ -1,42 +1,49 @@
-﻿.nav button,
-.quality-toggle,
+.nav button,
+.theme-toggle,
 .lang-toggle,
-.deck-controls button,
+.deck-controls > button,
 .project-switch button {
-  border: 1px solid rgba(111, 211, 255, 0.3);
-  background: rgba(8, 21, 25, 0.72);
-  color: #d8ebff;
+  border: 1px solid var(--control-line);
+  background: var(--control-bg);
+  color: var(--control-text);
   border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 12px;
+  padding: 7px 11px;
+  font-size: clamp(0.72rem, 0.18vw + 0.68rem, 0.82rem);
   font-weight: 600;
   cursor: pointer;
   transition: transform var(--dur-fast) ease, background var(--dur-fast) ease, border-color var(--dur-fast) ease,
     box-shadow var(--dur-fast) ease;
 }
 
+.nav button {
+  border-color: transparent;
+  background: transparent;
+  padding: 7px 13px;
+}
+
 .nav button:hover,
-.quality-toggle:hover,
+.theme-toggle:hover,
 .lang-toggle:hover,
-.deck-controls button:hover,
+.deck-controls > button:hover,
 .project-switch button:hover {
   transform: translateY(-1px);
-  background: rgba(10, 34, 41, 0.88);
+  background: var(--control-hover);
   border-color: rgba(111, 211, 255, 0.55);
 }
 
 .nav button:focus-visible,
-.quality-toggle:focus-visible,
+.theme-toggle:focus-visible,
 .lang-toggle:focus-visible,
-.deck-controls button:focus-visible,
+.deck-controls > button:focus-visible,
 .project-switch button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px rgba(7, 10, 18, 0.9), 0 0 0 4px rgba(111, 211, 255, 0.62);
 }
 
 .nav button.active {
-  background: linear-gradient(135deg, rgba(111, 211, 255, 0.24), rgba(47, 124, 255, 0.34));
-  border-color: rgba(111, 211, 255, 0.64);
+  background: rgba(111, 211, 255, 0.13);
+  border-color: rgba(111, 211, 255, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .eyebrow {
@@ -48,7 +55,7 @@
 }
 
 h1 {
-  font-size: clamp(2rem, 5.4vw, 4.2rem);
+  font-size: clamp(1.85rem, 4.2vw, 3.55rem);
   line-height: 1.06;
   margin: 0 0 12px;
   text-wrap: balance;
@@ -57,13 +64,13 @@ h1 {
 
 h2 {
   margin: 0 0 12px;
-  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  font-size: clamp(1.18rem, 1.7vw, 1.72rem);
   color: var(--text);
 }
 
 h3 {
   margin: 0 0 10px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text);
 }
 
@@ -72,7 +79,7 @@ h3 {
 .card li,
 .meta {
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.68;
 }
 
 .chip-row {
@@ -85,24 +92,79 @@ h3 {
 .chip-row span {
   border: 1px solid rgba(111, 211, 255, 0.35);
   border-radius: 999px;
-  padding: 7px 11px;
-  font-size: 12px;
-  color: #d8ebff;
+  padding: 5px 9px;
+  font-size: 11px;
+  color: var(--control-text);
   background: rgba(10, 25, 24, 0.65);
 }
 
 .card,
 .image-card {
   border: 1px solid var(--line);
-  background: var(--panel);
+  background: var(--surface-glow), var(--panel);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
+  transition: background 760ms var(--ease-std), border-color 760ms var(--ease-std), box-shadow 760ms var(--ease-std);
 }
 
 .card {
-  padding: 18px;
+  padding: var(--space-card);
+}
+
+.intro-main {
+  width: min(980px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(150px, 18vw, 230px);
+  align-items: center;
+  gap: clamp(18px, 2vw, 30px);
+}
+
+.intro-copy {
+  min-width: 0;
+}
+
+.intro-portrait {
+  position: relative;
+  align-self: stretch;
+  min-height: 240px;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(111, 211, 255, 0.18);
+  background: linear-gradient(180deg, rgba(9, 18, 33, 0.3), rgba(3, 8, 16, 0.72));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 18px 42px rgba(0, 0, 0, 0.24);
+}
+
+.intro-portrait::before,
+.intro-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.intro-portrait::before {
+  background: linear-gradient(90deg, rgba(111, 211, 255, 0.16), transparent 32%),
+    radial-gradient(circle at 72% 18%, rgba(242, 184, 108, 0.16), transparent 36%);
+  mix-blend-mode: screen;
+  z-index: 2;
+}
+
+.intro-portrait::after {
+  background: linear-gradient(180deg, transparent 48%, rgba(4, 8, 16, 0.45) 100%);
+  z-index: 3;
+}
+
+.intro-portrait img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 52% 31%;
+  filter: saturate(0.94) contrast(1.04) brightness(0.9);
+  transform: scale(1.04);
 }
 
 .image-card img {
@@ -117,7 +179,7 @@ h3 {
   height: auto;
   max-height: 320px;
   object-fit: contain;
-  border-radius: 14px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(0, 0, 0, 0.2);
 }
@@ -144,8 +206,8 @@ h3 {
 }
 
 .skill-meter span {
-  font-size: 13px;
-  color: #d4e4ff;
+  font-size: 12px;
+  color: var(--control-text);
 }
 
 .skill-meter b {
@@ -169,7 +231,75 @@ h3 {
 }
 
 .contact-list p {
-  margin: 5px 0;
+  margin: 6px 0;
+}
+
+.contact-copy {
+  min-width: 0;
+}
+
+.contact-portrait {
+  position: relative;
+  align-self: stretch;
+  min-height: 280px;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(111, 211, 255, 0.2);
+  background: linear-gradient(180deg, rgba(9, 18, 33, 0.28), rgba(3, 8, 16, 0.72));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 18px 44px rgba(0, 0, 0, 0.28);
+}
+
+.contact-portrait::before,
+.contact-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.contact-portrait::before {
+  z-index: 2;
+  background: radial-gradient(circle at 62% 22%, rgba(111, 211, 255, 0.16), transparent 34%),
+    linear-gradient(90deg, rgba(242, 184, 108, 0.1), transparent 36%);
+  mix-blend-mode: screen;
+}
+
+.contact-portrait::after {
+  z-index: 3;
+  background: linear-gradient(180deg, transparent 46%, rgba(4, 8, 16, 0.62) 100%);
+}
+
+.contact-portrait img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 52% 28%;
+  filter: saturate(0.92) contrast(1.04) brightness(0.92);
+  transform: scale(1.03);
+}
+
+.contact-portrait figcaption {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 4;
+  margin: 0;
+  padding: 7px 9px;
+  border: 1px solid rgba(111, 211, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(4, 10, 19, 0.42);
+  color: var(--control-text);
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+.contact-main {
+  width: min(920px, 100%);
 }
 
 .intro-side,
@@ -223,8 +353,8 @@ h3 {
   border: 1px solid rgba(111, 211, 255, 0.36);
   border-radius: 999px;
   padding: 6px 10px;
-  font-size: 12px;
-  color: #d8ebff;
+  font-size: 11px;
+  color: var(--control-text);
   background: rgba(9, 23, 33, 0.65);
 }
 
@@ -233,31 +363,91 @@ h3 {
 }
 
 .slide-counter {
-  min-width: 86px;
+  min-width: 66px;
   text-align: center;
   border: 1px solid rgba(111, 211, 255, 0.28);
-  background: rgba(9, 18, 30, 0.76);
-  color: #d8ebff;
+  background: var(--control-bg);
+  color: var(--control-text);
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 5px 8px;
   font-family: var(--font-display);
-  letter-spacing: 0.08em;
-  font-size: 11px;
+  letter-spacing: 0;
+  font-size: 0.76rem;
+}
+
+.deck-controls > button {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  font-size: 0.9rem;
 }
 
 .dots button {
-  width: 9px;
-  height: 9px;
+  width: 22px;
+  height: 4px;
   border: 0;
-  border-radius: 50%;
+  border-radius: 999px;
   padding: 0;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.28);
   cursor: pointer;
 }
 
 .dots button.active {
   background: var(--c1);
-  box-shadow: 0 0 12px rgba(111, 211, 255, 0.8);
+  box-shadow: 0 0 10px rgba(111, 211, 255, 0.5);
+}
+
+:root[data-theme="light"] .chip-row span,
+:root[data-theme="light"] .contact-tags span {
+  background: rgba(34, 84, 103, 0.16);
+  border-color: rgba(30, 111, 145, 0.3);
+}
+
+:root[data-theme="light"] .intro-kpi-grid div {
+  background: rgba(232, 242, 248, 0.72);
+}
+
+:root[data-theme="light"] .skill-meter b {
+  background: rgba(45, 80, 105, 0.12);
+}
+
+:root[data-theme="light"] .deck-controls {
+  background: rgba(213, 227, 236, 0.54);
+}
+
+:root[data-theme="light"] .intro-portrait {
+  border-color: rgba(28, 112, 151, 0.22);
+  background: linear-gradient(180deg, rgba(230, 241, 248, 0.62), rgba(207, 223, 233, 0.74));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 18px 42px rgba(40, 64, 88, 0.16);
+}
+
+:root[data-theme="light"] .intro-portrait::after {
+  background: linear-gradient(180deg, transparent 54%, rgba(222, 236, 244, 0.56) 100%);
+}
+
+:root[data-theme="light"] .intro-portrait img {
+  filter: saturate(0.82) contrast(0.96) brightness(1.04);
+}
+
+:root[data-theme="light"] .contact-portrait {
+  border-color: rgba(28, 112, 151, 0.22);
+  background: linear-gradient(180deg, rgba(230, 241, 248, 0.62), rgba(207, 223, 233, 0.74));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52), 0 18px 42px rgba(40, 64, 88, 0.16);
+}
+
+:root[data-theme="light"] .contact-portrait::after {
+  background: linear-gradient(180deg, transparent 52%, rgba(222, 236, 244, 0.66) 100%);
+}
+
+:root[data-theme="light"] .contact-portrait img {
+  filter: saturate(0.82) contrast(0.96) brightness(1.04);
+}
+
+:root[data-theme="light"] .contact-portrait figcaption {
+  background: rgba(232, 242, 248, 0.58);
+  border-color: rgba(28, 112, 151, 0.24);
 }
 
 #scene-loading {
@@ -289,38 +479,21 @@ h3 {
 }
 
 .scene-loading-panel {
-  width: min(420px, calc(100vw - 40px));
+  width: min(260px, calc(100vw - 56px));
   position: relative;
   display: grid;
-  gap: 14px;
-  padding: 26px 28px;
-  border: 1px solid rgba(111, 211, 255, 0.28);
-  border-radius: 12px;
-  background: rgba(6, 14, 27, 0.68);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 70px rgba(80, 180, 255, 0.16);
-  backdrop-filter: blur(12px);
-}
-
-.scene-loading-kicker {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  color: var(--c1);
-}
-
-.scene-loading-percent {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 8vw, 4.4rem);
-  line-height: 1;
-  color: #f1f7ff;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .scene-loading-bar {
-  height: 8px;
+  height: 3px;
   border-radius: 999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.13);
 }
 
 .scene-loading-bar span {
@@ -333,15 +506,138 @@ h3 {
   transition: transform 180ms ease;
 }
 
-.scene-loading-text {
-  margin: 0;
-  min-height: 20px;
-  color: #aac3e6;
-  font-size: 13px;
-}
-
 @media (max-width: 780px) {
+  .nav button,
+  .theme-toggle,
+  .lang-toggle,
+  .deck-controls > button,
+  .project-switch button {
+    min-height: 30px;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+
+  .card {
+    border-radius: 14px;
+  }
+
+  h1 {
+    font-size: clamp(1.58rem, 8.4vw, 2.12rem);
+  }
+
+  h2 {
+    font-size: clamp(1.05rem, 5.2vw, 1.34rem);
+  }
+
+  .chip-row span {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .intro-main {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .intro-portrait {
+    order: -1;
+    width: min(170px, 48vw);
+    min-height: 170px;
+    aspect-ratio: 1;
+    justify-self: center;
+    border-radius: 50%;
+  }
+
+  .intro-portrait img {
+    object-position: 52% 24%;
+  }
+
+  .contact-main {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .contact-portrait {
+    order: -1;
+    width: min(180px, 50vw);
+    min-height: 180px;
+    aspect-ratio: 1;
+    justify-self: center;
+    align-self: center;
+    border-radius: 50%;
+  }
+
+  .contact-portrait img {
+    object-position: 52% 20%;
+  }
+
+  .contact-portrait figcaption {
+    display: none;
+  }
+
+  .deck-controls > button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+  }
+
+  .slide-counter {
+    min-width: 58px;
+    padding: 4px 7px;
+    font-size: 0.7rem;
+  }
+
+  .dots button {
+    width: 16px;
+  }
+
   .intro-kpi-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1800px) {
+  .nav button,
+  .theme-toggle,
+  .lang-toggle,
+  .deck-controls > button,
+  .project-switch button {
+    min-height: 38px;
+    padding: 8px 13px;
+    font-size: 0.84rem;
+  }
+
+  h1 {
+    font-size: clamp(2.65rem, 3.4vw, 4.1rem);
+  }
+
+  h2 {
+    font-size: clamp(1.45rem, 1.7vw, 2.1rem);
+  }
+
+  h3 {
+    font-size: 1.08rem;
+  }
+
+  .skill-meter span,
+  .chip-row span,
+  .contact-tags span {
+    font-size: 0.82rem;
+  }
+
+  .slide-counter {
+    min-width: 76px;
+    padding: 6px 10px;
+  }
+
+  .deck-controls > button {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+  }
+
+  .dots button {
+    width: 26px;
+    height: 4px;
   }
 }

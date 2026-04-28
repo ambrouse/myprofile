@@ -1,21 +1,68 @@
-﻿:root {
+:root {
   --bg: #070a12;
-  --panel: rgba(13, 22, 37, 0.74);
+  --panel: rgba(9, 18, 33, 0.78);
+  --panel-strong: rgba(8, 15, 30, 0.92);
   --line: rgba(142, 193, 255, 0.22);
   --text: #ebf1ff;
   --muted: #afbedb;
   --c1: #6fd3ff;
   --c2: #2f7cff;
   --c3: #8bf3dc;
-  --accent: #8c6bff;
-  --radius: 20px;
+  --accent: #f2b86c;
+  --radius: 14px;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  --page-bg: radial-gradient(circle at 12% 4%, rgba(82, 157, 255, 0.24), transparent 38%),
+    radial-gradient(circle at 88% 12%, rgba(111, 211, 255, 0.18), transparent 40%),
+    linear-gradient(140deg, #04060c, #090f1a 45%, #060912);
+  --topbar-bg: linear-gradient(to bottom, rgba(8, 12, 22, 0.88), rgba(8, 12, 22, 0.42));
+  --control-bg: rgba(8, 21, 25, 0.58);
+  --control-hover: rgba(12, 34, 44, 0.7);
+  --control-text: #d8ebff;
+  --control-line: rgba(111, 211, 255, 0.28);
+  --slide-vfx-core: rgba(111, 211, 255, 0.28);
+  --slide-vfx-ring: rgba(139, 243, 220, 0.42);
+  --slide-vfx-sheen: rgba(242, 184, 108, 0.12);
+  --surface-glow: radial-gradient(circle at 20% 12%, rgba(111, 211, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 88% 0%, rgba(242, 184, 108, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(13, 24, 42, 0.72), rgba(5, 11, 21, 0.78));
 
   --font-body: "Manrope", sans-serif;
   --font-display: "Space Grotesk", sans-serif;
+  --fs-body: clamp(0.95rem, 0.45vw + 0.84rem, 1.04rem);
+  --fs-meta: clamp(0.78rem, 0.28vw + 0.7rem, 0.9rem);
+  --space-page-x: clamp(14px, 2.8vw, 56px);
+  --space-card: clamp(14px, 1.35vw, 24px);
 
   --dur-fast: 140ms;
   --dur-med: 240ms;
   --dur-slow: 760ms;
   --ease-std: cubic-bezier(0.16, 0.84, 0.24, 1);
+}
+
+:root[data-theme="light"] {
+  --bg: #e9f1f6;
+  --panel: rgba(236, 244, 249, 0.78);
+  --panel-strong: rgba(243, 248, 251, 0.92);
+  --line: rgba(39, 87, 121, 0.18);
+  --text: #14202d;
+  --muted: #526474;
+  --c1: #1682ad;
+  --c2: #2e6bbf;
+  --c3: #0f786a;
+  --accent: #9f6a28;
+  --shadow: 0 22px 64px rgba(40, 64, 88, 0.2);
+  --page-bg: radial-gradient(circle at 14% 6%, rgba(40, 137, 178, 0.2), transparent 36%),
+    radial-gradient(circle at 86% 12%, rgba(126, 101, 67, 0.1), transparent 40%),
+    linear-gradient(140deg, #dfeaf1, #f2f6f8 48%, #e8eef2);
+  --topbar-bg: linear-gradient(to bottom, rgba(236, 244, 249, 0.9), rgba(226, 236, 243, 0.68));
+  --control-bg: rgba(221, 234, 241, 0.72);
+  --control-hover: rgba(255, 255, 255, 0.82);
+  --control-text: #172235;
+  --control-line: rgba(28, 112, 151, 0.28);
+  --slide-vfx-core: rgba(36, 122, 157, 0.2);
+  --slide-vfx-ring: rgba(43, 118, 169, 0.32);
+  --slide-vfx-sheen: rgba(159, 106, 40, 0.11);
+  --surface-glow: radial-gradient(circle at 20% 12%, rgba(31, 124, 164, 0.12), transparent 42%),
+    radial-gradient(circle at 88% 0%, rgba(126, 101, 67, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(247, 251, 253, 0.82), rgba(229, 239, 245, 0.76));
 }
