@@ -1,7 +1,7 @@
 # AI Engineer Portfolio - 3D Cinematic Edition
 
 <p align="center">
-  <img src="./profile_2.png" width="88" alt="AI Engineer Portfolio logo" />
+  <img src="./profile_2.png" width="230" alt="AI Engineer Portfolio logo" />
 </p>
 
 <h3 align="center">Nguyen Le Quoc Bao - AI Engineer Portfolio</h3>
