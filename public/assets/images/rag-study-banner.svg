@@ -1,0 +1,18 @@
+<svg width="900" height="260" viewBox="0 0 900 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="260" rx="18" fill="#F4EFE5"/>
+  <rect x="24" y="24" width="852" height="212" rx="14" stroke="#1E3A5F" stroke-width="3"/>
+  <path d="M64 78H836" stroke="#C9B991" stroke-width="2"/>
+  <text x="64" y="58" fill="#102033" font-family="Georgia, serif" font-size="25" font-weight="700">Retrieval-Augmented Generation Dossier</text>
+  <g font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#102033">
+    <rect x="72" y="128" width="120" height="52" rx="6" fill="#FBF8F1" stroke="#1E5A5A" stroke-width="2"/>
+    <text x="132" y="159" text-anchor="middle">Ingest</text>
+    <rect x="276" y="128" width="120" height="52" rx="6" fill="#FBF8F1" stroke="#1E5A5A" stroke-width="2"/>
+    <text x="336" y="159" text-anchor="middle">Index</text>
+    <rect x="480" y="128" width="120" height="52" rx="6" fill="#FBF8F1" stroke="#1E5A5A" stroke-width="2"/>
+    <text x="540" y="159" text-anchor="middle">Retrieve</text>
+    <rect x="684" y="128" width="120" height="52" rx="6" fill="#FBF8F1" stroke="#1E5A5A" stroke-width="2"/>
+    <text x="744" y="159" text-anchor="middle">Generate</text>
+  </g>
+  <path d="M192 154H276M396 154H480M600 154H684" stroke="#B48A3C" stroke-width="3" stroke-linecap="round"/>
+  <path d="M250 147L276 154L250 161M454 147L480 154L454 161M658 147L684 154L658 161" stroke="#B48A3C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

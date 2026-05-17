@@ -1,0 +1,167 @@
+{
+  "nav": {
+    "home": "Cover",
+    "projects": "Catalogue",
+    "capabilities": "Studies",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "A PERSONAL MONOGRAPH ON APPLIED AI SYSTEMS",
+    "name": "Nguyễn Lê Quốc Bảo",
+    "role": "AI systems engineer, backend architect, and repository-based builder",
+    "lead": "This folio records applied research directions, public repositories, and technical responsibilities across systems that connect data, models, APIs, and deployment practice.",
+    "primaryCta": "Open repository catalogue",
+    "secondaryCta": "Read technical profile",
+    "stats": [
+      { "value": "02", "label": "GitHub namespaces" },
+      { "value": "29", "label": "public repositories" },
+      { "value": "AI", "label": "RAG · Edge · Automation" }
+    ]
+  },
+  "about": {
+    "eyebrow": "Technical profile",
+    "title": "Preface",
+    "body": "The portfolio is concerned with systems thinking: how an AI idea becomes service boundaries, data flows, repository structure, validation, and a deployment path. It is arranged as a technical notebook so that the reader can follow the work without decorative distraction.",
+    "highlights": [
+      "Public repositories are indexed from ambrouse and baolnq-ai.",
+      "Case studies emphasize responsibility, implementation method, and operational structure.",
+      "The writing is intentionally restrained: clear, verifiable, and tied to observable engineering work."
+    ]
+  },
+  "capabilities": {
+    "eyebrow": "Fields of study",
+    "sectionEyebrow": "Capabilities",
+    "title": "Technical studies",
+    "lead": "Capabilities are grouped by system problem rather than by isolated technology names.",
+    "items": [
+      {
+        "title": "Retrieval and knowledge systems",
+        "description": "Structuring ingestion, parsing, embedding, indexing, retrieval, and generation for applications that depend on internal knowledge."
+      },
+      {
+        "title": "Backend architecture",
+        "description": "Designing APIs, service layers, asynchronous workers, data stores, and integration boundaries for maintainable systems."
+      },
+      {
+        "title": "Edge AI inference",
+        "description": "Building pipelines for camera streams, inference, state transitions, and runtime constraints on edge devices."
+      },
+      {
+        "title": "Operational discipline",
+        "description": "Connecting CI/CD, configuration, observability, backup flows, and documentation to the same verifiable deployment path."
+      }
+    ]
+  },
+  "cases": {
+    "eyebrow": "Repository case studies",
+    "title": "Five architectural records",
+    "lead": "The selected records emphasize systems that show clearer structure: pipeline boundaries, orchestration logic, integration surfaces, and enough repository scale to be read as technical studies rather than isolated exercises.",
+    "items": [
+      {
+        "id": "agentic-commerce-provider",
+        "label": "CASE I",
+        "title": "Provider-side agentic commerce blueprint",
+        "role": "Architecture and integration record",
+        "duration": "2026",
+        "summary": "A TypeScript blueprint that treats commerce as an interface problem between provider catalogues, agent workflows, and verifiable integration contracts.",
+        "bullets": [
+          "Frames provider operations as explicit surfaces rather than informal API calls.",
+          "Separates commerce intent, service boundary, and implementation detail into a reviewable repository structure.",
+          "Useful as a study in agent-ready business workflow modelling and integration discipline."
+        ],
+        "stack": ["TypeScript", "Agentic commerce", "Provider API", "Workflow modelling"],
+        "image": "https://raw.githubusercontent.com/baolnq-ai/Agentic-Commerce-blueprint-provider-/main/docs/images/hero.png"
+      },
+      {
+        "id": "warehouse-multi-agent",
+        "label": "CASE II",
+        "title": "Multi-agent intelligent warehouse study",
+        "role": "Operations-system repository",
+        "duration": "2026",
+        "summary": "A warehouse-oriented repository that organizes multi-agent reasoning around operational coordination, inventory movement, and applied AI infrastructure signals.",
+        "bullets": [
+          "Uses the warehouse domain to make agent coordination concrete and auditable.",
+          "Combines operations logic with applied AI assumptions instead of presenting agents as a generic chat layer.",
+          "Reads as a systems blueprint because it links workflow structure, domain entities, and execution constraints."
+        ],
+        "stack": ["Python", "Multi-agent", "Warehouse automation", "NVIDIA workflow"],
+        "image": "https://raw.githubusercontent.com/baolnq-ai/Multi-Agent-Intelligent-WarehousePublic-nvidia/main/media-repo/banner.png"
+      },
+      {
+        "id": "browser-agent-tooling",
+        "label": "CASE III",
+        "title": "Browser automation agent pipeline",
+        "role": "Automation and orchestration study",
+        "duration": "2026",
+        "summary": "A Python automation repository that examines how browser tasks can be mediated by model-assisted control while preserving a traceable execution path.",
+        "bullets": [
+          "Treats browser work as a pipeline of observation, planning, action, and verification.",
+          "The value lies in operational flow and tool orchestration rather than a single UI screen.",
+          "Suitable for studying agent control loops, automation safety boundaries, and practical task execution."
+        ],
+        "stack": ["Python", "Browser automation", "Agent workflow", "Gemini/GPT"],
+        "image": "https://raw.githubusercontent.com/baolnq-ai/toll-brouser-gpt-gemini/main/static/browser-use.png"
+      },
+      {
+        "id": "online-note-system",
+        "label": "CASE IV",
+        "title": "Online note system with separated frontend and backend",
+        "role": "Full-stack system record",
+        "duration": "2025",
+        "summary": "A two-repository application study that separates interface concerns from backend persistence and service responsibilities.",
+        "bullets": [
+          "Demonstrates the discipline of separating client presentation from backend data ownership.",
+          "Provides a useful archive for reading application structure across frontend and backend repositories.",
+          "Shows the transition from feature implementation toward maintainable service boundaries."
+        ],
+        "stack": ["Frontend", "Backend", "API", "Persistence"],
+        "image": "https://raw.githubusercontent.com/ambrouse/note-online-frontend/main/public/background.gif"
+      },
+      {
+        "id": "fall-detection-yolo",
+        "label": "CASE V",
+        "title": "Fall-detection vision pipeline",
+        "role": "Computer-vision applied study",
+        "duration": "2025",
+        "summary": "A computer-vision repository focused on applied detection logic, model output interpretation, and scenario-specific visual inference.",
+        "bullets": [
+          "Grounds AI work in a concrete safety-oriented recognition problem.",
+          "Organizes model inference around observable events rather than abstract benchmark results.",
+          "Useful as a record of edge-oriented perception, dataset interpretation, and application-facing AI behaviour."
+        ],
+        "stack": ["YOLOv8", "Computer vision", "Detection", "Applied inference"],
+        "image": "https://raw.githubusercontent.com/ambrouse/te_nga_dot_quy_yolov8_v2/main/assets_readme/titlewebp.png"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Repository catalogue",
+    "lead": "Public repositories are filtered for practical value: live work opens directly, research work keeps the technical context, and implementation records stay easy to scan.",
+    "search": "Search by name, language, or keyword",
+    "allAccounts": "All accounts",
+    "allLanguages": "All languages",
+    "empty": "No repository records match the current criteria.",
+    "updated": "Updated",
+    "source": "Source",
+    "viewRepo": "Open repository",
+    "viewLive": "Live reference",
+    "eyebrow": "GitHub dossier catalogue",
+    "summary": "public repositories grouped for demos, research notes, backend work and frontend implementations",
+    "featuredTitle": "Featured repository dossiers",
+    "featuredLead": "Compact records with stronger system, research or portfolio relevance.",
+    "selectedCount": "selected",
+    "archiveEyebrow": "Complete archive",
+    "archiveTitle": "Repository records",
+    "archiveCount": "records match the current filters.",
+    "loading": "Loading repositories...",
+    "repositoryLabel": "Repository",
+    "liveLabel": "Live"
+  },
+  "contact": {
+    "title": "Work contact",
+    "lead": "For AI prototypes, backend/API work, deployment fixes, or repository review, send the goal, repository link, and current state. That keeps the conversation practical and easy to act on.",
+    "email": "ngbao3568@gmail.com",
+    "phone": "0326032296",
+    "github": "github.com/ambrouse"
+  }
+}

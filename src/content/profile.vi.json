@@ -1,0 +1,167 @@
+{
+  "nav": {
+    "home": "Bìa",
+    "projects": "Danh mục",
+    "capabilities": "Chuyên khảo",
+    "contact": "Liên hệ"
+  },
+  "hero": {
+    "eyebrow": "CHUYÊN KHẢO CÁ NHÂN VỀ HỆ THỐNG AI",
+    "name": "Nguyễn Lê Quốc Bảo",
+    "role": "Kỹ sư hệ thống AI, backend architecture và repository-based engineering",
+    "lead": "Hồ sơ này ghi lại các hướng nghiên cứu ứng dụng, dự án public và phạm vi trách nhiệm kỹ thuật trong những hệ thống kết nối dữ liệu, mô hình, API và quy trình triển khai.",
+    "primaryCta": "Mở danh mục repository",
+    "secondaryCta": "Đọc hồ sơ kỹ thuật",
+    "stats": [
+      { "value": "02", "label": "GitHub namespace" },
+      { "value": "29", "label": "repository public" },
+      { "value": "AI", "label": "RAG · Edge · Automation" }
+    ]
+  },
+  "about": {
+    "eyebrow": "Hồ sơ kỹ thuật",
+    "title": "Lời mở đầu",
+    "body": "Trọng tâm của portfolio là năng lực tổ chức hệ thống: cách một ý tưởng AI được chuyển thành service boundary, data flow, repository structure, validation và deployment path. Giao diện được trình bày như một cuốn sổ kỹ thuật để người đọc có thể theo dõi mạch tư duy, không bị phân tán bởi hiệu ứng trang trí.",
+    "highlights": [
+      "Các repository public được lập chỉ mục từ ambrouse và baolnq-ai.",
+      "Các case study nhấn mạnh phạm vi trách nhiệm, phương pháp triển khai và hạ tầng vận hành.",
+      "Nội dung được viết theo hướng ghi chép kỹ thuật: rõ, tiết chế và có thể kiểm chứng."
+    ]
+  },
+  "capabilities": {
+    "eyebrow": "Trường nghiên cứu",
+    "sectionEyebrow": "Năng lực",
+    "title": "Chuyên khảo kỹ thuật",
+    "lead": "Các năng lực được nhóm theo dạng vấn đề hệ thống, thay vì liệt kê công nghệ rời rạc.",
+    "items": [
+      {
+        "title": "Retrieval và knowledge systems",
+        "description": "Tổ chức luồng ingestion, parsing, embedding, indexing, retrieval và generation cho các ứng dụng sử dụng tri thức nội bộ."
+      },
+      {
+        "title": "Backend architecture",
+        "description": "Thiết kế API, service layer, asynchronous workers, data stores và integration boundary để hệ thống có thể bảo trì."
+      },
+      {
+        "title": "Edge AI inference",
+        "description": "Xây dựng pipeline cho camera stream, inference, state transition và các ràng buộc runtime trên thiết bị edge."
+      },
+      {
+        "title": "Operational discipline",
+        "description": "Gắn CI/CD, configuration, observability, backup flow và documentation vào cùng một đường triển khai có thể kiểm chứng."
+      }
+    ]
+  },
+  "cases": {
+    "eyebrow": "Hồ sơ repository tiêu biểu",
+    "title": "Năm hồ sơ kiến trúc nổi bật",
+    "lead": "Các hồ sơ được chọn vì thể hiện rõ hơn cấu trúc hệ thống: ranh giới pipeline, logic điều phối, bề mặt tích hợp và quy mô repository đủ để đọc như một chuyên khảo kỹ thuật.",
+    "items": [
+      {
+        "id": "agentic-commerce-provider",
+        "label": "CASE I",
+        "title": "Blueprint thương mại agentic phía provider",
+        "role": "Hồ sơ kiến trúc và tích hợp",
+        "duration": "2026",
+        "summary": "Một blueprint TypeScript xem thương mại như bài toán giao diện giữa catalogue của provider, workflow agent và hợp đồng tích hợp có thể kiểm chứng.",
+        "bullets": [
+          "Chuẩn hóa nghiệp vụ provider thành các bề mặt rõ ràng thay vì các lời gọi API rời rạc.",
+          "Tách ý định thương mại, ranh giới dịch vụ và chi tiết triển khai thành cấu trúc repository dễ review.",
+          "Phù hợp để đọc như một nghiên cứu về workflow doanh nghiệp sẵn sàng cho agent và kỷ luật tích hợp."
+        ],
+        "stack": ["TypeScript", "Agentic commerce", "Provider API", "Workflow modelling"],
+        "image": "https://raw.githubusercontent.com/baolnq-ai/Agentic-Commerce-blueprint-provider-/main/docs/images/hero.png"
+      },
+      {
+        "id": "warehouse-multi-agent",
+        "label": "CASE II",
+        "title": "Nghiên cứu kho thông minh đa tác tử",
+        "role": "Hồ sơ hệ thống vận hành",
+        "duration": "2026",
+        "summary": "Một repository định hướng warehouse, tổ chức suy luận đa tác tử quanh phối hợp vận hành, luồng hàng và các tín hiệu hạ tầng AI ứng dụng.",
+        "bullets": [
+          "Dùng miền nghiệp vụ kho để làm rõ bài toán phối hợp agent một cách cụ thể và có thể kiểm tra.",
+          "Kết nối logic vận hành với giả định AI ứng dụng thay vì chỉ trình bày agent như một lớp chat tổng quát.",
+          "Có giá trị như blueprint hệ thống vì liên kết workflow, thực thể nghiệp vụ và ràng buộc thực thi."
+        ],
+        "stack": ["Python", "Multi-agent", "Warehouse automation", "NVIDIA workflow"],
+        "image": "https://raw.githubusercontent.com/baolnq-ai/Multi-Agent-Intelligent-WarehousePublic-nvidia/main/media-repo/banner.png"
+      },
+      {
+        "id": "browser-agent-tooling",
+        "label": "CASE III",
+        "title": "Pipeline agent tự động hóa trình duyệt",
+        "role": "Nghiên cứu điều phối tự động hóa",
+        "duration": "2026",
+        "summary": "Một repository Python khảo sát cách các tác vụ trình duyệt được điều khiển bởi mô hình, nhưng vẫn giữ đường thực thi có thể quan sát và kiểm chứng.",
+        "bullets": [
+          "Xem thao tác trình duyệt như pipeline quan sát, lập kế hoạch, hành động và xác minh.",
+          "Giá trị nằm ở luồng vận hành và điều phối công cụ, không chỉ ở một giao diện đơn lẻ.",
+          "Phù hợp để nghiên cứu control loop của agent, boundary an toàn và thực thi tác vụ thực tế."
+        ],
+        "stack": ["Python", "Browser automation", "Agent workflow", "Gemini/GPT"],
+        "image": "https://raw.githubusercontent.com/baolnq-ai/toll-brouser-gpt-gemini/main/static/browser-use.png"
+      },
+      {
+        "id": "online-note-system",
+        "label": "CASE IV",
+        "title": "Hệ thống ghi chú online tách frontend và backend",
+        "role": "Hồ sơ hệ thống full-stack",
+        "duration": "2025",
+        "summary": "Một nghiên cứu ứng dụng hai repository, tách trách nhiệm giao diện khỏi lưu trữ dữ liệu và service boundary phía backend.",
+        "bullets": [
+          "Thể hiện kỷ luật tách presentation layer khỏi quyền sở hữu dữ liệu backend.",
+          "Là hồ sơ hữu ích để đọc cấu trúc ứng dụng qua cả frontend và backend repository.",
+          "Cho thấy chuyển dịch từ triển khai tính năng sang tổ chức ranh giới dịch vụ có thể bảo trì."
+        ],
+        "stack": ["Frontend", "Backend", "API", "Persistence"],
+        "image": "https://raw.githubusercontent.com/ambrouse/note-online-frontend/main/public/background.gif"
+      },
+      {
+        "id": "fall-detection-yolo",
+        "label": "CASE V",
+        "title": "Pipeline thị giác máy tính phát hiện té ngã",
+        "role": "Nghiên cứu AI thị giác ứng dụng",
+        "duration": "2025",
+        "summary": "Một repository computer vision tập trung vào logic phát hiện, diễn giải output mô hình và bài toán nhận diện theo ngữ cảnh an toàn.",
+        "bullets": [
+          "Đặt AI vào một bài toán nhận diện cụ thể có ý nghĩa an toàn thay vì benchmark trừu tượng.",
+          "Tổ chức inference quanh sự kiện quan sát được và hành vi ứng dụng phía người dùng.",
+          "Có giá trị như hồ sơ về perception trên edge, diễn giải dữ liệu và hành vi AI ứng dụng."
+        ],
+        "stack": ["YOLOv8", "Computer vision", "Detection", "Applied inference"],
+        "image": "https://raw.githubusercontent.com/ambrouse/te_nga_dot_quy_yolov8_v2/main/assets_readme/titlewebp.png"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Danh mục repository",
+    "lead": "Các repository public được lọc theo giá trị thực tế: repo nào có demo thì mở trực tiếp, repo nào là nghiên cứu thì ưu tiên bối cảnh kỹ thuật và phần có thể đọc lại.",
+    "search": "Tìm theo tên, ngôn ngữ hoặc từ khóa",
+    "allAccounts": "Tất cả account",
+    "allLanguages": "Tất cả ngôn ngữ",
+    "empty": "Không có hồ sơ repository nào khớp tiêu chí hiện tại.",
+    "updated": "Cập nhật",
+    "source": "Nguồn",
+    "viewRepo": "Mở repository",
+    "viewLive": "Tham chiếu live",
+    "eyebrow": "Danh mục hồ sơ GitHub",
+    "summary": "repository public được gom lại để xem nhanh phần có demo, phần nghiên cứu và phần backend/frontend đáng đọc",
+    "featuredTitle": "Hồ sơ repository tiêu biểu",
+    "featuredLead": "Các hồ sơ gọn có liên quan rõ hơn đến hệ thống, nghiên cứu hoặc portfolio.",
+    "selectedCount": "tiêu biểu",
+    "archiveEyebrow": "Kho lưu trữ đầy đủ",
+    "archiveTitle": "Hồ sơ repository",
+    "archiveCount": "hồ sơ khớp bộ lọc hiện tại.",
+    "loading": "Đang tải repository...",
+    "repositoryLabel": "Repository",
+    "liveLabel": "Live"
+  },
+  "contact": {
+    "title": "Liên hệ làm việc",
+    "lead": "Nếu cần trao đổi nhanh về prototype AI, backend/API, deploy hoặc review repository, hãy gửi mail kèm mục tiêu, link repo và trạng thái hiện tại. Cách đó giúp đi thẳng vào vấn đề thay vì trao đổi lan man.",
+    "email": "ngbao3568@gmail.com",
+    "phone": "0326032296",
+    "github": "github.com/ambrouse"
+  }
+}

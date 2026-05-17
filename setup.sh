@@ -3,8 +3,24 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PORT="${1:-8000}"
+SERVE_DIR="$ROOT_DIR/dist"
 
 cd "$ROOT_DIR"
+
+if command -v npm >/dev/null 2>&1; then
+  if [ ! -d node_modules ]; then
+    echo "[setup] Installing dependencies"
+    npm install
+  fi
+
+  echo "[setup] Building Vite app"
+  npm run build
+else
+  echo "[setup] npm is required to build this Vite app. Install Node.js, then run: ./setup.sh ${PORT}"
+  exit 1
+fi
+
+cd "$SERVE_DIR"
 
 echo "[setup] Starting static server at http://localhost:${PORT}"
 

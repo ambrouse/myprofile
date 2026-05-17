@@ -1,0 +1,77 @@
+{
+  "featured": ["rag", "chatbot", "agent", "attendance", "face", "nvidia", "warehouse", "commerce", "portfolio", "ai"],
+  "overrides": {
+    "ambrouse/NVIDIARiva-Audio2Face-facespeed": {
+      "title": "NVIDIA Riva Audio2Face Research Prototype",
+      "description": "A research prototype exploring speech-driven face animation workflows with NVIDIA Riva and Audio2Face components.",
+      "summary": "Speech, avatar animation and inference integration experiments for interactive AI presentation systems.",
+      "featured": true
+    },
+    "baolnq-ai/agent-retail": {
+      "title": "Retail Customer Service Agent",
+      "description": "An applied AI agent for retail customer-care scenarios, structured around product support and conversational assistance.",
+      "summary": "A service-agent repository focused on customer interaction flows and applied commerce support.",
+      "featured": true
+    },
+    "ambrouse/mulltiagent-chatbot-local": {
+      "title": "Local Multi-Agent Chatbot Workflow",
+      "description": "A local chatbot workflow experiment for custom multi-agent orchestration and conversational routing.",
+      "summary": "A repository for studying local agent coordination, chatbot flow design and model-backed interaction patterns.",
+      "featured": true
+    },
+    "baolnq-ai/Multi-Agent-Intelligent-WarehousePublic-nvidia": {
+      "title": "Multi-Agent Intelligent Warehouse Blueprint",
+      "description": "A warehouse-oriented multi-agent system blueprint with NVIDIA-related applied AI integration signals.",
+      "summary": "An applied operations repository for warehouse automation, agent coordination and intelligent workflow modelling.",
+      "featured": true
+    },
+    "baolnq-ai/Agentic-Commerce-blueprint-provider-": {
+      "title": "Agentic Commerce Provider Blueprint",
+      "description": "A TypeScript blueprint for provider-side agentic commerce workflows and integration surfaces.",
+      "summary": "A commerce architecture record focused on provider workflow structure and agent-ready interfaces.",
+      "featured": true
+    },
+    "ambrouse/web_phat_nhac_ai": {
+      "title": "Gesture-Controlled AI Music Interface",
+      "description": "A web interface experiment for music playback controlled through hand-gesture interaction.",
+      "summary": "A human-computer interaction study combining web UI, gesture input and media control.",
+      "featured": true
+    },
+    "ambrouse/note-online-backend": {
+      "title": "Online Notes Backend Service",
+      "description": "A backend service for an online note-taking application with a deployed reference endpoint.",
+      "summary": "A conventional backend repository useful for reading service structure, deployment and API ownership.",
+      "featured": false
+    },
+    "ambrouse/note-online-frontend": {
+      "title": "Online Notes Frontend",
+      "description": "A frontend application for online note management and user-facing content workflows.",
+      "summary": "A web-interface repository representing standard frontend application structure and UI delivery.",
+      "featured": false
+    },
+    "ambrouse/CF_based_encode_tranformer_de_xuat_san_pham": {
+      "title": "Transformer-Based Product Recommendation Study",
+      "description": "A notebook-based recommendation study for product suggestions using collaborative filtering and transformer-style encoding ideas.",
+      "summary": "A machine-learning study record centered on recommendation modelling and evaluation notebooks.",
+      "featured": false
+    },
+    "ambrouse/CF_based_encode_tranformer_de_xuat_phim": {
+      "title": "Transformer-Based Film Recommendation Study",
+      "description": "A notebook-based recommendation study for film suggestions using collaborative filtering and transformer-style encoding ideas.",
+      "summary": "A machine-learning study record for recommendation experiments and model evaluation practice.",
+      "featured": false
+    },
+    "ambrouse/nhan_dien_te_nga_yolo_v8": {
+      "title": "YOLOv8 Fall Detection Study",
+      "description": "A computer-vision study for fall detection using YOLOv8-based object detection workflows.",
+      "summary": "A vision notebook/project record focused on detection modelling for safety-related scenarios.",
+      "featured": false
+    },
+    "ambrouse/NhanDienThuNgu_objectDetection": {
+      "title": "Sign Recognition Object Detection Study",
+      "description": "A computer-vision repository for sign recognition and object-detection experimentation.",
+      "summary": "A vision study record around object detection and labelled gesture/sign recognition workflows.",
+      "featured": false
+    }
+  }
+}

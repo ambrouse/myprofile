@@ -1,0 +1,22 @@
+<svg width="900" height="260" viewBox="0 0 900 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="260" rx="18" fill="#F4EFE5"/>
+  <rect x="24" y="24" width="852" height="212" rx="14" stroke="#1E3A5F" stroke-width="3"/>
+  <path d="M64 78H836" stroke="#C9B991" stroke-width="2"/>
+  <text x="64" y="58" fill="#102033" font-family="Georgia, serif" font-size="25" font-weight="700">Edge AI Attendance Dossier</text>
+  <rect x="82" y="120" width="110" height="68" rx="8" fill="#FBF8F1" stroke="#1E5A5A" stroke-width="2"/>
+  <circle cx="137" cy="154" r="21" stroke="#102033" stroke-width="4"/>
+  <circle cx="137" cy="154" r="7" fill="#B48A3C"/>
+  <rect x="302" y="112" width="132" height="84" rx="8" fill="#FBF8F1" stroke="#1E5A5A" stroke-width="2"/>
+  <path d="M330 145H406M330 166H388" stroke="#102033" stroke-width="4" stroke-linecap="round"/>
+  <path d="M192 154H302" stroke="#B48A3C" stroke-width="3" stroke-linecap="round"/>
+  <path d="M276 147L302 154L276 161" stroke="#B48A3C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M486 154H792" stroke="#102033" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="548" cy="154" r="9" fill="#1E5A5A"/>
+  <circle cx="640" cy="154" r="9" fill="#B48A3C"/>
+  <circle cx="732" cy="154" r="9" fill="#1E5A5A"/>
+  <g fill="#5A665E" font-family="Arial, sans-serif" font-size="12" font-weight="700">
+    <text x="548" y="188" text-anchor="middle">Check-in</text>
+    <text x="640" y="188" text-anchor="middle">Policy</text>
+    <text x="732" y="188" text-anchor="middle">Notify</text>
+  </g>
+</svg>
