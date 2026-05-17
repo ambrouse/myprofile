@@ -34,8 +34,13 @@ interface GridAgent {
 }
 
 const agentPalette = {
-  light: ['#008f8c', '#3158d4', '#b7791f', '#7c3aed', '#db2777', '#0f766e'],
-  dark: ['#67e8c3', '#8fb1ff', '#d6b46b', '#d6b46b', '#b9f7d0', '#b7a8ff']
+  light: ['#00a884', '#2f7d5f', '#c58a2d', '#426b4d', '#0ea5a3', '#7a9f46'],
+  dark: ['#64ffbf', '#7df7d4', '#a6ff7a', '#d1ad66', '#7ee7ff', '#b7ffcf']
+};
+
+const gridPalette = {
+  light: ['rgba(31, 138, 95, 0.16)', 'rgba(157, 107, 31, 0.1)', 'rgba(17, 24, 39, 0.07)', 'rgba(14, 165, 163, 0.1)'],
+  dark: ['rgba(100, 255, 191, 0.13)', 'rgba(209, 173, 102, 0.09)', 'rgba(126, 231, 255, 0.08)', 'rgba(238, 243, 238, 0.06)']
 };
 
 const pointsPerAgent = 9;
@@ -138,23 +143,34 @@ function AmbientGridCanvas() {
       const rows = Math.max(18, Math.ceil(height / grid) + 2);
       context.clearRect(0, 0, width, height);
 
-      context.globalAlpha = 0.82;
-      context.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--line-strong').trim() || 'rgba(222, 240, 232, 0.18)';
+      const isLightTheme = document.documentElement.dataset.theme !== 'dark';
+      const gridColors = isLightTheme ? gridPalette.light : gridPalette.dark;
       context.lineWidth = 1;
-      for (let x = gridOffsetX; x < width + grid; x += grid) {
+      for (let x = gridOffsetX, index = 0; x < width + grid; x += grid, index += 1) {
+        const gradient = context.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, gridColors[index % gridColors.length]);
+        gradient.addColorStop(0.48, gridColors[(index + 1) % gridColors.length]);
+        gradient.addColorStop(1, gridColors[(index + 2) % gridColors.length]);
+        context.globalAlpha = isLightTheme ? 0.86 : 0.78;
+        context.strokeStyle = gradient;
         context.beginPath();
         context.moveTo(x, 0);
         context.lineTo(x, height);
         context.stroke();
       }
-      for (let y = gridOffsetY; y < height + grid; y += grid) {
+      for (let y = gridOffsetY, index = 0; y < height + grid; y += grid, index += 1) {
+        const gradient = context.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop(0, gridColors[(index + 2) % gridColors.length]);
+        gradient.addColorStop(0.52, gridColors[index % gridColors.length]);
+        gradient.addColorStop(1, gridColors[(index + 1) % gridColors.length]);
+        context.globalAlpha = isLightTheme ? 0.76 : 0.68;
+        context.strokeStyle = gradient;
         context.beginPath();
         context.moveTo(0, y);
         context.lineTo(width, y);
         context.stroke();
       }
 
-      const isLightTheme = document.documentElement.dataset.theme !== 'dark';
       const palette = isLightTheme ? agentPalette.light : agentPalette.dark;
       const seconds = (time - start) / 1000;
       gridAgents.forEach((agent, agentIndex) => {

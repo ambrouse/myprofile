@@ -22,8 +22,9 @@ Màu phải phục vụ nhận diện, hierarchy và readability. Không dùng m
 ## Background
 
 - Background nên tạo chiều sâu bằng layer mềm: linear gradient, subtle texture, grid nhẹ hoặc radial rất tiết chế.
+- Grid/line texture có thể dùng gradient nhiều vùng để hòa với nền, nhưng không nên kéo theo việc đổi toàn bộ màu nền đang ổn.
 - Không lạm dụng đốm neon/radial glow nhiều màu vì dễ làm nền rối và quê.
-- Nếu có glow, dùng như ánh sáng môi trường, không như các đốm trang trí nổi bật.
+- Nếu có glow hoặc point animation, chọn palette riêng cho light/dark và giữ nó như ánh sáng môi trường, không như các đốm trang trí nổi bật.
 - Nền phải đẹp cả khi không có ảnh/banner hỗ trợ.
 
 ## Card và surface

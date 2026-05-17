@@ -31,6 +31,7 @@ Layout là cách dẫn mắt và giảm công sức đọc. Không chỉ là chi
 
 - Search/filter là công cụ thao tác, không phải hero thứ hai.
 - Search bar nên gọn, nhẹ, focus rõ, không dùng border/padding quá nặng.
+- Với UI nhiều dữ liệu nhưng search không phải hành động chính, có thể thu search thành icon rồi mở rộng bằng animation ngắn khi focus/click.
 - Filter nên đọc được nhanh: nhóm cùng hàng ở desktop, chuyển thành cụm compact ở tablet/mobile.
 - Khi filter nhiều, cần hierarchy: search trước, filter phụ sau.
 

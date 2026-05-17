@@ -83,6 +83,7 @@ export function ProjectsPage() {
   const [query, setQuery] = useState('');
   const [owner, setOwner] = useState('all');
   const [language, setLanguage] = useState('all');
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const filteredProjects = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -106,10 +107,10 @@ export function ProjectsPage() {
         </div>
       </section>
 
-      <div className="filter-panel">
+      <div className={searchOpen || query ? 'filter-panel search-open' : 'filter-panel'}>
         <label className="search-field">
-          <Search size={16} />
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={content.projects.search} />
+          <button type="button" onClick={() => setSearchOpen((value) => !value)} aria-label="Toggle search"><Search size={15} /></button>
+          <input value={query} onFocus={() => setSearchOpen(true)} onChange={(event) => setQuery(event.target.value)} placeholder={content.projects.search} />
         </label>
         <select value={owner} onChange={(event) => setOwner(event.target.value)} aria-label="Filter by GitHub account">
           <option value="all">{content.projects.allAccounts}</option>
