@@ -31,6 +31,29 @@ function repoBannerCandidates(project: GitHubProject) {
   return Array.from(new Set([...rootCandidates, project.bannerImage, ...remoteCandidates, ...localCandidates].filter(Boolean) as string[]));
 }
 
+function downsampleBannerImage(image: HTMLImageElement) {
+  const targetWidth = 520;
+  const targetHeight = 240;
+  const sourceRatio = image.naturalWidth / image.naturalHeight;
+  const targetRatio = targetWidth / targetHeight;
+  const sourceWidth = sourceRatio > targetRatio ? image.naturalHeight * targetRatio : image.naturalWidth;
+  const sourceHeight = sourceRatio > targetRatio ? image.naturalHeight : image.naturalWidth / targetRatio;
+  const sourceX = (image.naturalWidth - sourceWidth) / 2;
+  const sourceY = (image.naturalHeight - sourceHeight) / 2;
+  const canvas = document.createElement('canvas');
+  canvas.width = targetWidth;
+  canvas.height = targetHeight;
+  const context = canvas.getContext('2d');
+  if (!context) {
+    return image.src;
+  }
+
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = 'high';
+  context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, targetWidth, targetHeight);
+  return canvas.toDataURL('image/jpeg', 0.88);
+}
+
 function ProjectBanner({ project }: { project: GitHubProject }) {
   const banner = project.banner ?? 'record';
   const candidates = useMemo(() => repoBannerCandidates(project), [project]);
@@ -50,7 +73,14 @@ function ProjectBanner({ project }: { project: GitHubProject }) {
           key={candidate}
           src={candidate}
           alt=""
-          onLoad={() => setLoadedImage(candidate)}
+          crossOrigin="anonymous"
+          onLoad={(event) => {
+            try {
+              setLoadedImage(downsampleBannerImage(event.currentTarget));
+            } catch {
+              setLoadedImage(candidate);
+            }
+          }}
           onError={() => setCandidateIndex((index) => index + 1)}
         />
       )}
