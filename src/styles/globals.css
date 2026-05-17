@@ -56,7 +56,24 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  scrollbar-color: color-mix(in srgb, var(--accent) 42%, var(--line-strong)) color-mix(in srgb, var(--bg) 84%, var(--surface-soft));
+  scrollbar-width: thin;
+}
+*::-webkit-scrollbar { width: 11px; height: 11px; }
+*::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 88%, var(--surface-soft)), color-mix(in srgb, var(--bg) 94%, var(--accent)));
+}
+*::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 54%, var(--surface)), color-mix(in srgb, var(--gold) 34%, var(--line-strong))) border-box;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 72%, var(--surface)), color-mix(in srgb, var(--gold) 48%, var(--accent))) border-box; background-clip: padding-box; }
+*::-webkit-scrollbar-corner { background: var(--bg); }
 body {
   margin: 0;
   font-variant-numeric: normal;
