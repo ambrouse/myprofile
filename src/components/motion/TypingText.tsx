@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 
 interface TypingTextProps {
@@ -14,10 +14,18 @@ export function TypingText({ text, className, as: Tag = 'h1', speed = 28, onDone
   const initialCount = reduceMotion ? text.length : 0;
   const [visibleCount, setVisibleCount] = useState(initialCount);
   const characters = useMemo(() => Array.from(text), [text]);
+  const onDoneRef = useRef(onDone);
+  const completedRef = useRef(false);
 
   useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
+
+  useEffect(() => {
+    completedRef.current = false;
     if (reduceMotion) {
-      onDone?.();
+      completedRef.current = true;
+      window.setTimeout(() => onDoneRef.current?.(), 0);
       return undefined;
     }
 
@@ -27,12 +35,15 @@ export function TypingText({ text, className, as: Tag = 'h1', speed = 28, onDone
       setVisibleCount(index);
       if (index >= characters.length) {
         window.clearInterval(timer);
-        window.setTimeout(() => onDone?.(), 120);
+        if (!completedRef.current) {
+          completedRef.current = true;
+          window.setTimeout(() => onDoneRef.current?.(), 120);
+        }
       }
     }, speed);
 
     return () => window.clearInterval(timer);
-  }, [characters.length, onDone, reduceMotion, speed, text]);
+  }, [characters.length, reduceMotion, speed, text]);
 
   const count = reduceMotion ? characters.length : visibleCount;
   const done = count >= characters.length;
