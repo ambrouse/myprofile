@@ -1,5 +1,5 @@
-import { ArrowUpRight, Code2, ExternalLink, Search, Star } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { Code2, ExternalLink, Search, Star } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { useProjects } from '../features/github-projects/useProjects';
 import { useI18n } from '../features/i18n/i18nContext';
 import type { GitHubProject } from '../types/portfolio';
@@ -21,14 +21,10 @@ function repoBannerCandidates(project: GitHubProject) {
 
 function ProjectBanner({ project }: { project: GitHubProject }) {
   const banner = project.banner ?? 'record';
-  const candidates = useMemo(() => [...repoBannerCandidates(project), project.bannerImage].filter(Boolean) as string[], [project.bannerImage, project.fullName, project.name, project.owner]);
+  const candidates = useMemo(() => [...repoBannerCandidates(project), project.bannerImage].filter(Boolean) as string[], [project]);
   const [candidateIndex, setCandidateIndex] = useState(0);
   const bannerImage = candidates[candidateIndex];
   const style = bannerImage ? { backgroundImage: `url(${bannerImage})` } : undefined;
-
-  useEffect(() => {
-    setCandidateIndex(0);
-  }, [project.fullName]);
 
   return (
     <div className={`repo-banner repo-banner-${banner} ${bannerImage ? 'repo-banner-image' : 'repo-banner-fallback'}`} style={style} aria-hidden="true">
@@ -44,7 +40,7 @@ function ProjectCard({ project, featured = false }: { project: GitHubProject; fe
 
   return (
     <article className={featured ? 'project-card featured' : 'project-card'}>
-      <ProjectBanner project={project} />
+      <ProjectBanner key={project.fullName} project={project} />
       <div className="project-body">
         <div className="project-card-top">
           <span className="project-owner">{project.owner}</span>
