@@ -35,7 +35,7 @@ interface GitHubContentItem {
 
 interface ProjectOverrideFile {
   featured: string[];
-  overrides: Record<string, Partial<{ title: string; description: string; summary: string; featured: boolean }>>;
+  overrides: Record<string, Partial<{ title: string; description: string; summary: string; featured: boolean; homepage: string; bannerImage: string }>>;
 }
 
 interface PresentationMetadata {
@@ -307,7 +307,7 @@ async function main() {
         title: override.title ?? toTitle(repo.name),
         description,
         url: repo.html_url,
-        homepage: repo.homepage || undefined,
+        homepage: override.homepage ?? repo.homepage ?? undefined,
         language: repo.language || undefined,
         topics: repo.topics ?? [],
         stars: repo.stargazers_count,
@@ -321,7 +321,7 @@ async function main() {
         category: presentation.category,
         keywords: presentation.keywords,
         banner: presentation.banner,
-        bannerImage: bannerByRepo[repo.full_name]
+        bannerImage: override.bannerImage ?? bannerByRepo[repo.full_name]
       };
     })
     .sort((a, b) => Number(b.isFeatured) - Number(a.isFeatured) || Date.parse(b.pushedAt) - Date.parse(a.pushedAt));

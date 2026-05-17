@@ -46,8 +46,17 @@
     "ambrouse/note-online-frontend": {
       "title": "Online Notes Frontend",
       "description": "A frontend application for online note management and user-facing content workflows.",
-      "summary": "A web-interface repository representing standard frontend application structure and UI delivery.",
+      "summary": "The client-side part of the notes app, useful for reading page flow, API integration and deployed UI behaviour.",
+      "homepage": "https://ambrouse.github.io/note-online-frontend/",
       "featured": false
+    },
+    "ambrouse/myprofile": {
+      "title": "Portfolio Repository Catalogue",
+      "description": "The deployed portfolio that presents profile information, repository cards, GitHub sync data and GitHub Pages delivery.",
+      "summary": "This site itself: a Vite portfolio with repository sync, theme-aware UI, animated ambient grid and GitHub Pages deployment.",
+      "homepage": "https://ambrouse.github.io/myprofile/",
+      "bannerImage": "https://raw.githubusercontent.com/ambrouse/myprofile/main/banner.png",
+      "featured": true
     },
     "ambrouse/CF_based_encode_tranformer_de_xuat_san_pham": {
       "title": "Transformer-Based Product Recommendation Study",

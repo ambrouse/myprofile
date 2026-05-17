@@ -419,7 +419,8 @@ dd { margin: 0; color: var(--text); }
 .project-links { flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 14px; font-size: 0.84rem; }
 .project-links a { color: var(--primary); }
 .icon-link { width: 38px; height: 38px; justify-content: center; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-soft); }
-.live-link { min-height: 38px; padding: 0 14px; border-radius: 11px; background: color-mix(in srgb, var(--accent) 18%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line)); color: var(--accent) !important; font-weight: 900; }
+.live-link { min-height: 38px; padding: 0 14px; border-radius: 11px; background: color-mix(in srgb, var(--accent) 18%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 48%, var(--line)); color: var(--accent) !important; font-weight: 900; box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 28%, transparent); animation: livePulse 2.4s ease-out infinite; }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 32%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 .status-card { padding: 18px; color: var(--muted); }
 .error-state { color: var(--danger); }
 

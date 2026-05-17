@@ -1,10 +1,38 @@
 {
-  "generatedAt": "2026-05-17T09:06:04.466Z",
+  "generatedAt": "2026-05-17T10:11:32.239Z",
   "owners": [
     "ambrouse",
     "baolnq-ai"
   ],
   "projects": [
+    {
+      "id": "1038471832",
+      "owner": "ambrouse",
+      "name": "myprofile",
+      "fullName": "ambrouse/myprofile",
+      "title": "Portfolio Repository Catalogue",
+      "description": "The deployed portfolio that presents profile information, repository cards, GitHub sync data and GitHub Pages delivery.",
+      "url": "https://github.com/ambrouse/myprofile",
+      "homepage": "https://ambrouse.github.io/myprofile/",
+      "language": "CSS",
+      "topics": [],
+      "stars": 1,
+      "forks": 0,
+      "isFork": false,
+      "isArchived": false,
+      "isFeatured": true,
+      "updatedAt": "2026-05-17T09:47:28Z",
+      "pushedAt": "2026-05-17T09:47:24Z",
+      "summary": "This site itself: a Vite portfolio with repository sync, theme-aware UI, animated ambient grid and GitHub Pages deployment.",
+      "category": "Web application",
+      "keywords": [
+        "interface",
+        "frontend",
+        "CSS"
+      ],
+      "banner": "web",
+      "bannerImage": "https://raw.githubusercontent.com/ambrouse/myprofile/main/banner.png"
+    },
     {
       "id": "1235105413",
       "owner": "baolnq-ai",
@@ -291,32 +319,6 @@
       "bannerImage": "https://raw.githubusercontent.com/baolnq-ai/toll-brouser-gpt-gemini/main/static/browser-use.png"
     },
     {
-      "id": "1038471832",
-      "owner": "ambrouse",
-      "name": "myprofile",
-      "fullName": "ambrouse/myprofile",
-      "title": "Myprofile",
-      "description": "Myprofile is a JavaScript web interface repository, useful for reading UI structure, client routing and deployment practice.",
-      "url": "https://github.com/ambrouse/myprofile",
-      "language": "JavaScript",
-      "topics": [],
-      "stars": 1,
-      "forks": 0,
-      "isFork": false,
-      "isArchived": false,
-      "isFeatured": false,
-      "updatedAt": "2026-04-28T17:38:02Z",
-      "pushedAt": "2026-04-28T17:37:57Z",
-      "category": "Computer vision study",
-      "keywords": [
-        "vision",
-        "inference",
-        "JavaScript"
-      ],
-      "banner": "vision",
-      "bannerImage": "https://raw.githubusercontent.com/ambrouse/myprofile/main/profile_2.png"
-    },
-    {
       "id": "1178500301",
       "owner": "baolnq-ai",
       "name": "images",
@@ -372,6 +374,7 @@
       "title": "Online Notes Frontend",
       "description": "A frontend application for online note management and user-facing content workflows.",
       "url": "https://github.com/ambrouse/note-online-frontend",
+      "homepage": "https://ambrouse.github.io/note-online-frontend/",
       "language": "JavaScript",
       "topics": [],
       "stars": 0,
@@ -381,7 +384,7 @@
       "isFeatured": false,
       "updatedAt": "2026-04-17T10:28:29Z",
       "pushedAt": "2026-04-15T03:18:39Z",
-      "summary": "A web-interface repository representing standard frontend application structure and UI delivery.",
+      "summary": "The client-side part of the notes app, useful for reading page flow, API integration and deployed UI behaviour.",
       "category": "Web application",
       "keywords": [
         "interface",
