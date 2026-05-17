@@ -6,10 +6,11 @@ interface TypingTextProps {
   className?: string;
   as?: 'h1' | 'h2' | 'span';
   speed?: number;
+  start?: boolean;
   onDone?: () => void;
 }
 
-export function TypingText({ text, className, as: Tag = 'h1', speed = 28, onDone }: TypingTextProps) {
+export function TypingText({ text, className, as: Tag = 'h1', speed = 28, start = true, onDone }: TypingTextProps) {
   const reduceMotion = useReducedMotion();
   const initialCount = reduceMotion ? text.length : 0;
   const [visibleCount, setVisibleCount] = useState(initialCount);
@@ -23,6 +24,10 @@ export function TypingText({ text, className, as: Tag = 'h1', speed = 28, onDone
 
   useEffect(() => {
     completedRef.current = false;
+    if (!start) {
+      return undefined;
+    }
+
     if (reduceMotion) {
       completedRef.current = true;
       window.setTimeout(() => onDoneRef.current?.(), 0);
@@ -43,7 +48,7 @@ export function TypingText({ text, className, as: Tag = 'h1', speed = 28, onDone
     }, speed);
 
     return () => window.clearInterval(timer);
-  }, [characters.length, reduceMotion, speed, text]);
+  }, [characters.length, reduceMotion, speed, start, text]);
 
   const count = reduceMotion ? characters.length : visibleCount;
   const done = count >= characters.length;
