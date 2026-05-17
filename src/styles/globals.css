@@ -23,33 +23,33 @@
 
 :root[data-theme='light'] {
   color-scheme: light;
-  --bg: #f6f4ef;
-  --surface: rgba(255, 255, 252, 0.78);
-  --surface-soft: rgba(236, 242, 255, 0.58);
+  --bg: #f5f2ea;
+  --surface: rgba(255, 255, 250, 0.82);
+  --surface-soft: rgba(230, 237, 229, 0.54);
   --text: #111827;
-  --muted: #5f6675;
-  --line: rgba(17, 24, 39, 0.11);
-  --line-strong: rgba(17, 24, 39, 0.2);
-  --primary: #3158d4;
-  --accent: #008f8c;
-  --gold: #b7791f;
+  --muted: #5f665f;
+  --line: rgba(17, 24, 39, 0.1);
+  --line-strong: rgba(17, 24, 39, 0.18);
+  --primary: #16352d;
+  --accent: #1f8a5f;
+  --gold: #9d6b1f;
   --danger: #b42318;
-  --shadow: 0 28px 90px rgba(38, 52, 91, 0.16);
-  --shadow-soft: 0 16px 44px rgba(38, 52, 91, 0.11);
+  --shadow: 0 28px 90px rgba(27, 45, 35, 0.14);
+  --shadow-soft: 0 16px 44px rgba(27, 45, 35, 0.1);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #0a1018;
-  --surface: rgba(16, 27, 39, 0.66);
-  --surface-soft: rgba(43, 67, 78, 0.36);
+  --bg: #07110d;
+  --surface: rgba(12, 24, 19, 0.72);
+  --surface-soft: rgba(27, 53, 43, 0.38);
   --text: #eef3ee;
-  --muted: #a7b8b2;
+  --muted: #a8b7ad;
   --line: rgba(222, 240, 232, 0.12);
-  --line-strong: rgba(222, 240, 232, 0.24);
-  --primary: #8fb1ff;
-  --accent: #67e8c3;
-  --gold: #d6b46b;
+  --line-strong: rgba(222, 240, 232, 0.23);
+  --primary: #d7e7d9;
+  --accent: #64c897;
+  --gold: #d1ad66;
   --danger: #f4a29a;
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
   --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.26);
@@ -64,10 +64,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 8% 10%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 28rem),
-    radial-gradient(circle at 86% 14%, color-mix(in srgb, var(--primary) 24%, transparent), transparent 30rem),
-    radial-gradient(circle at 62% 86%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 32rem),
-    linear-gradient(135deg, color-mix(in srgb, var(--bg) 90%, white), var(--bg) 48%, color-mix(in srgb, var(--surface-soft) 40%, var(--bg))),
+    linear-gradient(115deg, color-mix(in srgb, var(--bg) 94%, var(--surface-soft)) 0%, var(--bg) 48%, color-mix(in srgb, var(--bg) 90%, var(--accent)) 100%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-soft) 22%, transparent), transparent 42%),
     var(--bg);
   color: var(--text);
   transition: background-color 260ms ease, color 260ms ease;
@@ -92,7 +90,7 @@ h1, h2, h3, p { margin-top: 0; }
   z-index: -1;
   pointer-events: none;
   opacity: 0.82;
-  mask-image: radial-gradient(circle at 50% 38%, black, rgba(0, 0, 0, 0.9) 58%, transparent 98%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.72));
 }
 
 .site-header {
@@ -376,16 +374,16 @@ dd { margin: 0; color: var(--text); }
 .repo-banner { position: relative; min-height: 158px; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface-soft); background-size: cover; background-position: center; filter: saturate(0.95) contrast(0.98); }
 .repo-banner img { position: absolute; inset: -7%; width: 114%; height: 114%; object-fit: cover; z-index: 0; }
 .repo-banner::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.08) 58%, color-mix(in srgb, var(--surface) 34%, transparent) 100%); pointer-events: none; }
-.repo-banner::after { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(circle at 22% 20%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 34%), linear-gradient(135deg, transparent, color-mix(in srgb, var(--primary) 12%, transparent)); pointer-events: none; }
-.repo-banner-fallback { background: radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--accent) 46%, transparent), transparent 28%), radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--primary) 40%, transparent), transparent 30%), radial-gradient(circle at 68% 84%, color-mix(in srgb, var(--gold) 34%, transparent), transparent 32%), linear-gradient(135deg, color-mix(in srgb, var(--surface-soft) 84%, var(--bg)), color-mix(in srgb, var(--surface) 76%, var(--bg))); }
+.repo-banner::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(125deg, transparent 0%, color-mix(in srgb, var(--accent) 8%, transparent) 48%, color-mix(in srgb, var(--surface) 24%, transparent) 100%); pointer-events: none; }
+.repo-banner-fallback { background: linear-gradient(135deg, color-mix(in srgb, var(--surface-soft) 78%, var(--bg)), color-mix(in srgb, var(--surface) 74%, var(--bg))), linear-gradient(90deg, color-mix(in srgb, var(--accent) 18%, transparent), transparent 46%); }
 .banner-gridline { position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 18px 18px; opacity: 0.26; }
-.repo-banner-ai { background: radial-gradient(circle at 70% 30%, rgba(65, 240, 208, 0.28), transparent 38%), linear-gradient(135deg, color-mix(in srgb, var(--primary) 30%, var(--surface-soft)), var(--surface)); }
-.repo-banner-vision { background: radial-gradient(circle at 72% 28%, rgba(142, 245, 207, 0.26), transparent 36%), linear-gradient(135deg, color-mix(in srgb, var(--accent) 32%, var(--surface-soft)), var(--surface)); }
-.repo-banner-operations { background: radial-gradient(circle at 72% 28%, rgba(215, 182, 106, 0.3), transparent 36%), linear-gradient(135deg, color-mix(in srgb, var(--gold) 32%, var(--surface-soft)), var(--surface)); }
-.repo-banner-web { background: radial-gradient(circle at 72% 28%, rgba(122, 167, 255, 0.28), transparent 36%), linear-gradient(135deg, color-mix(in srgb, #4f6f9f 30%, var(--surface-soft)), var(--surface)); }
-.repo-banner-backend { background: radial-gradient(circle at 72% 28%, rgba(160, 170, 180, 0.24), transparent 36%), linear-gradient(135deg, color-mix(in srgb, #52606d 32%, var(--surface-soft)), var(--surface)); }
-.repo-banner-notebook { background: radial-gradient(circle at 72% 28%, rgba(180, 138, 60, 0.26), transparent 36%), linear-gradient(135deg, color-mix(in srgb, #7d6542 30%, var(--surface-soft)), var(--surface)); }
-.repo-banner-automation { background: radial-gradient(circle at 72% 28%, rgba(115, 190, 145, 0.24), transparent 36%), linear-gradient(135deg, color-mix(in srgb, #556b5d 30%, var(--surface-soft)), var(--surface)); }
+.repo-banner-ai { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, var(--surface-soft)), var(--surface)); }
+.repo-banner-vision { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, var(--surface-soft)), var(--surface)); }
+.repo-banner-operations { background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 22%, var(--surface-soft)), var(--surface)); }
+.repo-banner-web { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, var(--surface-soft)), var(--surface)); }
+.repo-banner-backend { background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 12%, var(--surface-soft)), var(--surface)); }
+.repo-banner-notebook { background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 18%, var(--surface-soft)), var(--surface)); }
+.repo-banner-automation { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--surface-soft)), var(--surface)); }
 .project-card-top { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: var(--muted); font-size: 0.72rem; font-weight: 850; }
 .project-owner { color: var(--accent); }
 .project-card h3 {
@@ -416,14 +414,33 @@ dd { margin: 0; color: var(--text); }
 }
 .repo-facts { margin: auto 0 0; border-top: 1px solid var(--line); }
 .repo-facts div { grid-template-columns: 72px 1fr; padding: 7px 0; font-size: 0.82rem; }
-.project-links { flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 14px; font-size: 0.84rem; }
+.project-links { flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 14px; font-size: 0.84rem; }
 .project-links a { color: var(--primary); }
-.repo-link { position: relative; width: 28px; height: 28px; display: inline-grid; place-items: center; color: color-mix(in srgb, var(--primary) 88%, var(--text)); }
-.repo-link svg:last-child { position: absolute; right: -3px; top: -3px; opacity: 0.7; }
-.repo-link:hover { color: var(--text); transform: translateY(-1px); }
-.live-link { width: 30px; height: 30px; min-height: 30px; display: inline-grid; place-items: center; border-radius: 999px; background: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 58%, white); color: var(--bg) !important; box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 34%, transparent); animation: livePulse 2.2s ease-out infinite; }
-.live-link:hover { transform: translateY(-1px) scale(1.04); }
-@keyframes livePulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 38%, transparent); } 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.repo-link {
+  width: 24px;
+  height: 24px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  color: color-mix(in srgb, var(--primary) 76%, var(--accent));
+}
+.repo-link:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text); transform: translateY(-1px); }
+.live-link {
+  width: 26px;
+  height: 26px;
+  min-height: 26px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 82%, #0d1f17);
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+  color: #07110d !important;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 24%, transparent);
+  animation: livePulse 2.4s ease-out infinite;
+}
+.live-link:hover { transform: translateY(-1px) scale(1.03); }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 26%, transparent); } 72% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 .status-card { padding: 18px; color: var(--muted); }
 .error-state { color: var(--danger); }
 

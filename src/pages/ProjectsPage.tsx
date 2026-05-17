@@ -1,4 +1,4 @@
-import { ArrowUpRight, Code2, Radio, Search, Star } from 'lucide-react';
+import { ExternalLink, Radio, Search, Star } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useProjects } from '../features/github-projects/useProjects';
 import { useI18n } from '../features/i18n/i18nContext';
@@ -16,7 +16,9 @@ function repoBannerCandidates(project: GitHubProject) {
     `${base}assets/repo-banners/${project.owner}/${project.name}/banner.${extension}`,
     `${base}assets/repo-banners/${project.fullName}/banner.${extension}`,
     `${base}assets/repo-banners/${project.name}/banner.${extension}`,
-    project.fullName === 'ambrouse/myprofile' ? `${base}banner.${extension}` : ''
+    project.fullName === 'ambrouse/myprofile' ? `${base}banner.${extension}` : '',
+    `https://raw.githubusercontent.com/${project.fullName}/main/banner.${extension}`,
+    `https://raw.githubusercontent.com/${project.fullName}/master/banner.${extension}`
   ]).filter(Boolean);
 }
 
@@ -52,8 +54,8 @@ function ProjectCard({ project, featured = false }: { project: GitHubProject; fe
           <span>★ {project.stars}</span>
         </div>
         <div className="project-links">
-          <a className="repo-link" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`} title={content.projects.repositoryLabel}><Code2 size={17} /><ArrowUpRight size={11} /></a>
-          {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer" aria-label={`${project.title} live deployment`} title="Live"><Radio size={16} /></a>}
+          <a className="repo-link" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`} title={content.projects.repositoryLabel}><ExternalLink size={15} strokeWidth={2.2} /></a>
+          {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer" aria-label={`${project.title} live deployment`} title="Live"><Radio size={13} strokeWidth={2.4} /></a>}
         </div>
       </div>
     </article>
