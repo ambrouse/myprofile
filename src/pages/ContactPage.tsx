@@ -18,11 +18,11 @@ export function ContactPage() {
           </div>
         </div>
         <div className="contact-stack">
-          <div className="zalo-card" aria-label="Zalo QR placeholder">
-            <div className="qr-mark"><span /><span /><span /><i /></div>
+          <a className="zalo-card" href="https://zalo.me/0326032296" target="_blank" rel="noreferrer" aria-label="Open Zalo contact">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fzalo.me%2F0326032296" alt="Zalo QR code" />
             <strong>Zalo</strong>
             <small>{content.contact.phone}</small>
-          </div>
+          </a>
           <div className="footer-links contact-links">
             <a href={`mailto:${content.contact.email}`}><Mail size={17} />{content.contact.email}</a>
             <a href="https://github.com/ambrouse" target="_blank" rel="noreferrer"><Code2 size={17} />{content.contact.github}</a>

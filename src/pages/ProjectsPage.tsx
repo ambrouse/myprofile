@@ -1,4 +1,4 @@
-import { ExternalLink, Radio, Search, Star } from 'lucide-react';
+import { CodeXml, RadioTower, Search, Star } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useProjects } from '../features/github-projects/useProjects';
 import { useI18n } from '../features/i18n/i18nContext';
@@ -69,8 +69,8 @@ function ProjectCard({ project, featured = false }: { project: GitHubProject; fe
           <span>★ {project.stars}</span>
         </div>
         <div className="project-links">
-          <a className="repo-link" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`} title={content.projects.repositoryLabel}><ExternalLink size={15} strokeWidth={2.2} /></a>
-          {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer" aria-label={`${project.title} live deployment`} title="Live"><Radio size={13} strokeWidth={2.4} /></a>}
+          <a className="repo-link" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`} title={content.projects.repositoryLabel}><CodeXml size={15} strokeWidth={2.1} /></a>
+          {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer" aria-label={`${project.title} live deployment`} title="Live"><RadioTower size={14} strokeWidth={2.2} /></a>}
         </div>
       </div>
     </article>
@@ -104,10 +104,6 @@ export function ProjectsPage() {
           <p className="section-label">{content.projects.eyebrow}</p>
           <h1>{content.projects.title}</h1>
         </div>
-        <aside className="repo-summary" aria-label="Repository summary">
-          <strong>{projects.length}</strong>
-          <span>{content.projects.summary}</span>
-        </aside>
       </section>
 
       <div className="filter-panel">

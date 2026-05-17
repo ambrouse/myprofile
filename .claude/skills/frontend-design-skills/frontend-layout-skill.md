@@ -21,7 +21,8 @@ Layout là cách dẫn mắt và giảm công sức đọc. Không chỉ là chi
 ## Card layout
 
 - Card cần form ổn định và dễ scan.
-- Media/banner nếu là phần chính thì đặt đủ lớn; nếu không quan trọng thì đừng ép ảnh vào.
+- Media/banner nếu là phần chính thì cần tỷ lệ cố định theo ý đồ hiển thị, không để mỗi ảnh tự kéo card lệch nhau.
+- Ảnh trong card nên crop/fade theo hệ nền tổng để hỗ trợ nội dung, không trở thành mảng ảnh thô gây rối.
 - Metadata nên nhỏ, gần nội dung liên quan và không tranh với title.
 - Action chính/phụ phải đặt có chủ đích; icon nhỏ cần căn giữa và hit area đủ.
 - Không nhồi tag/category nếu chưa có vai trò filter hoặc hierarchy thật.

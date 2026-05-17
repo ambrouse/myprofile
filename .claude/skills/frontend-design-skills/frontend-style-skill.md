@@ -37,9 +37,9 @@ Style phải xuất phát từ sản phẩm: người dùng là ai, họ cần t
 ## Card style
 
 - Card cần form rõ: media/visual, title, metadata, summary/action theo thứ tự ưu tiên.
-- Nếu card dùng ảnh lớn, ảnh nên được phép crop đẹp nhưng không phá thông tin.
+- Nếu card dùng ảnh lớn, ảnh nên được crop theo tỷ lệ nhất quán và được xử lý opacity/overlay để hòa vào hệ màu.
 - Nếu không có ảnh, fallback phải được thiết kế như một trạng thái chính thức, không phải chữa cháy.
-- Action trong card nên nhỏ gọn, đúng priority và không lệch màu.
+- Action trong card nên nhỏ gọn, đúng priority, dùng icon đúng chức năng và không lệch màu.
 
 ## Checklist hoàn thành
 
