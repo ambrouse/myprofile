@@ -1,35 +1,10 @@
 {
-  "generatedAt": "2026-05-17T11:16:25.867Z",
+  "generatedAt": "2026-05-17T12:24:23.614Z",
   "owners": [
     "ambrouse",
     "baolnq-ai"
   ],
   "projects": [
-    {
-      "id": "1234711458",
-      "owner": "ambrouse",
-      "name": "skill-agent-coding",
-      "fullName": "ambrouse/skill-agent-coding",
-      "title": "Skill Agent Coding",
-      "description": "Skill Agent Coding focuses on agent or AI workflow implementation, useful for reviewing orchestration, model integration and application boundaries.",
-      "url": "https://github.com/ambrouse/skill-agent-coding",
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "isFork": false,
-      "isArchived": false,
-      "isFeatured": true,
-      "updatedAt": "2026-05-17T11:13:52Z",
-      "pushedAt": "2026-05-17T11:13:49Z",
-      "category": "Applied AI system",
-      "keywords": [
-        "AI",
-        "agent workflow",
-        "system"
-      ],
-      "banner": "ai",
-      "bannerImage": "https://raw.githubusercontent.com/ambrouse/skill-agent-coding/main/banner.jpg"
-    },
     {
       "id": "1038471832",
       "owner": "ambrouse",
@@ -46,8 +21,8 @@
       "isFork": false,
       "isArchived": false,
       "isFeatured": true,
-      "updatedAt": "2026-05-17T11:01:28Z",
-      "pushedAt": "2026-05-17T11:01:24Z",
+      "updatedAt": "2026-05-17T12:11:18Z",
+      "pushedAt": "2026-05-17T12:11:15Z",
       "summary": "This site itself: a Vite portfolio with repository sync, theme-aware UI, animated ambient grid and GitHub Pages deployment.",
       "category": "Web application",
       "keywords": [
@@ -57,6 +32,31 @@
       ],
       "banner": "web",
       "bannerImage": "https://raw.githubusercontent.com/ambrouse/myprofile/main/banner.png"
+    },
+    {
+      "id": "1234711458",
+      "owner": "ambrouse",
+      "name": "skill-agent-coding",
+      "fullName": "ambrouse/skill-agent-coding",
+      "title": "Skill Agent Coding",
+      "description": "Skill Agent Coding focuses on agent or AI workflow implementation, useful for reviewing orchestration, model integration and application boundaries.",
+      "url": "https://github.com/ambrouse/skill-agent-coding",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "isFork": false,
+      "isArchived": false,
+      "isFeatured": true,
+      "updatedAt": "2026-05-17T11:17:53Z",
+      "pushedAt": "2026-05-17T11:17:49Z",
+      "category": "Applied AI system",
+      "keywords": [
+        "AI",
+        "agent workflow",
+        "system"
+      ],
+      "banner": "ai",
+      "bannerImage": "https://raw.githubusercontent.com/ambrouse/skill-agent-coding/main/banner.jpg"
     },
     {
       "id": "1235105413",
@@ -158,8 +158,7 @@
         "agent workflow",
         "TypeScript"
       ],
-      "banner": "ai",
-      "bannerImage": "https://raw.githubusercontent.com/baolnq-ai/Agentic-Commerce-blueprint-provider-/main/docs/images/hero.png"
+      "banner": "ai"
     },
     {
       "id": "1230669993",
@@ -341,7 +340,8 @@
         "public repo",
         "baolnq-ai"
       ],
-      "banner": "record"
+      "banner": "record",
+      "bannerImage": "https://raw.githubusercontent.com/baolnq-ai/images/main/snowflake.png"
     },
     {
       "id": "1218727494",
@@ -573,8 +573,7 @@
         "frontend",
         "Jupyter Notebook"
       ],
-      "banner": "web",
-      "bannerImage": "https://raw.githubusercontent.com/ambrouse/CF_based_encode_tranformer_de_xuat_phim/main/readme_assets/mau.png"
+      "banner": "web"
     },
     {
       "id": "951446802",
