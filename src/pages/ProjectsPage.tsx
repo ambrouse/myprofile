@@ -12,27 +12,39 @@ const bannerExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'];
 
 function repoBannerCandidates(project: GitHubProject) {
   const base = import.meta.env.BASE_URL;
-  return bannerExtensions.flatMap((extension) => [
-    `${base}assets/repo-banners/${project.owner}/${project.name}/banner.${extension}`,
-    `${base}assets/repo-banners/${project.fullName}/banner.${extension}`,
-    `${base}assets/repo-banners/${project.name}/banner.${extension}`,
-    project.fullName === 'ambrouse/myprofile' ? `${base}banner.${extension}` : '',
+  const remoteCandidates = bannerExtensions.flatMap((extension) => [
     `https://raw.githubusercontent.com/${project.fullName}/main/banner.${extension}`,
     `https://raw.githubusercontent.com/${project.fullName}/master/banner.${extension}`
-  ]).filter(Boolean);
+  ]);
+  const localCandidates = bannerExtensions.flatMap((extension) => [
+    `${base}assets/repo-banners/${project.owner}/${project.name}/banner.${extension}`,
+    `${base}assets/repo-banners/${project.fullName}/banner.${extension}`,
+    `${base}assets/repo-banners/${project.name}/banner.${extension}`
+  ]);
+
+  return Array.from(new Set([project.bannerImage, ...remoteCandidates, ...localCandidates].filter(Boolean) as string[]));
 }
 
 function ProjectBanner({ project }: { project: GitHubProject }) {
   const banner = project.banner ?? 'record';
-  const candidates = useMemo(() => [...repoBannerCandidates(project), project.bannerImage].filter(Boolean) as string[], [project]);
+  const candidates = useMemo(() => repoBannerCandidates(project), [project]);
   const [candidateIndex, setCandidateIndex] = useState(0);
-  const bannerImage = candidates[candidateIndex];
-  const style = bannerImage ? { backgroundImage: `url(${bannerImage})` } : undefined;
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
+  const candidate = candidates[candidateIndex];
+  const style = loadedImage ? { backgroundImage: `url(${loadedImage})` } : undefined;
 
   return (
-    <div className={`repo-banner repo-banner-${banner} ${bannerImage ? 'repo-banner-image' : 'repo-banner-fallback'}`} style={style} aria-hidden="true">
+    <div className={`repo-banner repo-banner-${banner} ${loadedImage ? 'repo-banner-image' : 'repo-banner-fallback'}`} style={style} aria-hidden="true">
       <div className="banner-gridline" />
-      {bannerImage && <img src={bannerImage} alt="" onError={() => setCandidateIndex((index) => index + 1)} />}
+      {candidate && candidate !== loadedImage && (
+        <img
+          key={candidate}
+          src={candidate}
+          alt=""
+          onLoad={() => setLoadedImage(candidate)}
+          onError={() => setCandidateIndex((index) => index + 1)}
+        />
+      )}
     </div>
   );
 }
