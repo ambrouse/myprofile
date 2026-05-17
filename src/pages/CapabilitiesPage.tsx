@@ -20,16 +20,15 @@ export function CapabilitiesPage() {
       <section className="capabilities-hero">
         <p className="section-label">{content.capabilities.eyebrow}</p>
         <h1>{content.capabilities.title}</h1>
-        <p>{content.capabilities.lead}</p>
       </section>
 
-      <Section eyebrow={content.about.eyebrow} title={content.about.title} lead={content.about.body}>
+      <Section eyebrow={content.about.eyebrow} title={content.about.title}>
         <div className="summary-grid">
           {content.about.highlights.map((highlight, index) => <article key={highlight}><span>{String(index + 1).padStart(2, '0')}</span>{highlight}</article>)}
         </div>
       </Section>
 
-      <Section eyebrow={content.capabilities.sectionEyebrow} title={content.capabilities.title} lead={content.capabilities.lead}>
+      <Section eyebrow={content.capabilities.sectionEyebrow} title={content.capabilities.title}>
         <div className="expertise-grid">
           {content.capabilities.items.map((item, index) => (
             <article className="expertise-card" key={item.title}>
@@ -41,7 +40,7 @@ export function CapabilitiesPage() {
         </div>
       </Section>
 
-      <Section eyebrow={content.cases.eyebrow} title={content.cases.title} lead={content.cases.lead}>
+      <Section eyebrow={content.cases.eyebrow} title={content.cases.title}>
         <div className="case-grid case-grid-five">
           {content.cases.items.map((item) => (
             <article className="case-card" key={item.id}>
@@ -50,7 +49,6 @@ export function CapabilitiesPage() {
                 <span>{item.label}</span>
                 <h3>{item.title}</h3>
                 <p className="case-meta">{item.role} · {item.duration}</p>
-                <p>{item.summary}</p>
                 <ul>
                   {item.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
                 </ul>

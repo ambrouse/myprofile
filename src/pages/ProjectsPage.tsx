@@ -1,4 +1,4 @@
-import { Code2, ExternalLink, Search, Star } from 'lucide-react';
+import { ArrowUpRight, Code2, Radio, Search, Star } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useProjects } from '../features/github-projects/useProjects';
 import { useI18n } from '../features/i18n/i18nContext';
@@ -15,8 +15,9 @@ function repoBannerCandidates(project: GitHubProject) {
   return bannerExtensions.flatMap((extension) => [
     `${base}assets/repo-banners/${project.owner}/${project.name}/banner.${extension}`,
     `${base}assets/repo-banners/${project.fullName}/banner.${extension}`,
-    `${base}assets/repo-banners/${project.name}/banner.${extension}`
-  ]);
+    `${base}assets/repo-banners/${project.name}/banner.${extension}`,
+    project.fullName === 'ambrouse/myprofile' ? `${base}banner.${extension}` : ''
+  ]).filter(Boolean);
 }
 
 function ProjectBanner({ project }: { project: GitHubProject }) {
@@ -36,7 +37,6 @@ function ProjectBanner({ project }: { project: GitHubProject }) {
 
 function ProjectCard({ project, featured = false }: { project: GitHubProject; featured?: boolean }) {
   const { content } = useI18n();
-  const description = project.summary ?? project.description;
 
   return (
     <article className={featured ? 'project-card featured' : 'project-card'}>
@@ -47,14 +47,13 @@ function ProjectCard({ project, featured = false }: { project: GitHubProject; fe
           <span>{project.language ?? 'Source'}</span>
         </div>
         <h3>{project.title}</h3>
-        {description && <p>{description}</p>}
         <div className="repo-compact-meta">
           <span>{formatDate(project.updatedAt)}</span>
           <span>★ {project.stars}</span>
         </div>
         <div className="project-links">
-          <a className="icon-link" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`} title={content.projects.repositoryLabel}><Code2 size={16} /></a>
-          {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer"><ExternalLink size={15} />Live</a>}
+          <a className="repo-link" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`} title={content.projects.repositoryLabel}><Code2 size={17} /><ArrowUpRight size={11} /></a>
+          {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer" aria-label={`${project.title} live deployment`} title="Live"><Radio size={16} /></a>}
         </div>
       </div>
     </article>
@@ -87,7 +86,6 @@ export function ProjectsPage() {
         <div>
           <p className="section-label">{content.projects.eyebrow}</p>
           <h1>{content.projects.title}</h1>
-          <p>{content.projects.lead}</p>
         </div>
         <aside className="repo-summary" aria-label="Repository summary">
           <strong>{projects.length}</strong>
@@ -121,7 +119,6 @@ export function ProjectsPage() {
             <div>
               <p className="section-label">{content.projects.source}</p>
               <h2>{content.projects.featuredTitle}</h2>
-              <p>{content.projects.featuredLead}</p>
             </div>
             <span className="project-count"><Star size={13} /> {featuredProjects.length} {content.projects.selectedCount}</span>
           </div>
@@ -136,7 +133,6 @@ export function ProjectsPage() {
           <div>
             <p className="section-label">{content.projects.archiveEyebrow}</p>
             <h2>{content.projects.archiveTitle}</h2>
-            <p>{filteredProjects.length} {content.projects.archiveCount}</p>
           </div>
         </div>
         <div className="repository-grid">
