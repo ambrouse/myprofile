@@ -271,10 +271,11 @@ export function SiteLayout() {
       <AnimatePresence mode="wait">
         <motion.div
           key={`${location.pathname}${location.hash}-${locale}-${theme}`}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.28, ease: 'easeOut' }}
+          className="route-frame"
+          initial={{ opacity: 0, scale: 0.985, filter: 'blur(10px)', clipPath: 'inset(0 0 10% 0 round 18px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)', clipPath: 'inset(0 0 0% 0 round 0px)' }}
+          exit={{ opacity: 0, scale: 1.012, filter: 'blur(8px)', clipPath: 'inset(8% 0 0 0 round 18px)' }}
+          transition={{ duration: 0.44, ease: [0.22, 1, 0.36, 1] }}
         >
           <Outlet />
         </motion.div>

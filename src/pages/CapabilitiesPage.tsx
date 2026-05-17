@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { RevealAfterTitle } from '../components/motion/RevealAfterTitle';
+import { TypingText } from '../components/motion/TypingText';
 import { Section } from '../components/common/Section';
 import { useI18n } from '../features/i18n/i18nContext';
 
@@ -14,14 +16,16 @@ function CaseImage({ src, title }: { src: string; title: string }) {
 
 export function CapabilitiesPage() {
   const { content } = useI18n();
+  const [titleReady, setTitleReady] = useState(false);
 
   return (
     <main className="capabilities-page">
       <section className="capabilities-hero">
         <p className="section-label">{content.capabilities.eyebrow}</p>
-        <h1>{content.capabilities.title}</h1>
+        <TypingText text={content.capabilities.title} onDone={() => setTitleReady(true)} />
       </section>
 
+      <RevealAfterTitle ready={titleReady}>
       <Section eyebrow={content.about.eyebrow} title={content.about.title}>
         <div className="summary-grid">
           {content.about.highlights.map((highlight, index) => <article key={highlight}><span>{String(index + 1).padStart(2, '0')}</span>{highlight}</article>)}
@@ -60,6 +64,7 @@ export function CapabilitiesPage() {
           ))}
         </div>
       </Section>
+      </RevealAfterTitle>
     </main>
   );
 }

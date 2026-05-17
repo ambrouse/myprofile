@@ -1,25 +1,31 @@
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { RevealAfterTitle } from '../components/motion/RevealAfterTitle';
+import { TypingText } from '../components/motion/TypingText';
 import { useI18n } from '../features/i18n/i18nContext';
 
 const assetBase = import.meta.env.BASE_URL;
 
 export function HomePage() {
   const { content } = useI18n();
+  const [titleReady, setTitleReady] = useState(false);
 
   return (
     <main className="home-page">
       <section className="dossier-cover standalone-cover">
-        <motion.div className="cover-copy" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div className="cover-copy" initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}>
           <p className="section-label">{content.hero.eyebrow}</p>
-          <h1>{content.hero.name}</h1>
-          <p className="hero-role">{content.hero.role}</p>
-          <p className="hero-lead">{content.hero.lead}</p>
-          <div className="hero-actions">
-            <Link className="primary-button" to="/projects">{content.hero.primaryCta}<ArrowRight size={18} /></Link>
-            <Link className="secondary-button" to="/capabilities">{content.hero.secondaryCta}</Link>
-          </div>
+          <TypingText text={content.hero.name} onDone={() => setTitleReady(true)} />
+          <RevealAfterTitle ready={titleReady}>
+            <p className="hero-role">{content.hero.role}</p>
+            <p className="hero-lead">{content.hero.lead}</p>
+            <div className="hero-actions">
+              <Link className="primary-button" to="/projects">{content.hero.primaryCta}<ArrowRight size={18} /></Link>
+              <Link className="secondary-button" to="/capabilities">{content.hero.secondaryCta}</Link>
+            </div>
+          </RevealAfterTitle>
         </motion.div>
 
         <motion.aside className="dossier-card" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>

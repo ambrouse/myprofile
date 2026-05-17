@@ -1,5 +1,8 @@
 import { CodeXml, RadioTower, Search, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
+import { RevealAfterTitle } from '../components/motion/RevealAfterTitle';
+import { TypingText } from '../components/motion/TypingText';
 import { useProjects } from '../features/github-projects/useProjects';
 import { useI18n } from '../features/i18n/i18nContext';
 import type { GitHubProject } from '../types/portfolio';
@@ -52,11 +55,17 @@ function ProjectBanner({ project }: { project: GitHubProject }) {
   );
 }
 
-function ProjectCard({ project, featured = false }: { project: GitHubProject; featured?: boolean }) {
+function ProjectCard({ project, featured = false, index = 0 }: { project: GitHubProject; featured?: boolean; index?: number }) {
   const { content } = useI18n();
 
   return (
-    <article className={featured ? 'project-card featured' : 'project-card'}>
+    <motion.article
+      className={featured ? 'project-card featured' : 'project-card'}
+      initial={{ opacity: 0, y: 18, scale: 0.97, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.46, delay: Math.min(index, 8) * 0.045, ease: [0.22, 1, 0.36, 1] }}
+    >
       <ProjectBanner key={project.fullName} project={project} />
       <div className="project-body">
         <div className="project-card-top">
@@ -73,7 +82,7 @@ function ProjectCard({ project, featured = false }: { project: GitHubProject; fe
           {project.homepage && <a className="live-link" href={project.homepage} target="_blank" rel="noreferrer" aria-label={`${project.title} live deployment`} title="Live"><RadioTower size={14} strokeWidth={2.2} /></a>}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -84,6 +93,7 @@ export function ProjectsPage() {
   const [owner, setOwner] = useState('all');
   const [language, setLanguage] = useState('all');
   const [searchOpen, setSearchOpen] = useState(false);
+  const [titleReady, setTitleReady] = useState(false);
 
   const filteredProjects = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -103,10 +113,11 @@ export function ProjectsPage() {
       <section className="projects-hero">
         <div>
           <p className="section-label">{content.projects.eyebrow}</p>
-          <h1>{content.projects.title}</h1>
+          <TypingText text={content.projects.title} onDone={() => setTitleReady(true)} />
         </div>
       </section>
 
+      <RevealAfterTitle ready={titleReady}>
       <div className={searchOpen || query ? 'filter-panel search-open' : 'filter-panel'}>
         <label className="search-field">
           <button type="button" onClick={() => setSearchOpen((value) => !value)} aria-label="Toggle search"><Search size={15} /></button>
@@ -137,7 +148,7 @@ export function ProjectsPage() {
             <span className="project-count"><Star size={13} /> {featuredProjects.length} {content.projects.selectedCount}</span>
           </div>
           <div className="featured-grid">
-            {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} featured />)}
+            {featuredProjects.map((project, index) => <ProjectCard key={project.id} project={project} featured index={index} />)}
           </div>
         </section>
       )}
@@ -150,9 +161,10 @@ export function ProjectsPage() {
           </div>
         </div>
         <div className="repository-grid">
-          {standardProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
+          {standardProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
         </div>
       </section>
+      </RevealAfterTitle>
     </main>
   );
 }
