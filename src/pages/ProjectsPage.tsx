@@ -42,8 +42,11 @@ function ProjectBanner({ project }: { project: GitHubProject }) {
   return (
     <div className={`repo-banner repo-banner-${banner} ${loadedImage ? 'repo-banner-image' : 'repo-banner-fallback'}`} style={style} aria-hidden="true">
       <div className="banner-gridline" />
+      {loadedImage && <img className="repo-banner-backdrop" src={loadedImage} alt="" />}
+      {loadedImage && <img className="repo-banner-fit" src={loadedImage} alt="" />}
       {candidate && candidate !== loadedImage && (
         <img
+          className="repo-banner-probe"
           key={candidate}
           src={candidate}
           alt=""
