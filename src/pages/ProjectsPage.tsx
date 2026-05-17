@@ -69,7 +69,7 @@ function ProjectSectionTitle({ eyebrow, title }: { eyebrow: string; title: strin
       viewport={{ once: false, amount: 0.35 }}
     >
       <p className="section-label">{eyebrow}</p>
-      <TypingText key={animationKey} as="h2" text={title} start={visible} speed={11} />
+      <TypingText key={animationKey} as="h2" text={title} start={visible} speed={17} />
     </motion.div>
   );
 }
@@ -82,8 +82,8 @@ function ProjectCard({ project, featured = false, index = 0 }: { project: GitHub
       className={featured ? 'project-card featured' : 'project-card'}
       initial={{ opacity: 0, y: 18, scale: 0.97, filter: 'blur(8px)' }}
       whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.23, delay: Math.min(index, 8) * 0.022, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: false, amount: 0.18 }}
+      transition={{ duration: 0.35, delay: Math.min(index, 8) * 0.033, ease: [0.22, 1, 0.36, 1] }}
     >
       <ProjectBanner key={project.fullName} project={project} />
       <div className="project-body">

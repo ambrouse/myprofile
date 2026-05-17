@@ -21,10 +21,7 @@ export function Section({ id, eyebrow, title, lead, children }: SectionProps) {
     <motion.section
       id={id}
       className="section"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, amount: 0.16 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
       onViewportEnter={() => setSectionVisible(true)}
       onViewportLeave={() => {
         setSectionVisible(false);
@@ -34,10 +31,10 @@ export function Section({ id, eyebrow, title, lead, children }: SectionProps) {
     >
       <div className="section-header">
         {eyebrow && <p className="section-label">{eyebrow}</p>}
-        <TypingText key={animationKey} as="h2" text={title} start={sectionVisible} speed={11} onDone={() => setTitleReady(true)} />
+        <TypingText key={animationKey} as="h2" text={title} start={sectionVisible} speed={17} onDone={() => setTitleReady(true)} />
         {lead && <RevealAfterTitle ready={titleReady}><p>{lead}</p></RevealAfterTitle>}
       </div>
-      <RevealAfterTitle ready={titleReady} delay={lead ? 0.02 : 0}>{children}</RevealAfterTitle>
+      <RevealAfterTitle ready={titleReady} delay={lead ? 0.03 : 0}>{children}</RevealAfterTitle>
     </motion.section>
   );
 }
