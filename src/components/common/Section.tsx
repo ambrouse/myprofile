@@ -1,7 +1,4 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { RevealAfterTitle } from '../motion/RevealAfterTitle';
-import { TypingText } from '../motion/TypingText';
 import type { ReactNode } from 'react';
 
 interface SectionProps {
@@ -13,28 +10,21 @@ interface SectionProps {
 }
 
 export function Section({ id, eyebrow, title, lead, children }: SectionProps) {
-  const [sectionVisible, setSectionVisible] = useState(false);
-  const [titleReady, setTitleReady] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0);
-
   return (
     <motion.section
       id={id}
       className="section"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, amount: 0.16 }}
-      onViewportEnter={() => setSectionVisible(true)}
-      onViewportLeave={() => {
-        setSectionVisible(false);
-        setTitleReady(false);
-        setAnimationKey((value) => value + 1);
-      }}
+      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="section-header">
         {eyebrow && <p className="section-label">{eyebrow}</p>}
-        <TypingText key={animationKey} as="h2" text={title} start={sectionVisible} speed={17} onDone={() => setTitleReady(true)} />
-        {lead && <RevealAfterTitle ready={titleReady}><p>{lead}</p></RevealAfterTitle>}
+        <h2>{title}</h2>
+        {lead && <p>{lead}</p>}
       </div>
-      <RevealAfterTitle ready={titleReady} delay={lead ? 0.03 : 0}>{children}</RevealAfterTitle>
+      {children}
     </motion.section>
   );
 }

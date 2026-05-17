@@ -55,25 +55,6 @@ function ProjectBanner({ project }: { project: GitHubProject }) {
   );
 }
 
-function ProjectSectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
-  const [visible, setVisible] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0);
-
-  return (
-    <motion.div
-      onViewportEnter={() => setVisible(true)}
-      onViewportLeave={() => {
-        setVisible(false);
-        setAnimationKey((value) => value + 1);
-      }}
-      viewport={{ once: false, amount: 0.35 }}
-    >
-      <p className="section-label">{eyebrow}</p>
-      <TypingText key={animationKey} as="h2" text={title} start={visible} speed={17} />
-    </motion.div>
-  );
-}
-
 function ProjectCard({ project, featured = false, index = 0 }: { project: GitHubProject; featured?: boolean; index?: number }) {
   const { content } = useI18n();
 
@@ -160,7 +141,10 @@ export function ProjectsPage() {
       {featuredProjects.length > 0 && (
         <section className="project-section" aria-label="Featured repositories">
           <div className="project-section-header">
-            <ProjectSectionTitle eyebrow={content.projects.source} title={content.projects.featuredTitle} />
+            <div>
+              <p className="section-label">{content.projects.source}</p>
+              <h2>{content.projects.featuredTitle}</h2>
+            </div>
             <span className="project-count"><Star size={13} /> {featuredProjects.length} {content.projects.selectedCount}</span>
           </div>
           <div className="featured-grid">
@@ -171,7 +155,10 @@ export function ProjectsPage() {
 
       <section className="project-section" aria-label="All repositories">
         <div className="project-section-header">
-          <ProjectSectionTitle eyebrow={content.projects.archiveEyebrow} title={content.projects.archiveTitle} />
+          <div>
+            <p className="section-label">{content.projects.archiveEyebrow}</p>
+            <h2>{content.projects.archiveTitle}</h2>
+          </div>
         </div>
         <div className="repository-grid">
           {standardProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
