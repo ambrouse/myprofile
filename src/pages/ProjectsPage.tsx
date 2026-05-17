@@ -55,6 +55,25 @@ function ProjectBanner({ project }: { project: GitHubProject }) {
   );
 }
 
+function ProjectSectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
+  const [visible, setVisible] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  return (
+    <motion.div
+      onViewportEnter={() => setVisible(true)}
+      onViewportLeave={() => {
+        setVisible(false);
+        setAnimationKey((value) => value + 1);
+      }}
+      viewport={{ once: false, amount: 0.35 }}
+    >
+      <p className="section-label">{eyebrow}</p>
+      <TypingText key={animationKey} as="h2" text={title} start={visible} speed={11} />
+    </motion.div>
+  );
+}
+
 function ProjectCard({ project, featured = false, index = 0 }: { project: GitHubProject; featured?: boolean; index?: number }) {
   const { content } = useI18n();
 
@@ -64,7 +83,7 @@ function ProjectCard({ project, featured = false, index = 0 }: { project: GitHub
       initial={{ opacity: 0, y: 18, scale: 0.97, filter: 'blur(8px)' }}
       whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.46, delay: Math.min(index, 8) * 0.045, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.23, delay: Math.min(index, 8) * 0.022, ease: [0.22, 1, 0.36, 1] }}
     >
       <ProjectBanner key={project.fullName} project={project} />
       <div className="project-body">
@@ -141,10 +160,7 @@ export function ProjectsPage() {
       {featuredProjects.length > 0 && (
         <section className="project-section" aria-label="Featured repositories">
           <div className="project-section-header">
-            <div>
-              <p className="section-label">{content.projects.source}</p>
-              <h2>{content.projects.featuredTitle}</h2>
-            </div>
+            <ProjectSectionTitle eyebrow={content.projects.source} title={content.projects.featuredTitle} />
             <span className="project-count"><Star size={13} /> {featuredProjects.length} {content.projects.selectedCount}</span>
           </div>
           <div className="featured-grid">
@@ -155,10 +171,7 @@ export function ProjectsPage() {
 
       <section className="project-section" aria-label="All repositories">
         <div className="project-section-header">
-          <div>
-            <p className="section-label">{content.projects.archiveEyebrow}</p>
-            <h2>{content.projects.archiveTitle}</h2>
-          </div>
+          <ProjectSectionTitle eyebrow={content.projects.archiveEyebrow} title={content.projects.archiveTitle} />
         </div>
         <div className="repository-grid">
           {standardProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}

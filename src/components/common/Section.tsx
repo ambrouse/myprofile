@@ -15,6 +15,7 @@ interface SectionProps {
 export function Section({ id, eyebrow, title, lead, children }: SectionProps) {
   const [sectionVisible, setSectionVisible] = useState(false);
   const [titleReady, setTitleReady] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
 
   return (
     <motion.section
@@ -22,16 +23,21 @@ export function Section({ id, eyebrow, title, lead, children }: SectionProps) {
       className="section"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      viewport={{ once: false, amount: 0.16 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       onViewportEnter={() => setSectionVisible(true)}
+      onViewportLeave={() => {
+        setSectionVisible(false);
+        setTitleReady(false);
+        setAnimationKey((value) => value + 1);
+      }}
     >
       <div className="section-header">
         {eyebrow && <p className="section-label">{eyebrow}</p>}
-        <TypingText as="h2" text={title} start={sectionVisible} speed={22} onDone={() => setTitleReady(true)} />
+        <TypingText key={animationKey} as="h2" text={title} start={sectionVisible} speed={11} onDone={() => setTitleReady(true)} />
         {lead && <RevealAfterTitle ready={titleReady}><p>{lead}</p></RevealAfterTitle>}
       </div>
-      <RevealAfterTitle ready={titleReady} delay={lead ? 0.04 : 0}>{children}</RevealAfterTitle>
+      <RevealAfterTitle ready={titleReady} delay={lead ? 0.02 : 0}>{children}</RevealAfterTitle>
     </motion.section>
   );
 }

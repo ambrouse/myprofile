@@ -14,7 +14,7 @@ export function RevealAfterTitle({ ready, children, className, delay = 0 }: Reve
       className={className}
       initial={false}
       animate={ready ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 10, filter: 'blur(8px)' }}
-      transition={{ duration: 0.42, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.21, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
