@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "build": "npm run sync:github && npm run validate:content && tsc -b && vite build",
+    "build": "npm run sync:github && npm run validate:content && tsc -b && vite build && node -e \"import('node:fs').then(fs => fs.copyFileSync('dist/index.html', 'dist/404.html'))\"",
     "preview": "vite preview"
   },
   "dependencies": {
