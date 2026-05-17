@@ -12,6 +12,9 @@ const bannerExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'];
 
 function repoBannerCandidates(project: GitHubProject) {
   const base = import.meta.env.BASE_URL;
+  const rootCandidates = project.fullName === 'ambrouse/myprofile'
+    ? bannerExtensions.map((extension) => `${base}banner.${extension}`)
+    : [];
   const remoteCandidates = bannerExtensions.flatMap((extension) => [
     `https://raw.githubusercontent.com/${project.fullName}/main/banner.${extension}`,
     `https://raw.githubusercontent.com/${project.fullName}/master/banner.${extension}`
@@ -22,7 +25,7 @@ function repoBannerCandidates(project: GitHubProject) {
     `${base}assets/repo-banners/${project.name}/banner.${extension}`
   ]);
 
-  return Array.from(new Set([project.bannerImage, ...remoteCandidates, ...localCandidates].filter(Boolean) as string[]));
+  return Array.from(new Set([...rootCandidates, project.bannerImage, ...remoteCandidates, ...localCandidates].filter(Boolean) as string[]));
 }
 
 function ProjectBanner({ project }: { project: GitHubProject }) {
