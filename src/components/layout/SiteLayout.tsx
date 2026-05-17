@@ -5,6 +5,8 @@ import { BookOpen, BriefcaseBusiness, Home, Mail, Moon, Sun } from 'lucide-react
 import { useI18n } from '../../features/i18n/i18nContext';
 import { useTheme } from '../../features/theme/themeContext';
 
+const assetBase = import.meta.env.BASE_URL;
+
 function AnchorScroll() {
   const { hash, pathname } = useLocation();
 
@@ -233,7 +235,7 @@ export function SiteLayout() {
       <AnchorScroll />
       <header className="site-header">
         <Link to="/" className="brand" aria-label="Nguyễn Lê Quốc Bảo home">
-          <img src="/assets/icons/brand-mark.svg" alt="" />
+          <img src={`${assetBase}assets/icons/brand-mark.svg`} alt="" />
         </Link>
         <nav className="main-nav" aria-label="Primary navigation">
           <NavLink to="/" end aria-label={content.nav.home} title={content.nav.home}><Home size={19} /></NavLink>

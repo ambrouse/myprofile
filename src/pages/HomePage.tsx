@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useI18n } from '../features/i18n/i18nContext';
 
+const assetBase = import.meta.env.BASE_URL;
+
 export function HomePage() {
   const { content } = useI18n();
 
@@ -22,7 +24,7 @@ export function HomePage() {
 
         <motion.aside className="dossier-card" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <div className="portrait-row">
-            <img src="/assets/images/profile.png" alt="Nguyễn Lê Quốc Bảo" />
+            <img src={`${assetBase}assets/images/profile.png`} alt="Nguyễn Lê Quốc Bảo" />
             <div>
               <span>Personal dossier</span>
               <strong>Applied AI Systems</strong>
